@@ -40,10 +40,13 @@ pipeline {
 
     stage('Clean') {
       steps{
-        echo "------------>Clean<------------"
         sh 'chmod +x ./microservicio/gradlew'
+        echo "------------>Clean<------------"
         sh './microservicio/gradlew --b ./microservicio/build.gradle clean' //Asegurar no tener datos basura de compilaciones anteriores
-          
+              echo "------------>Build<------------"
+        sh './microservicio/gradlew --b ./microservicio/build.gradle build'
+              echo "------------>Test<------------"  
+        sh './microservicio/gradlew --b ./microservicio/build.gradle test'  
       }
     }
 
