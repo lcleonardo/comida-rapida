@@ -57,9 +57,9 @@ public class Conductor {
 	 * días viernes y s�bados los conductores ganan otro 5 % m�s sobre el precio del
 	 * pedido.
 	 */
-	public Double calcularPrecioDeGanancia(LocalDateTime fecha, Double precioPedido) {
-		Double porcentajeDeGanancia = precioPedido / 100 * calcularPorcentajeDeGanancia(fecha);
-		return porcentajeDeGanancia;
+
+	public Double calcularPrecioDomicilio(LocalDateTime fecha, Double totalPrecioCompra) {
+		return totalPrecioCompra / 100 * calcularPorcentajeDeGanancia(fecha);
 	}
 
 	private Double calcularPorcentajeDeGanancia(LocalDateTime fecha) {
