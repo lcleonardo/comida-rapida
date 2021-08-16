@@ -41,13 +41,13 @@ pipeline {
     stage('Compile & Unit Tests') {
       steps{
         echo "------------>Compile & Unit Tests<------------"
-        sh 'gradle --b ./microservicio/build.gradle clean' //Asegurar no tener datos basura de compilaciones anteriores
+        sh './gradlew --b ./microservicio/build.gradle clean' //Asegurar no tener datos basura de compilaciones anteriores
           
       }
     }
 
   }
-  
+
   post {
     always {
       echo 'This will always run'
