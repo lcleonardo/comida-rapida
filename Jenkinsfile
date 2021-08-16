@@ -43,10 +43,32 @@ pipeline {
         sh 'chmod +x ./microservicio/gradlew'
         echo "------------>Clean<------------"
         sh './microservicio/gradlew --b ./microservicio/build.gradle clean' //Asegurar no tener datos basura de compilaciones anteriores
-              echo "------------>Build<------------"
-        sh './microservicio/gradlew --b ./microservicio/build.gradle build'
-              echo "------------>Test<------------"  
-        sh './microservicio/gradlew --b ./microservicio/build.gradle test'  
+      }
+    }
+
+    stage('Unit Tests') {
+      steps{
+        sh 'chmod +x ./microservicio/gradlew'
+        echo "------------>Unit Tests<------------"
+        sh './microservicio/gradlew --b ./microservicio/build.gradle test' 
+      }
+    }
+
+    
+    stage('Static Code Analysis') {
+      steps{
+        echo '------------>Análisis de código estático<------------'
+        withSonarQubeEnv('Sonar') {
+            sh "${tool name: 'SonarScanner', type:'hudson.plugins.sonar.SonarRunnerInstallation'}/bin/sonar-scanner -Dproject.settings=sonar-project.properties"
+        }
+      }
+    }
+
+      stage('Build') {
+      steps{
+        sh 'chmod +x ./microservicio/gradlew'
+        echo "------------>Build<------------"
+        sh './microservicio/gradlew --b ./microservicio/build.gradle build -x test'
       }
     }
 
@@ -62,7 +84,7 @@ pipeline {
     }
     failure {
       echo 'This will run only if failed'
-      mail (to: 'leonardo.cruz@ceiba.com.co',subject: "Failed Pipeline:${currentBuild.fullDisplayName}",body: "Something is wrong with ${env.BUILD_URL}")
+      //mail (to: 'leonardo.cruz@ceiba.com.co',subject: "Failed Pipeline:${currentBuild.fullDisplayName}",body: "Something is wrong with ${env.BUILD_URL}")
     }
     unstable {
       echo 'This will run only if the run was marked as unstable'
