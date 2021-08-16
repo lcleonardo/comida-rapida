@@ -2,7 +2,9 @@ package com.ceiba.pedido.modelo.entidad;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 
+import com.ceiba.dominio.ValidadorArgumento;
 import com.ceiba.dominio.excepcion.ExcepcionValorInvalido;
 
 import lombok.Getter;
@@ -13,41 +15,46 @@ public class Conductor {
 	private final Double PORCENTAJE_NORMAL_DE_GANANCIA = 5.0;
 	private final Double DOBLE_PORCENTAJE_DE_GANANCIA = PORCENTAJE_NORMAL_DE_GANANCIA + 5.0;
 	private final String NO_PUEDE_REALIZAR_EL_DOMICILIO_PORQUE_TIENE_PICO_Y_PLACA = "No puede realizar el domicilio, porque tiene pico y placa.";
+	private static String EL_NOMBRE_ES_OBLIGATORIO = "El nombre es obligatorio";
+	private static String LA_PLACA_ES_OBLIGTORIA = "La placa es obligatoia";
+	private static String LA_PLACA_DEBE_TENER_MINIMO_SEIS_CARATERES = "La placa debe tener minimo 6 caracteres.";
+	private static String LA_PLACA_DEBE_TERMINAR_EN_NUMERO_ENTERO = "La placa debe terminar en numero entero.";
 
 	private String nombre;
 	private String placa;
 
+	public static Conductor crear(String nombre, String placa) {
+		ValidadorArgumento.validarNoVacio(Arrays.asList(nombre), EL_NOMBRE_ES_OBLIGATORIO);
+		ValidadorArgumento.validarNoVacio(Arrays.asList(placa), LA_PLACA_ES_OBLIGTORIA);
+		ValidadorArgumento.validarLongitudMinima(placa, 6, LA_PLACA_DEBE_TENER_MINIMO_SEIS_CARATERES);
+		validarUltimoDigitoPlaca(placa, LA_PLACA_DEBE_TERMINAR_EN_NUMERO_ENTERO);
+		return new Conductor(nombre, placa);
+	}
+
+	private Conductor(String nombre, String placa) {
+		this.nombre = nombre;
+		this.placa = placa;
+	}
+
 	/*
-	 * Los dueños de las motos que hacen domicilios no pueden trabajar el día de
-	 * pico y placa. No circulan placas terminadas en: martes y jueves
-	 * numero par, miércoles y viernes numero impar, sábados, domingos y lunes no
-	 * aplica.
+	 * Los dueï¿½os de las motos que hacen domicilios no pueden trabajar el dï¿½a de
+	 * pico y placa. No circulan placas terminadas en: martes y jueves numero par,
+	 * miÃ­rcoles y viernes nÃºmero impar, sÃ¡bados, domingos y lunes no aplica.
 	 */
 
-	public void validarSiTienePicoYPlaca(LocalDateTime fechaPedido) {
+	public void validarSiTienePicoYPlaca(LocalDateTime fechaPedido, String placa) {
 		Enum<DayOfWeek> dayOfWeek = fechaPedido.getDayOfWeek();
-		if (dayOfWeek == DayOfWeek.MONDAY || dayOfWeek == DayOfWeek.THURSDAY && placaTerminadaEnNumeroPar()) {
+		if (dayOfWeek == DayOfWeek.MONDAY || dayOfWeek == DayOfWeek.THURSDAY && placaTerminadaEnNumeroPar(placa)) {
 			throw new ExcepcionValorInvalido(NO_PUEDE_REALIZAR_EL_DOMICILIO_PORQUE_TIENE_PICO_Y_PLACA);
 		}
-		if (dayOfWeek == DayOfWeek.WEDNESDAY || dayOfWeek == DayOfWeek.FRIDAY && !placaTerminadaEnNumeroPar()) {
+		if (dayOfWeek == DayOfWeek.WEDNESDAY || dayOfWeek == DayOfWeek.FRIDAY && !placaTerminadaEnNumeroPar(placa)) {
 			throw new ExcepcionValorInvalido(NO_PUEDE_REALIZAR_EL_DOMICILIO_PORQUE_TIENE_PICO_Y_PLACA);
 		}
-	}
-
-	private boolean placaTerminadaEnNumeroPar() {
-		if (ultimoDigitoPlaca() % 2 == 0) {
-			return true;
-		}
-		return false;
-	}
-
-	private int ultimoDigitoPlaca() {
-		return Integer.parseInt(placa.substring(placa.length() - 1, placa.length()));
 	}
 
 	/*
 	 * La ganancia de los conductores es 5% sobre el valor total del pedido. Los
-	 * días viernes y sábados los conductores ganan otro 5 % más sobre el precio del
+	 * dÃ­as viernes y sï¿½bados los conductores ganan otro 5 % mï¿½s sobre el precio del
 	 * pedido.
 	 */
 	public Double calcularPrecioDeGanancia(LocalDateTime fecha, Double precioPedido) {
@@ -60,6 +67,25 @@ public class Conductor {
 			return DOBLE_PORCENTAJE_DE_GANANCIA;
 		}
 		return PORCENTAJE_NORMAL_DE_GANANCIA;
+	}
+
+	private boolean placaTerminadaEnNumeroPar(String placa) {
+		if (ultimoDigitoPlaca(placa) % 2 == 0) {
+			return true;
+		}
+		return false;
+	}
+
+	private static void validarUltimoDigitoPlaca(String placa, String mensaje) {
+		try {
+			Integer.parseInt(placa.substring(placa.length() - 1, placa.length()));
+		} catch (Exception e) {
+			ValidadorArgumento.validarObligatorio(placa, mensaje);
+		}
+	}
+
+	private int ultimoDigitoPlaca(String placa) {
+		return Integer.parseInt(placa.substring(placa.length() - 1, placa.length()));
 	}
 
 }
