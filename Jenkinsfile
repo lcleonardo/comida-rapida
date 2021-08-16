@@ -41,29 +41,12 @@ pipeline {
     stage('Compile & Unit Tests') {
       steps{
         echo "------------>Compile & Unit Tests<------------"
-          sh 'gradlew --b ./microservicio/build.gradle clean' //Asegurar no tener datos basura de compilaciones anteriores
-          sh 'gradlew --b ./microservicio/build.gradle test'
+          sh 'gradle --b ./microservicio/build.gradle clean' //Asegurar no tener datos basura de compilaciones anteriores
+          
       }
     }
 
-    stage('Static Code Analysis') {
-      steps{
-        echo '------------>Análisis de código estático<------------'
-        withSonarQubeEnv('Sonar') {
-            sh "${tool name: 'SonarScanner', type:'hudson.plugins.sonar.SonarRunnerInstallation'}/bin/sonar-scanner -Dproject.settings=sonar-project.properties"
-        }
-      }
-    }
-
-    stage('Build') {
-      steps {
-        echo "------------>Build<------------"
-        //Construir sin tarea test que se ejecutó previamente
-        sh 'gradlew --b ./microservicio/build.gradle build -x test'
-      }
-    }  
-  }
-
+    
   post {
     always {
       echo 'This will always run'
