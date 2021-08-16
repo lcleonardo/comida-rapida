@@ -42,6 +42,7 @@ pipeline {
       steps{
         echo "------------>Compile & Unit Tests<------------"
          echo "------------>>Clean<------------"
+         sh 'chmod +x gradlew'
         sh './gradlew clean'
 
         echo "------------>Unit Tests<------------"
