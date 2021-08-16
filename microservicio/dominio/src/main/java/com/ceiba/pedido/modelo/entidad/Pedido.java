@@ -8,16 +8,17 @@ import lombok.Getter;
 public class Pedido {
 	
 	private Long id;
+	private LocalDateTime fecha; 
 	private Producto producto;
 	private Conductor conductor;
 	private String nombreCompletoCliente;
 	private String direccionDomicilio;
 	private Double precioPedido;
-	private LocalDateTime fecha; 
+	private boolean entrego;
 
 	
 	private Double calcularPrecioGananciaDelConductor() {
-		Double ganancia = this.precioPedido / 100 * this.conductor.calcularPorcentajeDeGanancia(this.fecha);
+		Double ganancia = this.precioPedido / 100 * this.conductor.calcularPrecioDeGanancia(this.fecha, this.precioPedido);
 		return ganancia;
 	}
 	
