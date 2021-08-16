@@ -38,10 +38,10 @@ pipeline {
 
     }
 
-    stage('Compile & Unit Tests') {
+    stage('Clean') {
       steps{
-        echo "------------>Compile & Unit Tests<------------"
-        sh './gradlew --b ./microservicio/build.gradle clean' //Asegurar no tener datos basura de compilaciones anteriores
+        echo "------------>Clean<------------"
+        sh './microservicio/gradlew --b ./microservicio/build.gradle clean' //Asegurar no tener datos basura de compilaciones anteriores
           
       }
     }
