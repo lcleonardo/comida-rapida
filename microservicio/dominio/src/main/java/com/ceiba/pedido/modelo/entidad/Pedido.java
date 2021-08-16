@@ -5,12 +5,14 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+import com.ceiba.conductor.modelo.entidad.Conductor;
 import com.ceiba.dominio.ValidadorArgumento;
+import com.ceiba.producto.modelo.entidad.Producto;
 
 import lombok.Getter;
 
 @Getter
-public class CarroCompra {
+public class Pedido {
 
 	private static final String LA_FECHA_ES_OBLIGATORIA = "La fecha es obligatoria.";
 	private static final String PARA_REALIZAR_LA_COMPRA_DEBE_SELECCIONAR_AL_MENOS_UN_PRODUCTO = "Para realizar la compra debe seleccionar al menos un producto.";
@@ -28,7 +30,7 @@ public class CarroCompra {
 	private Double precioTotalCompra;
 	private boolean pedidoEntregado;
 
-	public static CarroCompra crear(Long id, LocalDateTime fecha, List<Producto> productos, Conductor conductor,
+	public static Pedido crear(Long id, LocalDateTime fecha, List<Producto> productos, Conductor conductor,
 			String nombreCompletoCliente, String direccionDomicilio) {
 		
 		ValidadorArgumento.validarObligatorio(fecha, LA_FECHA_ES_OBLIGATORIA);
@@ -40,11 +42,11 @@ public class CarroCompra {
 		Double precioDomicilio = conductor.calcularPrecioDomicilio(fecha, precioCompra);
 		Double totalPrecioCompra = precioCompra - precioDomicilio;
 
-		return new CarroCompra(id, fecha, productos, conductor, nombreCompletoCliente, direccionDomicilio, precioCompra,
+		return new Pedido(id, fecha, productos, conductor, nombreCompletoCliente, direccionDomicilio, precioCompra,
 				precioDomicilio, totalPrecioCompra, false);
 	}
 
-	public CarroCompra(Long id, LocalDateTime fecha, List<Producto> productos, Conductor conductor,
+	public Pedido(Long id, LocalDateTime fecha, List<Producto> productos, Conductor conductor,
 			String nombreCompletoCliente, String direccionDomicilio, Double precioCompra, Double precioDomicilio,
 			Double precioTotalCompra, boolean pedidoEntregado) {
 		this.id = id;

@@ -1,9 +1,12 @@
 package com.ceiba.pedido.puerto.repositorio;
 
-import com.ceiba.pedido.modelo.entidad.CarroCompra;
+import com.ceiba.pedido.modelo.entidad.Pedido;
 
 public interface RepositorioPedido {
 
-	public Long crear(CarroCompra pedido);
+	public Long crear(Pedido pedido);
+	
+	public Long pedidoEntregado(Pedido pedido);
+		
 	
 }

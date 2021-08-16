@@ -1,4 +1,4 @@
-package com.ceiba.pedido.modelo.entidad;
+package com.ceiba.conductor.modelo.entidad;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
