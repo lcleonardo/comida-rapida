@@ -34,7 +34,7 @@ pipeline {
             url:'https://github.com/lcleonardo/comida-rapida'
             ]]
         ])
-
+        sh 'gradle --b ./microservicio/build.gradle clean' //Asegurar no tener datos basura de compilaciones anteriores
       }
 
     }
@@ -42,7 +42,6 @@ pipeline {
     stage('Compile & Unit Tests') {
       steps{
         echo "------------>Compile & Unit Tests<------------"
-        sh 'chmod +x gradlew'
         sh './gradlew --b ./microservicio/build.gradle test'
       }
     }
