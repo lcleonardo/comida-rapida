@@ -13,8 +13,6 @@ public class ServicioCrearPedido {
 	}
 	
 	public Long ejecutar(Pedido pedido) {
-		//TODO: Validar si la placa del conductor tiene pico y placa.
-		
 		return this.repositorioPedido.crear(pedido);
 	}
 	
