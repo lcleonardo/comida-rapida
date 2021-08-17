@@ -5,6 +5,6 @@ import com.ceiba.producto.modelo.entidad.Producto;
 public interface RepositorioProducto {
 
 	public Long crear(Producto producto);
-	public Long eliminar(Long id);
+	public void eliminar(Long id);
 	
 }
