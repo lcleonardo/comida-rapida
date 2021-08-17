@@ -28,26 +28,27 @@ public class Pedido {
 	private Double precioDomicilio;
 	private Double precioTotalCompra;
 
-	public static Pedido crear(Long id, LocalDateTime fecha, Producto producto, Conductor conductor,
-			String nombreCompletoCliente, String direccionDomicilio) {
+	public static Pedido crear(Long id, LocalDateTime fecha, Long idProducto, Long idConductor, String nombreCompletoCliente,
+			String direccionDomicilio, Double precioDomicilio, Double precioTotalCompra) {
 
 		ValidadorArgumento.validarObligatorio(fecha, LA_FECHA_ES_OBLIGATORIA);
 		ValidadorArgumento.validarNoVacio(Arrays.asList(nombreCompletoCliente), NOMBRE_OBLIGATORIO);
 		ValidadorArgumento.validarNoVacio(Arrays.asList(direccionDomicilio), DIRECCION_OBLIGATORIA);
 
-		Double precioDomicilio = conductor.calcularPrecioDomicilio(fecha, producto.getPrecio());
-		Double totalPrecioCompra = producto.getPrecio() - precioDomicilio;
+//		Double precioDomicilio = conductor.calcularPrecioDomicilio(fecha, producto.getPrecio());
+//		Double totalPrecioCompra = producto.getPrecio() - precioDomicilio;
+		
 
-		return new Pedido(id, fecha, producto.getId(), conductor.getId(), nombreCompletoCliente, direccionDomicilio, precioDomicilio,
-				totalPrecioCompra);
+
+		return new Pedido(id, fecha, idProducto, idConductor, nombreCompletoCliente, direccionDomicilio, precioDomicilio, precioTotalCompra);
 	}
 
-	private Pedido(Long id, LocalDateTime fecha, Long idProducto, Long conductor, String nombreCompletoCliente,
+	private Pedido(Long id, LocalDateTime fecha, Long idProducto, Long idConductor, String nombreCompletoCliente,
 			String direccionDomicilio, Double precioDomicilio, Double precioTotalCompra) {
 		this.id = id;
 		this.fecha = fecha;
 		this.idProducto = idProducto;
-		this.idConductor = conductor;
+		this.idConductor = idConductor;
 		this.nombreCompletoCliente = nombreCompletoCliente;
 		this.direccionDomicilio = direccionDomicilio;
 		this.precioDomicilio = precioDomicilio;

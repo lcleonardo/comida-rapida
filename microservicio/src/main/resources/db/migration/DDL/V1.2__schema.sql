@@ -10,4 +10,4 @@ CREATE TABLE `pedido` (
 	PRIMARY KEY (`id`) USING BTREE,
 	INDEX `id_conductor` (`id_conductor`) USING BTREE,
 	INDEX `id_producto` (`id_producto`) USING BTREE
-)
+);

@@ -1,0 +1,6 @@
+CREATE TABLE `conductor` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`nombre` VARCHAR(250) NOT NULL DEFAULT '' COLLATE 'utf8mb4_0900_ai_ci',
+	`placa` VARCHAR(6) NOT NULL DEFAULT '' COLLATE 'utf8mb4_0900_ai_ci',
+	PRIMARY KEY (`id`) USING BTREE
+)
