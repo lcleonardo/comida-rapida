@@ -1,6 +1,7 @@
 package com.ceiba.conductor.modelo.entidad;
 
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 
@@ -12,9 +13,9 @@ import lombok.Getter;
 @Getter
 public class Conductor {
 
-	private final Double PORCENTAJE_NORMAL_DE_GANANCIA = 5.0;
-	private final Double DOBLE_PORCENTAJE_DE_GANANCIA = PORCENTAJE_NORMAL_DE_GANANCIA + 5.0;
-	private final String NO_PUEDE_REALIZAR_EL_DOMICILIO_PORQUE_TIENE_PICO_Y_PLACA = "No puede realizar el domicilio, porque tiene pico y placa.";
+	private static final Double PORCENTAJE_NORMAL_DE_GANANCIA = 5.0;
+	private static final Double DOBLE_PORCENTAJE_DE_GANANCIA = PORCENTAJE_NORMAL_DE_GANANCIA + 5.0;
+	private static final String NO_PUEDE_REALIZAR_EL_DOMICILIO_PORQUE_TIENE_PICO_Y_PLACA = "El conductor no puede realizar el domicilio, porque tiene pico y placa.";
 	private static String EL_NOMBRE_ES_OBLIGATORIO = "El nombre es obligatorio";
 	private static String LA_PLACA_ES_OBLIGTORIA = "La placa es obligatoia";
 	private static String LA_PLACA_DEBE_TENER_MINIMO_SEIS_CARATERES = "La placa debe tener minimo 6 caracteres.";
@@ -39,18 +40,22 @@ public class Conductor {
 	}
 
 	/*
-	 * Los due�os de las motos que hacen domicilios no pueden trabajar el d�a de
+	 * Los dueños de las motos que hacen domicilios no pueden trabajar el día de
 	 * pico y placa. No circulan placas terminadas en: martes y jueves numero par,
 	 * miírcoles y viernes número impar, sábados, domingos y lunes no aplica.
 	 */
 
-	public void validarSiTienePicoYPlaca(LocalDateTime fechaPedido, String placa) {
+	public static void validarSiTienePicoYPlaca(LocalDate fechaPedido, String placa) {
 		Enum<DayOfWeek> dayOfWeek = fechaPedido.getDayOfWeek();
-		if (dayOfWeek == DayOfWeek.MONDAY || dayOfWeek == DayOfWeek.THURSDAY && placaTerminadaEnNumeroPar(placa)) {
-			throw new ExcepcionValorInvalido(NO_PUEDE_REALIZAR_EL_DOMICILIO_PORQUE_TIENE_PICO_Y_PLACA);
-		}
-		if (dayOfWeek == DayOfWeek.WEDNESDAY || dayOfWeek == DayOfWeek.FRIDAY && !placaTerminadaEnNumeroPar(placa)) {
-			throw new ExcepcionValorInvalido(NO_PUEDE_REALIZAR_EL_DOMICILIO_PORQUE_TIENE_PICO_Y_PLACA);
+		if (placaTerminadaEnNumeroPar(placa)) {
+			if (dayOfWeek == DayOfWeek.TUESDAY || dayOfWeek == DayOfWeek.THURSDAY) {
+				throw new ExcepcionValorInvalido(NO_PUEDE_REALIZAR_EL_DOMICILIO_PORQUE_TIENE_PICO_Y_PLACA);
+			}
+		} else {
+			if (dayOfWeek == DayOfWeek.WEDNESDAY || dayOfWeek == DayOfWeek.FRIDAY) {
+				throw new ExcepcionValorInvalido(NO_PUEDE_REALIZAR_EL_DOMICILIO_PORQUE_TIENE_PICO_Y_PLACA);
+			}
+
 		}
 	}
 
@@ -60,18 +65,18 @@ public class Conductor {
 	 * pedido.
 	 */
 
-	public Double calcularPrecioDomicilio(LocalDateTime fecha, Double totalPrecioCompra) {
+	public static Double calcularPrecioDomicilio(LocalDate fecha, Double totalPrecioCompra) {
 		return totalPrecioCompra / 100 * calcularPorcentajeDeGanancia(fecha);
 	}
 
-	private Double calcularPorcentajeDeGanancia(LocalDateTime fecha) {
+	private static Double calcularPorcentajeDeGanancia(LocalDate fecha) {
 		if (fecha.getDayOfWeek() == DayOfWeek.FRIDAY || fecha.getDayOfWeek() == DayOfWeek.SATURDAY) {
 			return DOBLE_PORCENTAJE_DE_GANANCIA;
 		}
 		return PORCENTAJE_NORMAL_DE_GANANCIA;
 	}
 
-	private boolean placaTerminadaEnNumeroPar(String placa) {
+	private static boolean placaTerminadaEnNumeroPar(String placa) {
 		if (ultimoDigitoPlaca(placa) % 2 == 0) {
 			return true;
 		}
@@ -86,7 +91,7 @@ public class Conductor {
 		}
 	}
 
-	private int ultimoDigitoPlaca(String placa) {
+	private static int ultimoDigitoPlaca(String placa) {
 		return Integer.parseInt(placa.substring(placa.length() - 1, placa.length()));
 	}
 

@@ -12,4 +12,8 @@ public class DtoProducto {
 	private String nombre;
 	private Double precio;
 	
+	public boolean existe() {
+		return this.id != 0;
+	}
+	
 }

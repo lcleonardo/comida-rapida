@@ -1,1 +1,1 @@
-DELETE FROM producto WHERE  id = : id
+DELETE FROM producto WHERE  id = :id

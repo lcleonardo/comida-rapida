@@ -21,8 +21,7 @@ public class RepositorioPedidoMysql implements RepositorioPedido {
 
 	@Override
 	public Long crear(Pedido pedido) {
-		//return this.customNamedParameterJdbcTemplate.crear(pedido, sqlCrear);
-	return 0L;
+		return this.customNamedParameterJdbcTemplate.crear(pedido, sqlCrear);
 	}
 
 }

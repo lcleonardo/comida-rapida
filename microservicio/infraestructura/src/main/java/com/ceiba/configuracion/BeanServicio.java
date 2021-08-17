@@ -1,5 +1,6 @@
 package com.ceiba.configuracion;
 
+import com.ceiba.producto.puerto.dao.DaoProducto;
 import com.ceiba.usuario.puerto.repositorio.RepositorioUsuario;
 import com.ceiba.usuario.servicio.ServicioActualizarUsuario;
 import com.ceiba.usuario.servicio.ServicioCrearUsuario;

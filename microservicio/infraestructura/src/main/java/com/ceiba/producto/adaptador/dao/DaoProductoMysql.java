@@ -31,8 +31,14 @@ public class DaoProductoMysql implements DaoProducto {
 	public DtoProducto buscarPorId(Long id) {
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
 		paramSource.addValue("id", id);
-		return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().queryForObject(sqlBuscarPorId,
-				paramSource, new MapeoProducto());
+		DtoProducto producto = null;
+		try {
+			producto = this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate()
+					.queryForObject(sqlBuscarPorId, paramSource, new MapeoProducto());
+		} catch (Exception e) {
+			producto = new DtoProducto(0L, "", "", 0.0);
+		}
+		return producto;
 	}
 
 }

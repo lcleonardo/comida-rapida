@@ -1,0 +1,1 @@
+SELECT id, nombre, placa FROM conductor WHERE id = :id ;

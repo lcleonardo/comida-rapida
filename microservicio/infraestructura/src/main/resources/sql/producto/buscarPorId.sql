@@ -1,1 +1,1 @@
-SELECT id, codigo, nombre, precio FROM producto WHERE id  = : id ;
+SELECT id, codigo, nombre, precio FROM producto WHERE id  = :id;
