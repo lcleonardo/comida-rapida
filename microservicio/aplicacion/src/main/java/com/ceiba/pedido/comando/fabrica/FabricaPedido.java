@@ -13,9 +13,8 @@ import com.ceiba.pedido.modelo.entidad.Pedido;
 public class FabricaPedido {
 
 	public Pedido crear(ComandoPedido comandoPedido) {
-		LocalDate fecha = LocalDate.parse(comandoPedido.getFecha());
 		return Pedido.crear(comandoPedido.getId(),
-				fecha,
+				comandoPedido.getFecha(),
 				comandoPedido.getIdProducto(),
 				comandoPedido.getIdConductor(),
 				comandoPedido.getNombreCompletoCliente(),
