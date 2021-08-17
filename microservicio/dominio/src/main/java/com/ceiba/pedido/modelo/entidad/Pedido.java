@@ -21,56 +21,37 @@ public class Pedido {
 
 	private Long id;
 	private LocalDateTime fecha;
-	private List<Producto> productos;
-	private Conductor conductor;
+	private Long idProducto;
+	private Long idConductor;
 	private String nombreCompletoCliente;
 	private String direccionDomicilio;
-	private Double precioCompra;
 	private Double precioDomicilio;
 	private Double precioTotalCompra;
-	private boolean pedidoEntregado;
 
-	public static Pedido crear(Long id, LocalDateTime fecha, List<Producto> productos, Conductor conductor,
+	public static Pedido crear(Long id, LocalDateTime fecha, Producto producto, Conductor conductor,
 			String nombreCompletoCliente, String direccionDomicilio) {
-		
+
 		ValidadorArgumento.validarObligatorio(fecha, LA_FECHA_ES_OBLIGATORIA);
-		ValidadorArgumento.validarNoVacio(productos, PARA_REALIZAR_LA_COMPRA_DEBE_SELECCIONAR_AL_MENOS_UN_PRODUCTO);
 		ValidadorArgumento.validarNoVacio(Arrays.asList(nombreCompletoCliente), NOMBRE_OBLIGATORIO);
 		ValidadorArgumento.validarNoVacio(Arrays.asList(direccionDomicilio), DIRECCION_OBLIGATORIA);
 
-		Double precioCompra = calcularTotalPrecioCompra(productos);
-		Double precioDomicilio = conductor.calcularPrecioDomicilio(fecha, precioCompra);
-		Double totalPrecioCompra = precioCompra - precioDomicilio;
+		Double precioDomicilio = conductor.calcularPrecioDomicilio(fecha, producto.getPrecio());
+		Double totalPrecioCompra = producto.getPrecio() - precioDomicilio;
 
-		return new Pedido(id, fecha, productos, conductor, nombreCompletoCliente, direccionDomicilio, precioCompra,
-				precioDomicilio, totalPrecioCompra, false);
+		return new Pedido(id, fecha, producto.getId(), conductor.getId(), nombreCompletoCliente, direccionDomicilio, precioDomicilio,
+				totalPrecioCompra);
 	}
 
-	public Pedido(Long id, LocalDateTime fecha, List<Producto> productos, Conductor conductor,
-			String nombreCompletoCliente, String direccionDomicilio, Double precioCompra, Double precioDomicilio,
-			Double precioTotalCompra, boolean pedidoEntregado) {
+	private Pedido(Long id, LocalDateTime fecha, Long idProducto, Long conductor, String nombreCompletoCliente,
+			String direccionDomicilio, Double precioDomicilio, Double precioTotalCompra) {
 		this.id = id;
 		this.fecha = fecha;
-		this.productos = productos;
-		this.conductor = conductor;
+		this.idProducto = idProducto;
+		this.idConductor = conductor;
 		this.nombreCompletoCliente = nombreCompletoCliente;
 		this.direccionDomicilio = direccionDomicilio;
-		this.precioCompra = precioCompra;
 		this.precioDomicilio = precioDomicilio;
 		this.precioTotalCompra = precioTotalCompra;
-		this.pedidoEntregado = pedidoEntregado;
-	}
-
-	public Double calcularPrecioGananciaConductor(Double totalPrecioCompra) {
-		return this.conductor.calcularPrecioDomicilio(this.fecha, totalPrecioCompra);
-	}
-
-	public static Double calcularTotalPrecioCompra(List<Producto> productos) {
-		Double total = 0.0;
-		for (Producto producto : productos) {
-			total += producto.getPrecio();
-		}
-		return total;
 	}
 
 }

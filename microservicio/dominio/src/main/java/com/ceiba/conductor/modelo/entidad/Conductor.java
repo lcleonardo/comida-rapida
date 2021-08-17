@@ -20,18 +20,20 @@ public class Conductor {
 	private static String LA_PLACA_DEBE_TENER_MINIMO_SEIS_CARATERES = "La placa debe tener minimo 6 caracteres.";
 	private static String LA_PLACA_DEBE_TERMINAR_EN_NUMERO_ENTERO = "La placa debe terminar en numero entero.";
 
+	private Long id;
 	private String nombre;
 	private String placa;
 
-	public static Conductor crear(String nombre, String placa) {
+	public static Conductor crear(Long id, String nombre, String placa) {
 		ValidadorArgumento.validarNoVacio(Arrays.asList(nombre), EL_NOMBRE_ES_OBLIGATORIO);
 		ValidadorArgumento.validarNoVacio(Arrays.asList(placa), LA_PLACA_ES_OBLIGTORIA);
 		ValidadorArgumento.validarLongitudMinima(placa, 6, LA_PLACA_DEBE_TENER_MINIMO_SEIS_CARATERES);
 		validarUltimoDigitoPlaca(placa, LA_PLACA_DEBE_TERMINAR_EN_NUMERO_ENTERO);
-		return new Conductor(nombre, placa);
+		return new Conductor(id, nombre, placa);
 	}
 
-	private Conductor(String nombre, String placa) {
+	private Conductor(Long id, String nombre, String placa) {
+		this.id = id;
 		this.nombre = nombre;
 		this.placa = placa;
 	}
