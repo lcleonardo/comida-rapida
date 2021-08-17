@@ -13,17 +13,18 @@ import com.ceiba.usuario.modelo.dto.DtoUsuario;
 @Component
 public class DaoUsuarioMysql implements DaoUsuario {
 
-    private final CustomNamedParameterJdbcTemplate customNamedParameterJdbcTemplate;
+	private final CustomNamedParameterJdbcTemplate customNamedParameterJdbcTemplate;
 
-    @SqlStatement(namespace="usuario", value="listar")
-    private static String sqlListar;
+	@SqlStatement(namespace = "usuario", value = "listar")
+	private static String sqlListar;
 
-    public DaoUsuarioMysql(CustomNamedParameterJdbcTemplate customNamedParameterJdbcTemplate) {
-        this.customNamedParameterJdbcTemplate = customNamedParameterJdbcTemplate;
-    }
+	public DaoUsuarioMysql(CustomNamedParameterJdbcTemplate customNamedParameterJdbcTemplate) {
+		this.customNamedParameterJdbcTemplate = customNamedParameterJdbcTemplate;
+	}
 
-    @Override
-    public List<DtoUsuario> listar() {
-        return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().query(sqlListar, new MapeoUsuario());
-    }
+	@Override
+	public List<DtoUsuario> listar() {
+		return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().query(sqlListar,
+				new MapeoUsuario());
+	}
 }

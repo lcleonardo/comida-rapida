@@ -1,0 +1,1 @@
+SELECT id, codigo, nombre, precio FROM producto WHERE id  = : id ;

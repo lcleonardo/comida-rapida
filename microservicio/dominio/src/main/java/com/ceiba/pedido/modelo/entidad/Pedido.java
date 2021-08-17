@@ -35,11 +35,6 @@ public class Pedido {
 		ValidadorArgumento.validarNoVacio(Arrays.asList(nombreCompletoCliente), NOMBRE_OBLIGATORIO);
 		ValidadorArgumento.validarNoVacio(Arrays.asList(direccionDomicilio), DIRECCION_OBLIGATORIA);
 
-//		Double precioDomicilio = conductor.calcularPrecioDomicilio(fecha, producto.getPrecio());
-//		Double totalPrecioCompra = producto.getPrecio() - precioDomicilio;
-		
-
-
 		return new Pedido(id, fecha, idProducto, idConductor, nombreCompletoCliente, direccionDomicilio, precioDomicilio, precioTotalCompra);
 	}
 

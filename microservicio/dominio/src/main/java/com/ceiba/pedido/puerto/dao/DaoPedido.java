@@ -1,5 +1,10 @@
 package com.ceiba.pedido.puerto.dao;
 
-public interface DaoPedido {
+import com.ceiba.pedido.modelo.entidad.Pedido;
 
+public interface DaoPedido {
+	
+	
+	public Pedido buscarPorId(Long id);
+	
 }
