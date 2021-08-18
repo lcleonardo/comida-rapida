@@ -1,9 +1,6 @@
 
 package com.ceiba.pedido.comando;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,11 +15,9 @@ public class ComandoPedido{
 
 	private Long id;
 	private String fecha;
-	private Long idProducto;
-	private Long idConductor;
-	private String nombreCompletoCliente;
+	private String codigoCliente;
+	private String codigoProducto;
 	private String direccionDomicilio;
+	private String placaVehiculo;
 	private Double precioTotalCompra;
-
-
 }

@@ -1,1 +1,0 @@
-SELECT id, codigo, nombre, precio FROM producto ORDER BY codigo ASC;

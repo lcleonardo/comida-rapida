@@ -1,8 +1,0 @@
-CREATE TABLE `producto` (
-	`id` INT(11) NOT NULL AUTO_INCREMENT,
-	`codigo` VARCHAR(100) NULL DEFAULT '' COLLATE 'utf8mb4_0900_ai_ci',
-	`nombre` VARCHAR(100) NULL DEFAULT '' COLLATE 'utf8mb4_0900_ai_ci',
-	`precio` DECIMAL(20,6) NULL DEFAULT '0.000000',
-	PRIMARY KEY (`id`) USING BTREE,
-	UNIQUE INDEX `codigo` (`codigo`) USING BTREE
-);

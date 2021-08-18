@@ -8,7 +8,6 @@ import com.ceiba.pedido.comando.ComandoPedido;
 import com.ceiba.pedido.comando.fabrica.FabricaPedido;
 import com.ceiba.pedido.modelo.entidad.Pedido;
 import com.ceiba.pedido.servicio.ServicioCrearPedido;
-import com.ceiba.usuario.comando.ComandoUsuario;
 
 @Component
 public class ManejadorCrearPedido implements ManejadorComandoRespuesta<ComandoPedido, ComandoRespuesta<Long>> {

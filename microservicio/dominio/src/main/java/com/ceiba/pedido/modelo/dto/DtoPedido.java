@@ -1,5 +1,6 @@
 package com.ceiba.pedido.modelo.dto;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
@@ -10,11 +11,11 @@ import lombok.Getter;
 public class DtoPedido {
 	
 	private Long id;
-	private LocalDateTime fecha;
-	private Long idProducto;
-	private Long idConductor;
-	private String nombreCompletoCliente;
+	private LocalDate fecha;
+	private String codigoCliente;
+	private String codigoProducto;
 	private String direccionDomicilio;
+	private String placaVehiculo;
 	private Double precioDomicilio;
 	private Double precioTotalCompra;
 	
