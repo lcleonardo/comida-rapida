@@ -2,6 +2,7 @@ package com.ceiba.pedido.modelo.entidad;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 
 import com.ceiba.dominio.ValidadorArgumento;
@@ -52,7 +53,7 @@ public class Pedido {
 	public static void validarFecha(String fecha) {
 		try {
 			LocalDate.parse(fecha);
-		} catch (Exception e) {
+		} catch (DateTimeParseException e) {
 			throw new ExcepcionValorInvalido(FORMATO_FECHA_INCORRECTO);
 		}
 	}
