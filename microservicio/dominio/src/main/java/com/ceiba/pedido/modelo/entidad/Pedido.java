@@ -35,7 +35,7 @@ public class Pedido {
 
 		validarFecha(fecha);
 		LocalDate fechaCorrecta = LocalDate.parse(fecha);
-		
+
 		ValidadorArgumento.validarNoVacio(Arrays.asList(codigoProducto), CODIGO_PRODUCTO_OBLIGATORIO);
 		ValidadorArgumento.validarNoVacio(Arrays.asList(codigoCliente), CODIGO_CLIENTE_OBLIGATORIO);
 		ValidadorArgumento.validarNoVacio(Arrays.asList(direccionDomicilio), DIRECCION_CLIENTE_OBLIGATORIA);
@@ -75,7 +75,8 @@ public class Pedido {
 	}
 
 	private static Double calcularPorcentajeDeGanancia(LocalDate fecha) {
-		if (fecha.getDayOfWeek() == DayOfWeek.FRIDAY || fecha.getDayOfWeek() == DayOfWeek.SATURDAY) {
+		Enum<DayOfWeek> diaDeLaSemana = fecha.getDayOfWeek();
+		if (diaDeLaSemana == DayOfWeek.FRIDAY || diaDeLaSemana == DayOfWeek.SATURDAY) {
 			return PORCENTAJE_DE_GANANCIA_DOMICILIO + 5.0;
 		}
 		return PORCENTAJE_DE_GANANCIA_DOMICILIO;
@@ -91,7 +92,8 @@ public class Pedido {
 	private static int ultimoDigitoPlaca(String placa) {
 		try {
 			return Integer.parseInt(placa.substring(placa.length() - 1, placa.length()));
-		} catch (Exception e) {
+
+		} catch (NumberFormatException e) {
 			throw new ExcepcionValorInvalido(FORMATO_PLACA_OBLIGATORIO);
 		}
 	}
