@@ -22,7 +22,7 @@ public class ApplicationMock {
 
     @Bean(initMethod = "migrate")
     Flyway flyway(DataSource dataSource) throws IOException {
-
+    	
         return Flyway.configure().locations("filesystem:../src/main/resources","filesystem:src/test/resources").baselineOnMigrate(true)
                 .dataSource(dataSource).load();
 

@@ -1,7 +1,12 @@
-create table usuario (
- id int(11) not null auto_increment,
- nombre varchar(100) not null,
- clave varchar(45) not null,
- fecha_creacion datetime null,
- primary key (id)
+CREATE TABLE PEDIDO (
+	ID INT AUTO_INCREMENT,
+	FECHA DATETIME NULL DEFAULT NULL,
+	CODIGO_CLIENTE VARCHAR(255),
+	CODIGO_PRODUCTO VARCHAR(255),
+	DIRECCION_DOMICILIO VARCHAR(255),
+	PLACA_VEHICULO VARCHAR(255),
+	PRECIO_DOMICILIO DOUBLE,
+	PRECIO_TOTAL_COMPRA DOUBLE,
+	PRIMARY KEY (ID)
 );
+
