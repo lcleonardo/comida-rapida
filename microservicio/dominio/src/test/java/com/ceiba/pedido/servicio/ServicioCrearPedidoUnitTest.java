@@ -10,7 +10,7 @@ import com.ceiba.dominio.excepcion.ExcepcionValorInvalido;
 import com.ceiba.pedido.modelo.entidad.Pedido;
 import com.ceiba.pedido.servicio.estdatabuilder.PedidoTestDataBuilder;
 
-public class ServicioCrearPedidoTest {
+public class ServicioCrearPedidoUnitTest {
 
 	private static final Long ID = 1L;
 	private static final String FECHA = "2021-08-20";
@@ -70,7 +70,7 @@ public class ServicioCrearPedidoTest {
 		
 		// 3. Assert
 		Throwable throwable = assertThrows(ExcepcionValorInvalido.class, pedidoTestDataBuilder::build);
-	      assertEquals(Pedido.FORMATO_FECHA_INCORRECTO, throwable.getMessage());
+	      assertEquals(throwable.getMessage(), "La fecha debe tener el siguiente formato: yyyy-MM-dd.");
 	}
 	
 	@Test
@@ -89,7 +89,7 @@ public class ServicioCrearPedidoTest {
 		
 		// 3. Assert
 		Throwable throwable = assertThrows(ExcepcionValorInvalido.class, pedidoTestDataBuilder::build);
-	      assertEquals(Pedido.NO_PUEDE_REALIZAR_EL_DOMICILIO_PORQUE_TIENE_PICO_Y_PLACA, throwable.getMessage());
+	      assertEquals(throwable.getMessage(), "El conductor no puede realizar el domicilio porque tiene pico y placa");
 	}
 	
 	@Test
@@ -108,7 +108,26 @@ public class ServicioCrearPedidoTest {
 		
 		// 3. Assert
 		Throwable throwable = assertThrows(ExcepcionValorInvalido.class, pedidoTestDataBuilder::build);
-	      assertEquals(Pedido.NO_PUEDE_REALIZAR_EL_DOMICILIO_PORQUE_TIENE_PICO_Y_PLACA, throwable.getMessage());
+	      assertEquals(throwable.getMessage(), "El conductor no puede realizar el domicilio porque tiene pico y placa");
+	}
+	
+	@Test
+	public void calcularPrecioDomicilioTest() {
+		// 1. Arrange
+		PedidoTestDataBuilder pedidoTestDataBuilder = new PedidoTestDataBuilder()
+				.conId(ID)
+				.conFecha(FECHA_DIA_VIERNES_PRECIO_DOMICILIO_CON_UN_5_PORCIENTO_MAS)
+				.conCodigoCliente(CODIGO_CLIENTE)
+				.conCodigoProducto(CODIGO_PRODUCTO)
+				.conDirecionDomicilio(DIRECCION_DOMICILIO)
+				.conPlacaVehiculo(PLACA_TERMINADA_EN_NUMERO_PAR)
+				.conPrecioTotalCompra(PRECIO_TOTAL_COMPRA_20000);
+
+		// 2. Act
+		Pedido pedido = pedidoTestDataBuilder.build();
+
+		// 3. Assert
+		assertEquals(PRECIO_DOMICILIO_MAS_UN_5_PORCIENTO_ESPERADO_2000, pedido.getPrecioDomicilio(), 0.001);
 	}
 
 }
