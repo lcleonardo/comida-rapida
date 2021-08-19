@@ -35,7 +35,8 @@ public class Pedido {
 
 		validarFecha(fecha);
 		LocalDate fechaCorrecta = LocalDate.parse(fecha);
-
+		
+		ValidadorArgumento.validarNoVacio(Arrays.asList(codigoProducto), CODIGO_PRODUCTO_OBLIGATORIO);
 		ValidadorArgumento.validarNoVacio(Arrays.asList(codigoCliente), CODIGO_CLIENTE_OBLIGATORIO);
 		ValidadorArgumento.validarNoVacio(Arrays.asList(direccionDomicilio), DIRECCION_CLIENTE_OBLIGATORIA);
 
