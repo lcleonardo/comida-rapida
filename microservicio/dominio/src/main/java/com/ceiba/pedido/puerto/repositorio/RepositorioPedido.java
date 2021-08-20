@@ -5,6 +5,7 @@ import com.ceiba.pedido.modelo.entidad.Pedido;
 public interface RepositorioPedido {
 
 	public Long crear(Pedido pedido);
-		
-	
+
+	public void eliminar(Long id);
+
 }

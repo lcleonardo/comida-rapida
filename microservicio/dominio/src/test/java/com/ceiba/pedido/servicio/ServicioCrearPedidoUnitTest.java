@@ -6,6 +6,7 @@ import java.time.LocalDate;
 
 import org.junit.Test;
 
+import com.ceiba.core.BasePrueba;
 import com.ceiba.dominio.excepcion.ExcepcionValorInvalido;
 import com.ceiba.pedido.modelo.entidad.Pedido;
 import com.ceiba.pedido.servicio.estdatabuilder.PedidoTestDataBuilder;
@@ -30,13 +31,9 @@ public class ServicioCrearPedidoUnitTest {
 	@Test
 	public void crearPedidoTest() {
 		// 1. Arrange
-		PedidoTestDataBuilder pedidoTestDataBuilder = new PedidoTestDataBuilder()
-				.conId(ID)
-				.conFecha(FECHA)
-				.conCodigoCliente(CODIGO_CLIENTE)
-				.conCodigoProducto(CODIGO_PRODUCTO)
-				.conDirecionDomicilio(DIRECCION_DOMICILIO)
-				.conPlacaVehiculo(PLACA)
+		PedidoTestDataBuilder pedidoTestDataBuilder = new PedidoTestDataBuilder().conId(ID).conFecha(FECHA)
+				.conCodigoCliente(CODIGO_CLIENTE).conCodigoProducto(CODIGO_PRODUCTO)
+				.conDirecionDomicilio(DIRECCION_DOMICILIO).conPlacaVehiculo(PLACA)
 				.conPrecioTotalCompra(PRECIO_TOTAL_COMPRA_20000);
 
 		// 2. Act
@@ -51,9 +48,7 @@ public class ServicioCrearPedidoUnitTest {
 		assertEquals(PLACA, pedido.getPlacaVehiculo());
 		assertEquals(PRECIO_TOTAL_COMPRA_20000, pedido.getPrecioTotalCompra());
 	}
-	
-	
-	
+
 	@Test
 	public void crearPedidoConFechaIncorrectaTest() {
 		// 1. Arrange
@@ -62,66 +57,53 @@ public class ServicioCrearPedidoUnitTest {
 				.conFecha(FECHA_INCORRECTA)
 				.conCodigoCliente(CODIGO_CLIENTE)
 				.conCodigoProducto(CODIGO_PRODUCTO)
-				.conDirecionDomicilio(DIRECCION_DOMICILIO)
-				.conPlacaVehiculo(PLACA)
+				.conDirecionDomicilio(DIRECCION_DOMICILIO).conPlacaVehiculo(PLACA)
 				.conPrecioTotalCompra(PRECIO_TOTAL_COMPRA_20000);
-
 		// 2. Act
-		
+
 		// 3. Assert
-		Throwable throwable = assertThrows(ExcepcionValorInvalido.class, pedidoTestDataBuilder::build);
-	      assertEquals(throwable.getMessage(), "La fecha debe tener el siguiente formato: yyyy-MM-dd.");
+		BasePrueba.assertThrows(() -> {
+			pedidoTestDataBuilder.build();
+		}, ExcepcionValorInvalido.class, "La fecha debe tener el siguiente formato: yyyy-MM-dd.");
 	}
-	
+
 	@Test
 	public void validarPlacasTerminadasEnNumeroParTest() {
 		// 1. Arrange
-		PedidoTestDataBuilder pedidoTestDataBuilder = new PedidoTestDataBuilder()
-				.conId(ID)
-				.conFecha(FECHA_DIA_MARTES_PLACAS_TERMINADAS_EN_NUMERO_PAR)
-				.conCodigoCliente(CODIGO_CLIENTE)
-				.conCodigoProducto(CODIGO_PRODUCTO)
-				.conDirecionDomicilio(DIRECCION_DOMICILIO)
-				.conPlacaVehiculo(PLACA_TERMINADA_EN_NUMERO_PAR)
-				.conPrecioTotalCompra(PRECIO_TOTAL_COMPRA_20000);
+		PedidoTestDataBuilder pedidoTestDataBuilder = new PedidoTestDataBuilder().conId(ID)
+				.conFecha(FECHA_DIA_MARTES_PLACAS_TERMINADAS_EN_NUMERO_PAR).conCodigoCliente(CODIGO_CLIENTE)
+				.conCodigoProducto(CODIGO_PRODUCTO).conDirecionDomicilio(DIRECCION_DOMICILIO)
+				.conPlacaVehiculo(PLACA_TERMINADA_EN_NUMERO_PAR).conPrecioTotalCompra(PRECIO_TOTAL_COMPRA_20000);
 
 		// 2. Act
-		
+
 		// 3. Assert
 		Throwable throwable = assertThrows(ExcepcionValorInvalido.class, pedidoTestDataBuilder::build);
-	      assertEquals(throwable.getMessage(), "El conductor no puede realizar el domicilio porque tiene pico y placa");
+		assertEquals(throwable.getMessage(), "El conductor no puede realizar el domicilio porque tiene pico y placa");
 	}
-	
+
 	@Test
 	public void validarPlacasTerminadasEnNumeroImparTest() {
 		// 1. Arrange
-		PedidoTestDataBuilder pedidoTestDataBuilder = new PedidoTestDataBuilder()
-				.conId(ID)
-				.conFecha(FECHA_DIA_MARTES_PLACAS_TERMINADAS_EN_NUMERO_IMPAR)
-				.conCodigoCliente(CODIGO_CLIENTE)
-				.conCodigoProducto(CODIGO_PRODUCTO)
-				.conDirecionDomicilio(DIRECCION_DOMICILIO)
-				.conPlacaVehiculo(PLACA_TERMINADA_EN_NUMERO_IMPAR)
-				.conPrecioTotalCompra(PRECIO_TOTAL_COMPRA_20000);
+		PedidoTestDataBuilder pedidoTestDataBuilder = new PedidoTestDataBuilder().conId(ID)
+				.conFecha(FECHA_DIA_MARTES_PLACAS_TERMINADAS_EN_NUMERO_IMPAR).conCodigoCliente(CODIGO_CLIENTE)
+				.conCodigoProducto(CODIGO_PRODUCTO).conDirecionDomicilio(DIRECCION_DOMICILIO)
+				.conPlacaVehiculo(PLACA_TERMINADA_EN_NUMERO_IMPAR).conPrecioTotalCompra(PRECIO_TOTAL_COMPRA_20000);
 
 		// 2. Act
-		
+
 		// 3. Assert
 		Throwable throwable = assertThrows(ExcepcionValorInvalido.class, pedidoTestDataBuilder::build);
-	      assertEquals(throwable.getMessage(), "El conductor no puede realizar el domicilio porque tiene pico y placa");
+		assertEquals(throwable.getMessage(), "El conductor no puede realizar el domicilio porque tiene pico y placa");
 	}
-	
+
 	@Test
 	public void calcularPrecioDomicilioTest() {
 		// 1. Arrange
-		PedidoTestDataBuilder pedidoTestDataBuilder = new PedidoTestDataBuilder()
-				.conId(ID)
-				.conFecha(FECHA_DIA_VIERNES_PRECIO_DOMICILIO_CON_UN_5_PORCIENTO_MAS)
-				.conCodigoCliente(CODIGO_CLIENTE)
-				.conCodigoProducto(CODIGO_PRODUCTO)
-				.conDirecionDomicilio(DIRECCION_DOMICILIO)
-				.conPlacaVehiculo(PLACA_TERMINADA_EN_NUMERO_PAR)
-				.conPrecioTotalCompra(PRECIO_TOTAL_COMPRA_20000);
+		PedidoTestDataBuilder pedidoTestDataBuilder = new PedidoTestDataBuilder().conId(ID)
+				.conFecha(FECHA_DIA_VIERNES_PRECIO_DOMICILIO_CON_UN_5_PORCIENTO_MAS).conCodigoCliente(CODIGO_CLIENTE)
+				.conCodigoProducto(CODIGO_PRODUCTO).conDirecionDomicilio(DIRECCION_DOMICILIO)
+				.conPlacaVehiculo(PLACA_TERMINADA_EN_NUMERO_PAR).conPrecioTotalCompra(PRECIO_TOTAL_COMPRA_20000);
 
 		// 2. Act
 		Pedido pedido = pedidoTestDataBuilder.build();

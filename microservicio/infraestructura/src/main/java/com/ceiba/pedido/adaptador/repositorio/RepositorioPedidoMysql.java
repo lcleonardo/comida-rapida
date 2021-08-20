@@ -1,5 +1,6 @@
 package com.ceiba.pedido.adaptador.repositorio;
 
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import com.ceiba.infraestructura.jdbc.CustomNamedParameterJdbcTemplate;
@@ -17,11 +18,22 @@ public class RepositorioPedidoMysql implements RepositorioPedido {
 	}
 
 	@SqlStatement(namespace = "pedido", value = "crear")
-	private static String sqlCrear;
+	private String sqlCrear;
+
+	@SqlStatement(namespace = "pedido", value = "eliminarPorId")
+	private String sqlEliminarPorId;
 
 	@Override
 	public Long crear(Pedido pedido) {
 		return this.customNamedParameterJdbcTemplate.crear(pedido, sqlCrear);
+	}
+
+	@Override
+	public void eliminar(Long id) {
+		MapSqlParameterSource paramSource = new MapSqlParameterSource();
+		paramSource.addValue("id", id);
+		this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().update(sqlEliminarPorId, paramSource);
+
 	}
 
 }
