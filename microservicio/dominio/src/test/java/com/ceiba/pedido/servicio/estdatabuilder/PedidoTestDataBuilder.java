@@ -58,7 +58,7 @@ public class PedidoTestDataBuilder {
 	}
 
 	public Pedido build() {
-		return Pedido.crear(id, fecha, codigoCliente, codigoProducto, direccionDomicilio, placaVehiculo, precioTotalCompra);
+		return Pedido.crear(id, fecha, codigoCliente, codigoProducto, direccionDomicilio, placaVehiculo, precioTotalCompra.toString());
 	}
 
 }

@@ -19,5 +19,5 @@ public class ComandoPedido{
 	private String codigoProducto;
 	private String direccionDomicilio;
 	private String placaVehiculo;
-	private Double precioTotalCompra;
+	private String precioTotalCompra;
 }

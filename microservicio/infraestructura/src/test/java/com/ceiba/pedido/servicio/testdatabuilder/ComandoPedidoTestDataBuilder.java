@@ -33,7 +33,7 @@ public class ComandoPedidoTestDataBuilder {
 	}
 
 	public ComandoPedido build() {
-		return  new ComandoPedido(id, fecha, codigoCliente, codigoProducto, direccionDomicilio, placaVehiculo, precioTotalCompra);
+		return  new ComandoPedido(id, fecha, codigoCliente, codigoProducto, direccionDomicilio, placaVehiculo, precioTotalCompra.toString());
 	}
 
 }

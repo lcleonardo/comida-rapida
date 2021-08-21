@@ -46,8 +46,8 @@ public class ServicioCrearPedidoUnitTest {
 		assertEquals(CODIGO_PRODUCTO, pedido.getCodigoProducto());
 		assertEquals(DIRECCION_DOMICILIO, pedido.getDireccionDomicilio());
 		assertEquals(PLACA, pedido.getPlacaVehiculo());
-		assertEquals(PRECIO_TOTAL_COMPRA_20000, pedido.getPrecioTotalCompra());
-	}
+		assertEquals(PRECIO_TOTAL_COMPRA_20000, pedido.getPrecioTotalCompra(), 0.001);
+		}
 
 	@Test
 	public void crearPedidoConFechaIncorrectaTest() {
@@ -79,7 +79,7 @@ public class ServicioCrearPedidoUnitTest {
 
 		// 3. Assert
 		Throwable throwable = assertThrows(ExcepcionValorInvalido.class, pedidoTestDataBuilder::build);
-		assertEquals(throwable.getMessage(), "El conductor no puede realizar el domicilio porque tiene pico y placa");
+		assertEquals( "El conductor no puede realizar el domicilio porque tiene pico y placa",throwable.getMessage());
 	}
 
 	@Test
@@ -94,7 +94,7 @@ public class ServicioCrearPedidoUnitTest {
 
 		// 3. Assert
 		Throwable throwable = assertThrows(ExcepcionValorInvalido.class, pedidoTestDataBuilder::build);
-		assertEquals(throwable.getMessage(), "El conductor no puede realizar el domicilio porque tiene pico y placa");
+		assertEquals("El conductor no puede realizar el domicilio porque tiene pico y placa", throwable.getMessage());
 	}
 
 	@Test

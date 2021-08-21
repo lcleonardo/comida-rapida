@@ -21,6 +21,7 @@ public class Pedido {
 	private static final String FORMATO_PLACA_OBLIGATORIO = "La placa del vehiculo debe terminar en un número entero del 0 al 9.";
 	private static final String NO_PUEDE_REALIZAR_EL_DOMICILIO_PORQUE_TIENE_PICO_Y_PLACA = "El conductor no puede realizar el domicilio porque tiene pico y placa";
 	private static final Double PORCENTAJE_DE_GANANCIA_DOMICILIO = 5.0;
+	private static final String PRECIO_TOTAl_LA_COMPRA_OBLIGATOIO = "El precio total de la compra es obligatorio.";
 
 	private Long id;
 	private LocalDate fecha;
@@ -32,7 +33,7 @@ public class Pedido {
 	private Double precioTotalCompra;
 
 	public static Pedido crear(Long id, String fecha, String codigoCliente, String codigoProducto,
-			String direccionDomicilio, String placaVehiculo, Double precioTotalCompra) {
+			String direccionDomicilio, String placaVehiculo, String precioTotalCompra) {
 
 		validarFecha(fecha);
 		LocalDate fechaCorrecta = LocalDate.parse(fecha);
@@ -40,14 +41,16 @@ public class Pedido {
 		ValidadorArgumento.validarNoVacio(Arrays.asList(codigoProducto), CODIGO_PRODUCTO_OBLIGATORIO);
 		ValidadorArgumento.validarNoVacio(Arrays.asList(codigoCliente), CODIGO_CLIENTE_OBLIGATORIO);
 		ValidadorArgumento.validarNoVacio(Arrays.asList(direccionDomicilio), DIRECCION_CLIENTE_OBLIGATORIA);
+		validarprecioTotalCompra(precioTotalCompra, PRECIO_TOTAl_LA_COMPRA_OBLIGATOIO);
 
 		ValidadorArgumento.validarNoVacio(Arrays.asList(placaVehiculo), PLACA_VEHICULO_OBLIGATORIA);
 		validarSiTienePicoYPlaca(fechaCorrecta, placaVehiculo);
 
-		Double precioDomicilio = calcularPrecioDomicilio(fechaCorrecta, precioTotalCompra);
+		Double precioTotalCompraCorrecto = Double.parseDouble(precioTotalCompra);
+		Double precioDomicilio = calcularPrecioDomicilio(fechaCorrecta, precioTotalCompraCorrecto);
 
 		return new Pedido(id, fechaCorrecta, codigoCliente, codigoProducto, direccionDomicilio, placaVehiculo,
-				precioDomicilio, precioTotalCompra);
+				precioDomicilio, precioTotalCompraCorrecto);
 	}
 
 	public static void validarFecha(String fecha) {
@@ -92,10 +95,17 @@ public class Pedido {
 
 	private static int ultimoDigitoPlaca(String placa) {
 		try {
-			return Integer.parseInt(placa.substring(placa.length() - 1, placa.length()));
-
-		} catch (NumberFormatException e) {
+			return Integer.parseInt(placa.substring(placa.length() - 1));
+		} catch (Exception e) {
 			throw new ExcepcionValorInvalido(FORMATO_PLACA_OBLIGATORIO);
+		}
+	}
+
+	public static void validarprecioTotalCompra(String precioTotalCompra, String mensaje) {
+		try {
+			Double.parseDouble(precioTotalCompra);
+		} catch (NumberFormatException numberFormatException) {
+			throw new ExcepcionValorInvalido(mensaje);
 		}
 	}
 
