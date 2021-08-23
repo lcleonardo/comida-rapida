@@ -33,7 +33,6 @@ public class RepositorioPedidoMysql implements RepositorioPedido {
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
 		paramSource.addValue("id", id);
 		this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().update(sqlEliminarPorId, paramSource);
-
 	}
 
 }

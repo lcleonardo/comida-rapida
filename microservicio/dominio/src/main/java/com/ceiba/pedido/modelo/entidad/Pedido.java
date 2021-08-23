@@ -64,7 +64,7 @@ public class Pedido {
 	public static void validarSiTienePicoYPlaca(LocalDate fechaPedido, String placa) {
 		Enum<DayOfWeek> diaDeLaSemana = fechaPedido.getDayOfWeek();
 		if (placaTerminadaEnNumeroPar(placa)) {
-			if (diaDeLaSemana == DayOfWeek.TUESDAY || diaDeLaSemana == DayOfWeek.THURSDAY) {
+			if (diaDeLaSemana.equals(DayOfWeek.TUESDAY) || diaDeLaSemana.equals(DayOfWeek.THURSDAY)) {
 				throw new ExcepcionValorInvalido(NO_PUEDE_REALIZAR_EL_DOMICILIO_PORQUE_TIENE_PICO_Y_PLACA);
 			}
 		} else {
@@ -80,23 +80,20 @@ public class Pedido {
 
 	private static Double calcularPorcentajeDeGanancia(LocalDate fecha) {
 		Enum<DayOfWeek> diaDeLaSemana = fecha.getDayOfWeek();
-		if (diaDeLaSemana == DayOfWeek.FRIDAY || diaDeLaSemana == DayOfWeek.SATURDAY) {
+		if (diaDeLaSemana.equals(DayOfWeek.FRIDAY) || diaDeLaSemana.equals(DayOfWeek.SATURDAY)) {
 			return PORCENTAJE_DE_GANANCIA_DOMICILIO + 5.0;
 		}
 		return PORCENTAJE_DE_GANANCIA_DOMICILIO;
 	}
 
 	private static boolean placaTerminadaEnNumeroPar(String placa) {
-		if (ultimoDigitoPlaca(placa) % 2 == 0) {
-			return true;
-		}
-		return false;
+		return ultimoDigitoPlaca(placa) % 2 == 0;
 	}
 
 	private static int ultimoDigitoPlaca(String placa) {
 		try {
 			return Integer.parseInt(placa.substring(placa.length() - 1));
-		} catch (Exception e) {
+		} catch (NullPointerException | NumberFormatException e) {
 			throw new ExcepcionValorInvalido(FORMATO_PLACA_OBLIGATORIO);
 		}
 	}
