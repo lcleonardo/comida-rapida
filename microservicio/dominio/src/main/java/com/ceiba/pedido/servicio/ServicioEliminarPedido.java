@@ -13,12 +13,11 @@ public class ServicioEliminarPedido {
 		this.repositorioPedido = repositorioPedido;
 	}
 
-	public void ejecutar(Long id){
-		try {
-			this.repositorioPedido.eliminar(id);
-		} catch (ExcepcionValorInvalido e) {
+	public void ejecutar(Long id) {
+		if (id == null) {
 			throw new ExcepcionValorInvalido(NO_EXISTE_EL_PEDIDO + id);
 		}
+		this.repositorioPedido.eliminar(id);
 	}
 
 }

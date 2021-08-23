@@ -17,11 +17,11 @@ public class Pedido {
 	private static final String CODIGO_CLIENTE_OBLIGATORIO = "El código del cliente es obligatorio.";
 	private static final String DIRECCION_CLIENTE_OBLIGATORIA = "La direción es obligatoria.";
 	private static final String FORMATO_FECHA_INCORRECTO = "La fecha debe tener el siguiente formato: yyyy-MM-dd.";
-	private static final String PLACA_VEHICULO_OBLIGATORIA = "La placa delvehiculo es obligatoria";
+	private static final String PLACA_VEHICULO_OBLIGATORIA = "La placa delvehiculo es obligatoria.";
 	private static final String FORMATO_PLACA_OBLIGATORIO = "La placa del vehiculo debe terminar en un número entero del 0 al 9.";
-	private static final String NO_PUEDE_REALIZAR_EL_DOMICILIO_PORQUE_TIENE_PICO_Y_PLACA = "El conductor no puede realizar el domicilio porque tiene pico y placa";
+	private static final String NO_PUEDE_REALIZAR_EL_DOMICILIO_PORQUE_TIENE_PICO_Y_PLACA = "El conductor no puede realizar el domicilio porque tiene pico y placa.";
+	private static final String PRECIO_TOTAl_COMPRA_OBLIGATORIO = "El precio total de la compra es obligatorio.";
 	private static final Double PORCENTAJE_DE_GANANCIA_DOMICILIO = 5.0;
-	private static final String PRECIO_TOTAl_LA_COMPRA_OBLIGATOIO = "El precio total de la compra es obligatorio.";
 
 	private Long id;
 	private LocalDate fecha;
@@ -41,7 +41,7 @@ public class Pedido {
 		ValidadorArgumento.validarNoVacio(Arrays.asList(codigoProducto), CODIGO_PRODUCTO_OBLIGATORIO);
 		ValidadorArgumento.validarNoVacio(Arrays.asList(codigoCliente), CODIGO_CLIENTE_OBLIGATORIO);
 		ValidadorArgumento.validarNoVacio(Arrays.asList(direccionDomicilio), DIRECCION_CLIENTE_OBLIGATORIA);
-		validarprecioTotalCompra(precioTotalCompra, PRECIO_TOTAl_LA_COMPRA_OBLIGATOIO);
+		validarprecioTotalCompra(precioTotalCompra, PRECIO_TOTAl_COMPRA_OBLIGATORIO);
 
 		ValidadorArgumento.validarNoVacio(Arrays.asList(placaVehiculo), PLACA_VEHICULO_OBLIGATORIA);
 		validarSiTienePicoYPlaca(fechaCorrecta, placaVehiculo);
@@ -64,7 +64,7 @@ public class Pedido {
 	public static void validarSiTienePicoYPlaca(LocalDate fechaPedido, String placa) {
 		Enum<DayOfWeek> diaDeLaSemana = fechaPedido.getDayOfWeek();
 		if (placaTerminadaEnNumeroPar(placa)) {
-			if (diaDeLaSemana.equals(DayOfWeek.TUESDAY) || diaDeLaSemana.equals(DayOfWeek.THURSDAY)) {
+			if (diaDeLaSemana == DayOfWeek.TUESDAY || diaDeLaSemana == DayOfWeek.THURSDAY) {
 				throw new ExcepcionValorInvalido(NO_PUEDE_REALIZAR_EL_DOMICILIO_PORQUE_TIENE_PICO_Y_PLACA);
 			}
 		} else {
@@ -80,7 +80,7 @@ public class Pedido {
 
 	private static Double calcularPorcentajeDeGanancia(LocalDate fecha) {
 		Enum<DayOfWeek> diaDeLaSemana = fecha.getDayOfWeek();
-		if (diaDeLaSemana.equals(DayOfWeek.FRIDAY) || diaDeLaSemana.equals(DayOfWeek.SATURDAY)) {
+		if (diaDeLaSemana == DayOfWeek.FRIDAY || diaDeLaSemana == DayOfWeek.SATURDAY) {
 			return PORCENTAJE_DE_GANANCIA_DOMICILIO + 5.0;
 		}
 		return PORCENTAJE_DE_GANANCIA_DOMICILIO;
@@ -101,7 +101,7 @@ public class Pedido {
 	public static void validarprecioTotalCompra(String precioTotalCompra, String mensaje) {
 		try {
 			Double.parseDouble(precioTotalCompra);
-		} catch (NumberFormatException numberFormatException) {
+		} catch (NumberFormatException e) {
 			throw new ExcepcionValorInvalido(mensaje);
 		}
 	}

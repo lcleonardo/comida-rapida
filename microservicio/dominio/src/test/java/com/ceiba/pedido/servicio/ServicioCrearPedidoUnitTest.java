@@ -70,16 +70,14 @@ public class ServicioCrearPedidoUnitTest {
 	@Test
 	public void validarPlacasTerminadasEnNumeroParTest() {
 		// 1. Arrange
-		PedidoTestDataBuilder pedidoTestDataBuilder = new PedidoTestDataBuilder().conId(ID)
-				.conFecha(FECHA_DIA_MARTES_PLACAS_TERMINADAS_EN_NUMERO_PAR).conCodigoCliente(CODIGO_CLIENTE)
-				.conCodigoProducto(CODIGO_PRODUCTO).conDirecionDomicilio(DIRECCION_DOMICILIO)
-				.conPlacaVehiculo(PLACA_TERMINADA_EN_NUMERO_PAR).conPrecioTotalCompra(PRECIO_TOTAL_COMPRA_20000);
-
+		PedidoTestDataBuilder pedidoTestDataBuilder = new PedidoTestDataBuilder()
+				.conFecha(FECHA_DIA_MARTES_PLACAS_TERMINADAS_EN_NUMERO_PAR)
+				.conPlacaVehiculo(PLACA_TERMINADA_EN_NUMERO_PAR);
 		// 2. Act
 
 		// 3. Assert
 		Throwable throwable = assertThrows(ExcepcionValorInvalido.class, pedidoTestDataBuilder::build);
-		assertEquals( "El conductor no puede realizar el domicilio porque tiene pico y placa",throwable.getMessage());
+		assertEquals( "El conductor no puede realizar el domicilio porque tiene pico y placa.",throwable.getMessage());
 	}
 
 	@Test
@@ -94,7 +92,7 @@ public class ServicioCrearPedidoUnitTest {
 
 		// 3. Assert
 		Throwable throwable = assertThrows(ExcepcionValorInvalido.class, pedidoTestDataBuilder::build);
-		assertEquals("El conductor no puede realizar el domicilio porque tiene pico y placa", throwable.getMessage());
+		assertEquals("El conductor no puede realizar el domicilio porque tiene pico y placa.", throwable.getMessage());
 	}
 
 	@Test
