@@ -1,4 +1,4 @@
-package com.ceiba.pedido.puerto.dao;
+package com.ceiba.descuento.puerto.dao;
 
 import java.util.List;
 
@@ -8,5 +8,4 @@ public interface DaoPedido {
 
 	public List<DtoPedido> listar();
 
-	public boolean existePorId(Long id);
 }

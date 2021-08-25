@@ -4,27 +4,22 @@ import com.ceiba.pedido.modelo.entidad.Pedido;
 
 public class PedidoTestDataBuilder {
 
-	private Long id;
 	private String fecha;
 	private String codigoCliente;
 	private String codigoProducto;
 	private String direccionDomicilio;
 	private String placaVehiculo;
-	private Double precioTotalCompra;
+	private Double porcentajeDescuento;
+	private Double precioCompra;
 
 	public PedidoTestDataBuilder() {
-		this.id = 1L;
 		this.fecha = "2021-08-20";
 		this.codigoCliente = "1094911832";
 		this.codigoProducto = "0001";
-		this.direccionDomicilio = "San juan de carolina Calle 123";
+		this.direccionDomicilio = "San juan de carolina, calle 123";
 		this.placaVehiculo = "VKH526";
-		this.precioTotalCompra = 20.000;
-	}
-
-	public PedidoTestDataBuilder conId(Long id) {
-		this.id = id;
-		return this;
+		this.porcentajeDescuento = 0.0;
+		this.precioCompra = 20.000;
 	}
 
 	public PedidoTestDataBuilder conFecha(String fecha) {
@@ -52,13 +47,19 @@ public class PedidoTestDataBuilder {
 		return this;
 	}
 
-	public PedidoTestDataBuilder conPrecioTotalCompra(Double precioTotalCompra) {
-		this.precioTotalCompra = precioTotalCompra;
+	public PedidoTestDataBuilder conPorcentajeDescuento(Double porcentajeDescuento) {
+		this.porcentajeDescuento = porcentajeDescuento;
+		return this;
+	}
+
+	public PedidoTestDataBuilder conPrecioCompra(Double precioCompra) {
+		this.precioCompra = precioCompra;
 		return this;
 	}
 
 	public Pedido build() {
-		return Pedido.crear(id, fecha, codigoCliente, codigoProducto, direccionDomicilio, placaVehiculo, precioTotalCompra.toString());
+		return Pedido.crear(fecha, codigoCliente, codigoProducto, direccionDomicilio, placaVehiculo,
+				porcentajeDescuento, precioCompra);
 	}
 
 }

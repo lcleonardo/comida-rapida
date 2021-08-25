@@ -9,13 +9,13 @@ import com.ceiba.pedido.modelo.entidad.Pedido;
 public class FabricaPedido {
 
 	public Pedido crear(ComandoPedido comando) {
-		return Pedido.crear(comando.getId(),
-				comando.getFecha(),
+		return Pedido.crear(comando.getFecha(), 
 				comando.getCodigoCliente(),
 				comando.getCodigoProducto(),
 				comando.getDireccionDomicilio(),
 				comando.getPlacaVehiculo(),
-				comando.getPrecioTotalCompra());
+				comando.getPorcentajeDescuento(),
+				comando.getPrecioCompra());
 	}
 
 }

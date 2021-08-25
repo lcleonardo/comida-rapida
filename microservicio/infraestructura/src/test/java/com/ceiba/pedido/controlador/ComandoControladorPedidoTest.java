@@ -24,8 +24,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class ComandoControladorPedidoTest {
 
 	private final Long ID_EN_BASE_DE_DATOS_DE_PRUEBA = 1L;
-	private final String PLACA_TERMINADA_EN_NUMERO_PAR = "VKH242";
-	private final String FECHA_PICO_Y_PLACA_PARA_PLACA_TERMINADA_EN_NUMERO_PAR = "2021-08-18";
+	private final String PLACA_TERMINADA_EN_NUMERO_PAR = "VKH246";
+	private final String FECHA = "2021-08-18";
 
 	@Autowired
 	private ObjectMapper objectMapper;
@@ -37,8 +37,9 @@ public class ComandoControladorPedidoTest {
 	public void crearPedido() throws Exception {
 
 		// arrange
-		ComandoPedido pedido = new ComandoPedidoTestDataBuilder().conPlaca(PLACA_TERMINADA_EN_NUMERO_PAR)
-				.conFecha(FECHA_PICO_Y_PLACA_PARA_PLACA_TERMINADA_EN_NUMERO_PAR).build();
+		ComandoPedido pedido = new ComandoPedidoTestDataBuilder()
+				.conPlaca(PLACA_TERMINADA_EN_NUMERO_PAR)
+				.conFecha(FECHA).build();
 
 		// act - assert
 		mocMvc.perform(MockMvcRequestBuilders.post("/pedidos").content(objectMapper.writeValueAsString(pedido))

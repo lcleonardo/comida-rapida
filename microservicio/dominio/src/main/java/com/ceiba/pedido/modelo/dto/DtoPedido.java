@@ -16,6 +16,8 @@ public class DtoPedido {
 	private String direccionDomicilio;
 	private String placaVehiculo;
 	private Double precioDomicilio;
-	private Double precioTotalCompra;
+	private Double porcentajeDescuento;
+	private Double precioCompra;
+	private Double precioTotal;
 	
 }

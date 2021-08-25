@@ -1,0 +1,1 @@
+ INSERT INTO DESCUENTO (FECHA, PORCENTAJE) VALUES (:fecha, :porcentaje);

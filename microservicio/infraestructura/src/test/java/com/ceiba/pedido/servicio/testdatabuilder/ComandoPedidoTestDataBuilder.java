@@ -10,7 +10,8 @@ public class ComandoPedidoTestDataBuilder {
 	private String codigoProducto;
 	private String direccionDomicilio;
 	private String placaVehiculo;
-	private Double precioTotalCompra;
+	private Double porcentajeDescuento;
+	private Double precioCompra;
 
 	public ComandoPedidoTestDataBuilder() {
 		this.id = 1L;
@@ -19,21 +20,23 @@ public class ComandoPedidoTestDataBuilder {
 		this.codigoProducto = "0001";
 		this.direccionDomicilio = "Vereda san juan, Casa la chiquita";
 		this.placaVehiculo = "VKH526";
-		this.precioTotalCompra = 25.000;
+		this.porcentajeDescuento = 0.0;
+		this.precioCompra = 20.000;
 	}
-	
+
 	public ComandoPedidoTestDataBuilder conFecha(String fecha) {
 		this.fecha = fecha;
 		return this;
 	}
-	
+
 	public ComandoPedidoTestDataBuilder conPlaca(String placaVehiculo) {
 		this.placaVehiculo = placaVehiculo;
 		return this;
 	}
 
 	public ComandoPedido build() {
-		return  new ComandoPedido(id, fecha, codigoCliente, codigoProducto, direccionDomicilio, placaVehiculo, precioTotalCompra.toString());
+		return new ComandoPedido(id, fecha, codigoCliente, codigoProducto, direccionDomicilio, placaVehiculo,
+				porcentajeDescuento, precioCompra);
 	}
 
 }

@@ -1,2 +1,11 @@
-INSERT INTO pedido (fecha, codigo_cliente, codigo_producto, direccion_domicilio, placa_vehiculo, precio_domicilio, precio_total_compra) 
-VALUES (:fecha, :codigoCliente, :codigoProducto, :direccionDomicilio, :placaVehiculo, :precioDomicilio, :precioTotalCompra);
+INSERT INTO PEDIDO (FECHA,
+ CODIGO_CLIENTE,
+ CODIGO_PRODUCTO,
+ DIRECCION_DOMICILIO, 
+ PLACA_VEHICULO, 
+ PRECIO_DOMICILIO,
+ PORCENTAJE_DESCUENTO, 
+ PRECIO_COMPRA,
+ PRECIO_TOTAL) 
+VALUES (:fecha, :codigoCliente, :codigoProducto, :direccionDomicilio,
+ :placaVehiculo, :precioDomicilio, :porcentajeDescuento, :precioCompra, :precioTotal );
