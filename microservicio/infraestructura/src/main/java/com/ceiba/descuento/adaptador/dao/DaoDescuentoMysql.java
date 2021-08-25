@@ -1,5 +1,6 @@
 package com.ceiba.descuento.adaptador.dao;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Component;
 
@@ -24,10 +25,14 @@ public class DaoDescuentoMysql implements DaoDescuento {
 	
 	@Override
 	public DtoDescuento obtenerPorFecha(String fecha) {
-		MapSqlParameterSource paramSource = new MapSqlParameterSource();
-		paramSource.addValue("fecha", fecha);
-		return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().queryForObject(sqlBuscarPorFecha,
-				paramSource, new MapeoDescuento());
+		try {
+			MapSqlParameterSource paramSource = new MapSqlParameterSource();
+			paramSource.addValue("fecha", fecha);
+			return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate()
+					.queryForObject(sqlBuscarPorFecha, paramSource, new MapeoDescuento());
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
 	}
 
 
