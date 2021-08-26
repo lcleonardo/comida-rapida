@@ -1,4 +1,4 @@
-package com.ceiba.pedido.servicio;
+package com.ceiba.pedido.servicio.mock;
 
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
@@ -7,6 +7,7 @@ import org.mockito.Mockito;
 import com.ceiba.dominio.excepcion.ExcepcionValorInvalido;
 import com.ceiba.dominio.excepcion.ExcepcionValorObligatorio;
 import com.ceiba.pedido.puerto.repositorio.RepositorioPedido;
+import com.ceiba.pedido.servicio.ServicioEliminarPedido;
 
 public class ServicioEliminarPedidoMockTest {
 

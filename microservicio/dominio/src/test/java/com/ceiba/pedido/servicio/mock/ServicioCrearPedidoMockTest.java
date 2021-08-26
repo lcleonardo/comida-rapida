@@ -1,4 +1,4 @@
-package com.ceiba.pedido.servicio;
+package com.ceiba.pedido.servicio.mock;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -6,7 +6,8 @@ import org.mockito.Mockito;
 
 import com.ceiba.pedido.modelo.entidad.Pedido;
 import com.ceiba.pedido.puerto.repositorio.RepositorioPedido;
-import com.ceiba.pedido.servicio.estdatabuilder.PedidoTestDataBuilder;
+import com.ceiba.pedido.servicio.ServicioCrearPedido;
+import com.ceiba.pedido.servicio.testdatabuilder.PedidoTestDataBuilder;
 
 public class ServicioCrearPedidoMockTest {
 

@@ -1,4 +1,4 @@
-package com.ceiba.pedido.servicio.estdatabuilder;
+package com.ceiba.pedido.servicio.testdatabuilder;
 
 import com.ceiba.pedido.modelo.entidad.Pedido;
 

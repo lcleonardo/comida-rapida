@@ -2,6 +2,7 @@ package com.ceiba.dominio;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
@@ -41,6 +42,13 @@ public class ValidadorArgumento {
 			throw new ExcepcionValorObligatorio(mensaje);
 		}
 	}
+
+	public static void validarMenorACero(Double valor, String mensaje) {
+		if (valor < 0) {
+			throw new ExcepcionValorInvalido(mensaje);
+		}
+	}
+	
 
 	public static void validarPositivo(Double valor, String mensaje) {
 		if (valor <= 0) {
@@ -106,7 +114,7 @@ public class ValidadorArgumento {
 
 	public static void validarFechaFormatoYYYMMDD(String fecha, String mensaje) {
 		try {
-			LocalDate.parse(fecha);
+			LocalDate.parse(fecha, DateTimeFormatter.ISO_DATE);
 		} catch (DateTimeParseException e) {
 			throw new ExcepcionValorInvalido(mensaje);
 		}

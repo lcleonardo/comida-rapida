@@ -19,9 +19,10 @@ public class Descuento {
 	
 	public static Descuento crear(String fecha , Double porcentaje) {
 		
+		ValidadorArgumento.validarObligatorio(fecha, FECHA_INCORRECTA);
 		ValidadorArgumento.validarFechaFormatoYYYMMDD(fecha, FECHA_INCORRECTA);
-//		ValidadorArgumento.validarObligatorio(descuento, PORCENTAJE_DE_DESCUENTO_NO_VALIDO);
-//		ValidadorArgumento.validarPositivo(descuento, PORCENTAJE_DE_DESCUENTO_NO_VALIDO);
+		ValidadorArgumento.validarObligatorio(porcentaje, PORCENTAJE_DE_DESCUENTO_NO_VALIDO);
+		ValidadorArgumento.validarMenorACero(porcentaje, PORCENTAJE_DE_DESCUENTO_NO_VALIDO);
 		
 		LocalDate fechaValida = LocalDate.parse(fecha);
 		

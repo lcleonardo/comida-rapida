@@ -1,8 +1,8 @@
 package com.ceiba.pedido.modelo.entidad;
 
-import java.io.PrintStream;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import com.ceiba.dominio.ValidadorArgumento;
 import com.ceiba.dominio.excepcion.ExcepcionValorInvalido;
@@ -22,6 +22,7 @@ public class Pedido {
 	private static final String NO_PUEDE_REALIZAR_EL_DOMICILIO_PORQUE_TIENE_PICO_Y_PLACA = "El conductor no puede realizar el domicilio porque tiene pico y placa.";
 	private static final Double PORCENTAJE_NORMAL_DE_GANANCIA_EN_DOMICILIO = 5.0;
 	private static final Double CINCO_PORCIENTO_MAS_DE_GANACIA_EN_DOMICILIO = 5.0;
+	private static final Double NO_SE_CALCULA_PRECIO_DE_DESCUENTO = 0.0;
 
 	private Long id;
 	private LocalDate fecha;
@@ -37,34 +38,47 @@ public class Pedido {
 	public static Pedido crear(String fecha, String codigoCliente, String codigoProducto, String direccionDomicilio,
 			String placaVehiculo, Double porcentajeDescuento, Double precioCompra) {
 
+		ValidadorArgumento.validarObligatorio(fecha, FECHA_INCORRECTA);
 		ValidadorArgumento.validarFechaFormatoYYYMMDD(fecha, FECHA_INCORRECTA);
-		ValidadorArgumento.validarObligatorio(codigoCliente, CODIGO_CLIENTE_OBLIGATORIO);
-		ValidadorArgumento.validarObligatorio(codigoProducto, CODIGO_PRODUCTO_OBLIGATORIO);
-		ValidadorArgumento.validarObligatorio(direccionDomicilio, DIRECCION_DOMICILIO_OBLIGATORIA);
-		ValidadorArgumento.validarObligatorio(porcentajeDescuento, PORCENTAJE_DE_DESCUENTO_NO_VALIDO);
-		ValidadorArgumento.validarObligatorio(precioCompra, PRECIO_COMPRA_OBLIGATORIO);
-		ValidadorArgumento.validarNoVacio(codigoCliente, CODIGO_CLIENTE_OBLIGATORIO);
-		ValidadorArgumento.validarNoVacio(codigoProducto, CODIGO_PRODUCTO_OBLIGATORIO);
-		ValidadorArgumento.validarNoVacio(direccionDomicilio, DIRECCION_DOMICILIO_OBLIGATORIA);
-		ValidadorArgumento.validarPositivo(porcentajeDescuento, PORCENTAJE_DE_DESCUENTO_NO_VALIDO);
-		ValidadorArgumento.validarPositivo(precioCompra, PRECIO_COMPRA_OBLIGATORIO);
-		validarPlacaVehiculo(placaVehiculo, PLACA_VEHICULO_OBLIGATORIA);
+		LocalDate fechaValida = LocalDate.parse(fecha, DateTimeFormatter.ISO_DATE);
 
-		LocalDate fechaValida = LocalDate.parse(fecha);
+		ValidadorArgumento.validarObligatorio(codigoCliente, CODIGO_CLIENTE_OBLIGATORIO);
+		ValidadorArgumento.validarNoVacio(codigoCliente, CODIGO_CLIENTE_OBLIGATORIO);
+
+		ValidadorArgumento.validarObligatorio(codigoProducto, CODIGO_PRODUCTO_OBLIGATORIO);
+		ValidadorArgumento.validarNoVacio(codigoProducto, CODIGO_PRODUCTO_OBLIGATORIO);
+
+		ValidadorArgumento.validarObligatorio(direccionDomicilio, DIRECCION_DOMICILIO_OBLIGATORIA);
+		ValidadorArgumento.validarNoVacio(direccionDomicilio, DIRECCION_DOMICILIO_OBLIGATORIA);
+
+		ValidadorArgumento.validarObligatorio(placaVehiculo, PLACA_VEHICULO_OBLIGATORIA);
+		ValidadorArgumento.validarNoVacio(placaVehiculo, PLACA_VEHICULO_OBLIGATORIA);
+		validarFormatoPlacaVehiculo(placaVehiculo, PLACA_VEHICULO_OBLIGATORIA);
 		validarSiLaPlacaDelVehiculoTienePicoYPlaca(fechaValida, placaVehiculo);
 
-		Double precioTotal = calcularPrecioTotal(porcentajeDescuento, precioCompra);
+		ValidadorArgumento.validarObligatorio(porcentajeDescuento, PORCENTAJE_DE_DESCUENTO_NO_VALIDO);
+		ValidadorArgumento.validarMenorACero(porcentajeDescuento, PORCENTAJE_DE_DESCUENTO_NO_VALIDO);
+
+		ValidadorArgumento.validarObligatorio(precioCompra, PRECIO_COMPRA_OBLIGATORIO);
+		ValidadorArgumento.validarMenorACero(precioCompra, PRECIO_COMPRA_OBLIGATORIO);
+
+		Double precioDescuento = calcularPrecioDescuento(porcentajeDescuento, precioCompra);
+		Double precioTotal = precioCompra - precioDescuento;
 		Double precioDomicilio = calcularPrecioDomicilio(fechaValida, precioTotal);
-		
+
+		System.out.println("precioDescuento" + precioDescuento);
+		System.out.println("precioTotal" + precioTotal);
+		System.out.println("precioDomicilio" + precioDomicilio);
+
 		return new Pedido(fechaValida, codigoCliente, codigoProducto, direccionDomicilio, placaVehiculo,
 				precioDomicilio, porcentajeDescuento, precioCompra, precioTotal);
 	}
 
-	private static void validarPlacaVehiculo(String placaVehiculo, String mensaje) {
+	private static void validarFormatoPlacaVehiculo(String placaVehiculo, String mensaje) {
 		try {
 			String ultimoCaracter = placaVehiculo.substring(placaVehiculo.length() - 1);
 			Integer.parseInt(ultimoCaracter);
-		} catch (NullPointerException | NumberFormatException e) {
+		} catch (NumberFormatException e) {
 			throw new ExcepcionValorInvalido(mensaje);
 		}
 	}
@@ -80,17 +94,18 @@ public class Pedido {
 				throw new ExcepcionValorInvalido(NO_PUEDE_REALIZAR_EL_DOMICILIO_PORQUE_TIENE_PICO_Y_PLACA);
 			}
 		}
+
 	}
 
-	private static Double calcularPrecioTotal(Double porcentajeDescuento, Double precioCompra) {
+	private static Double calcularPrecioDescuento(Double porcentajeDescuento, Double precioCompra) {
 		if (porcentajeDescuento <= 0) {
-			return precioCompra;
+			return NO_SE_CALCULA_PRECIO_DE_DESCUENTO;
 		}
 		return (precioCompra / 100) * porcentajeDescuento;
 	}
-	
-	private static Double calcularPrecioDomicilio(LocalDate fecha, Double precioCompra) {
-		return (precioCompra / 100) * calcularPorcentajeDeGanancia(fecha);
+
+	private static Double calcularPrecioDomicilio(LocalDate fecha, Double precioTotal) {
+		return (precioTotal / 100) * calcularPorcentajeDeGanancia(fecha);
 	}
 
 	private static Double calcularPorcentajeDeGanancia(LocalDate fecha) {
