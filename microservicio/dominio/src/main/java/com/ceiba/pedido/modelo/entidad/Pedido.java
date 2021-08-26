@@ -66,10 +66,6 @@ public class Pedido {
 		Double precioTotal = precioCompra - precioDescuento;
 		Double precioDomicilio = calcularPrecioDomicilio(fechaValida, precioTotal);
 
-		System.out.println("precioDescuento" + precioDescuento);
-		System.out.println("precioTotal" + precioTotal);
-		System.out.println("precioDomicilio" + precioDomicilio);
-
 		return new Pedido(fechaValida, codigoCliente, codigoProducto, direccionDomicilio, placaVehiculo,
 				precioDomicilio, porcentajeDescuento, precioCompra, precioTotal);
 	}
