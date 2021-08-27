@@ -24,9 +24,10 @@ public class MapeoPedido implements RowMapper<DtoPedido>, MapperResult {
 		Double porcentajeDescuento = rs.getDouble("PORCENTAJE_DESCUENTO");
 		Double precioCompra = rs.getDouble("PRECIO_COMPRA");
 		Double precioTotal = rs.getDouble("PRECIO_TOTAL");
+		Integer aplicaPromocion = rs.getInt("APLICA_PROMOCION");
 
 		return new DtoPedido(id, fecha, codigoCliente, codigoProducto, direccionDomicilio, placaVehiculo,
-				precioDomicilio, porcentajeDescuento, precioCompra, precioTotal);
+				precioDomicilio, porcentajeDescuento, precioCompra, precioTotal, aplicaPromocion);
 	}
 
 }

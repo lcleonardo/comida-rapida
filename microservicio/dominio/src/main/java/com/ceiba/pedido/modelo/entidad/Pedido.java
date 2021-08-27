@@ -20,9 +20,12 @@ public class Pedido {
 	private static final String PRECIO_COMPRA_OBLIGATORIO = "El precio de la compra es obligatorio.";
 	private static final String PORCENTAJE_DE_DESCUENTO_NO_VALIDO = "El porcentaje de descuento debe ser un número mayor a 0.0";
 	private static final String NO_PUEDE_REALIZAR_EL_DOMICILIO_PORQUE_TIENE_PICO_Y_PLACA = "El conductor no puede realizar el domicilio porque tiene pico y placa.";
+	private static final String APLICA_PROMOCION_OBLIGATORIO = "Aplica promoción es obligatorio.";
 	private static final Double PORCENTAJE_NORMAL_DE_GANANCIA_EN_DOMICILIO = 5.0;
 	private static final Double CINCO_PORCIENTO_MAS_DE_GANACIA_EN_DOMICILIO = 5.0;
 	private static final Double NO_SE_CALCULA_PRECIO_DE_DESCUENTO = 0.0;
+	private static final Double CINCUENTA_PORCIENTO_DE_DESCUENTO = 2.0;
+	private static final Integer SI_APLICA_PROMOCION= 1;
 
 	private Long id;
 	private LocalDate fecha;
@@ -34,9 +37,10 @@ public class Pedido {
 	private Double porcentajeDescuento;
 	private Double precioCompra;
 	private Double precioTotal;
+	private Integer aplicaPromocion;
 
 	public static Pedido crear(String fecha, String codigoCliente, String codigoProducto, String direccionDomicilio,
-			String placaVehiculo, Double porcentajeDescuento, Double precioCompra) {
+			String placaVehiculo, Double porcentajeDescuento, Double precioCompra, Integer aplicaPromocion) {
 
 		ValidadorArgumento.validarObligatorio(fecha, FECHA_INCORRECTA);
 		ValidadorArgumento.validarFechaFormatoYYYMMDD(fecha, FECHA_INCORRECTA);
@@ -61,13 +65,22 @@ public class Pedido {
 
 		ValidadorArgumento.validarObligatorio(precioCompra, PRECIO_COMPRA_OBLIGATORIO);
 		ValidadorArgumento.validarMenorACero(precioCompra, PRECIO_COMPRA_OBLIGATORIO);
+		
+		ValidadorArgumento.validarObligatorio(aplicaPromocion, APLICA_PROMOCION_OBLIGATORIO);
 
 		Double precioDescuento = calcularPrecioDescuento(porcentajeDescuento, precioCompra);
-		Double precioTotal = precioCompra - precioDescuento;
+		Double precioTotal = calcularPrecioTotal(precioCompra, precioDescuento, aplicaPromocion);
 		Double precioDomicilio = calcularPrecioDomicilio(fechaValida, precioTotal);
-
+		
 		return new Pedido(fechaValida, codigoCliente, codigoProducto, direccionDomicilio, placaVehiculo,
-				precioDomicilio, porcentajeDescuento, precioCompra, precioTotal);
+				precioDomicilio, porcentajeDescuento, precioCompra, precioTotal, aplicaPromocion);
+	}
+	
+	private static Double calcularPrecioTotal(Double precioCompra, Double precioDescuento, Integer aplicaPromocion) {
+		if(aplicaPromocion.equals(SI_APLICA_PROMOCION)) {
+			return (precioCompra - precioDescuento) / CINCUENTA_PORCIENTO_DE_DESCUENTO;
+		}
+		return precioCompra - precioDescuento;
 	}
 		
 	private static void validarFormatoPlacaVehiculo(String placaVehiculo, String mensaje) {
@@ -122,7 +135,7 @@ public class Pedido {
 
 	private Pedido(LocalDate fecha, String codigoCliente, String codigoProducto, String direccionDomicilio,
 			String placaVehiculo, Double precioDomicilio, Double porcentajeDescuento, Double precioCompra,
-			Double precioTotal) {
+			Double precioTotal, Integer aplicaPromocion) {
 		this.id = 0L;
 		this.fecha = fecha;
 		this.codigoCliente = codigoCliente;
@@ -133,6 +146,7 @@ public class Pedido {
 		this.porcentajeDescuento = porcentajeDescuento;
 		this.precioCompra = precioCompra;
 		this.precioTotal = precioTotal;
+		this.aplicaPromocion = aplicaPromocion;
 	}
 
 }

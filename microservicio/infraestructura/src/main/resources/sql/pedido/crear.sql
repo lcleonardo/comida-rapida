@@ -6,6 +6,8 @@ INSERT INTO PEDIDO (FECHA,
  PRECIO_DOMICILIO,
  PORCENTAJE_DESCUENTO, 
  PRECIO_COMPRA,
- PRECIO_TOTAL) 
+ PRECIO_TOTAL,
+ APLICA_PROMOCION
+ ) 
 VALUES (:fecha, :codigoCliente, :codigoProducto, :direccionDomicilio,
- :placaVehiculo, :precioDomicilio, :porcentajeDescuento, :precioCompra, :precioTotal );
+ :placaVehiculo, :precioDomicilio, :porcentajeDescuento, :precioCompra, :precioTotal, :aplicaPromocion );

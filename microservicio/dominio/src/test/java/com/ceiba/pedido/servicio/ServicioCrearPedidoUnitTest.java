@@ -18,6 +18,9 @@ import com.ceiba.pedido.servicio.testdatabuilder.PedidoTestDataBuilder;
 
 public class ServicioCrearPedidoUnitTest {
 
+	private final static Integer NO_APLICA_PROMOCION = 0;
+	private final static Integer SI_APLICA_PROMOCION = 1;
+	
 	@Test
 	public void validarFechaNoNulaTest() {
 		// 1. Arrange
@@ -275,6 +278,47 @@ public class ServicioCrearPedidoUnitTest {
 	Pedido pedido = pedidoTestDataBuilder.build();
 		// 3. Assert
 		assertEquals(2.000, pedido.getPrecioDomicilio().doubleValue());
+	}
+	
+	@Test
+	public void validarAplicaPromocionNoNuloTest() {
+		// 1. Arrange
+		PedidoTestDataBuilder pedidoTestDataBuilder = new PedidoTestDataBuilder()
+				.conFecha("2021-08-28")
+				.conPrecioCompra(20.000)
+				.conAplicaPromocion(null);
+		// 2. Act
+		// 3. Assert
+	assertThrows(ExcepcionValorObligatorio.class, ()-> pedidoTestDataBuilder.build(), "Aplica promoción es obligatorio.");
+	}
+	
+	
+	@Test
+	public void validarNoAplicaPromocionTest() {
+		// 1. Arrange
+		PedidoTestDataBuilder pedidoTestDataBuilder = new PedidoTestDataBuilder()
+				.conFecha("2021-08-28")
+				.conPrecioCompra(50.000)
+				.conPorcentajeDescuento(0.0)
+				.conAplicaPromocion(NO_APLICA_PROMOCION);
+		// 2. Act
+	Pedido pedido = pedidoTestDataBuilder.build();
+		// 3. Assert
+	assertEquals(50.000, pedido.getPrecioTotal().doubleValue());
+	}
+	
+	@Test
+	public void validarSiAplicaPromocionTest() {
+		// 1. Arrange
+		PedidoTestDataBuilder pedidoTestDataBuilder = new PedidoTestDataBuilder()
+				.conFecha("2021-08-28")
+				.conPrecioCompra(50.000)
+				.conPorcentajeDescuento(0.0)
+				.conAplicaPromocion(SI_APLICA_PROMOCION);
+		// 2. Act
+	Pedido pedido = pedidoTestDataBuilder.build();
+		// 3. Assert
+	assertEquals(25.000, pedido.getPrecioTotal().doubleValue());
 	}
 	
 }

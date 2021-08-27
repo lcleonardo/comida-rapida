@@ -7,8 +7,8 @@ import com.ceiba.pedido.puerto.repositorio.RepositorioPedido;
 
 public class ServicioCrearPedido {
 
-	private final  Double DOSCIENTOS_MIL = 200.000;
-	private final  Double CINCUENTA_PORCIENTO_DE_DESCUENTO = 2.0;
+	private final static Double DOSCIENTOS_MIL = 200.000;
+	private final static Integer APLICA_PROMOCION  = 1;
 	
 	private RepositorioPedido repositorioPedido;
 
@@ -30,7 +30,8 @@ public class ServicioCrearPedido {
 					pedido.getDireccionDomicilio(),
 					pedido.getPlacaVehiculo(),
 					pedido.getPorcentajeDescuento(),
-					pedido.getPrecioCompra() / CINCUENTA_PORCIENTO_DE_DESCUENTO);
+					pedido.getPrecioCompra(),
+					APLICA_PROMOCION);
 		}
 		return pedido;
 	}

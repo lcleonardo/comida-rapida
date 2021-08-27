@@ -9,5 +9,8 @@ public interface RepositorioPedido {
 	public void eliminar(Long id);
 	
 	public Double totalCompraEnEstaSemana(String codigoCliente);
+	
+	public String ultimaFechaPromocion(String idCliente);
+	
 
 }

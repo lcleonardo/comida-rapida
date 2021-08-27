@@ -23,6 +23,8 @@ public class RepositorioDescuentoMysql implements RepositorioDescuento {
 	@SqlStatement(namespace = "descuento", value = "existePorFecha")
 	private static String sqlExistePorFecha;
 
+	
+	
 	public RepositorioDescuentoMysql(CustomNamedParameterJdbcTemplate customNamedParameterJdbcTemplate) {
 		this.customNamedParameterJdbcTemplate = customNamedParameterJdbcTemplate;
 	}
@@ -31,7 +33,7 @@ public class RepositorioDescuentoMysql implements RepositorioDescuento {
 	public Long crear(Descuento descuento) {
 		return this.customNamedParameterJdbcTemplate.crear(descuento, sqlCrear);
 	}
-
+	
 	@Override
 	public boolean existePorFecha(String fecha) {
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
@@ -39,7 +41,6 @@ public class RepositorioDescuentoMysql implements RepositorioDescuento {
 		return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().queryForObject(sqlExistePorFecha, paramSource,
 				Boolean.class);
 	}
-
 	
 	@Override
 	public void eliminar(Long id) {

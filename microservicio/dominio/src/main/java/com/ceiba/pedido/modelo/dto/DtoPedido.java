@@ -19,5 +19,6 @@ public class DtoPedido {
 	private Double porcentajeDescuento;
 	private Double precioCompra;
 	private Double precioTotal;
+	private Integer aplicaPromocion;
 	
 }
