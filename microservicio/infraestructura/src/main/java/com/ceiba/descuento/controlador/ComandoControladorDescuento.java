@@ -16,7 +16,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping("/descuento")
+@RequestMapping("/descuentos")
 @Api(tags = { "Controlador comando descuento" })
 public class ComandoControladorDescuento {
 	
@@ -31,13 +31,13 @@ public class ComandoControladorDescuento {
 	
 
 	@PostMapping
-	@ApiOperation("Crear Descuento")
+	@ApiOperation("Crear descuento")
 	public ComandoRespuesta<Long> crear(@RequestBody ComandoDescuento comandoDescuento) {
 		return manejadorCrearDescuento.ejecutar(comandoDescuento);
 	}
 
 	@DeleteMapping(value = "/{id}")
-	@ApiOperation("Eliminar Descuento")
+	@ApiOperation("Eliminar descuento")
 	public void eliminar(@PathVariable Long id) {
 		this.manejadorEliminarDescuento.ejecutar(id);
 	}

@@ -8,4 +8,7 @@ public interface RepositorioDescuento {
 	
 	public void eliminar(Long id);
 	
+	public boolean existePorFecha(String fecha);
+	
+	
 }

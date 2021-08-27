@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Configuration;
 import com.ceiba.descuento.puerto.repositorio.RepositorioDescuento;
 import com.ceiba.descuento.servicio.ServicioCrearDescuento;
 import com.ceiba.descuento.servicio.ServicioEliminarDescuento;
-import com.ceiba.pedido.puerto.dao.DaoDescuento;
 import com.ceiba.pedido.puerto.repositorio.RepositorioPedido;
 import com.ceiba.pedido.servicio.ServicioCrearPedido;
 import com.ceiba.pedido.servicio.ServicioEliminarPedido;
@@ -25,8 +24,8 @@ public class BeanConfiguracion {
 	}
 
 	@Bean
-	public ServicioCrearDescuento servicioCrearDescuento(RepositorioDescuento repositorioDescuento, DaoDescuento daoDescuento) {
-		return new ServicioCrearDescuento(repositorioDescuento, daoDescuento);
+	public ServicioCrearDescuento servicioCrearDescuento(RepositorioDescuento repositorioDescuento) {
+		return new ServicioCrearDescuento(repositorioDescuento);
 	}
 
 	

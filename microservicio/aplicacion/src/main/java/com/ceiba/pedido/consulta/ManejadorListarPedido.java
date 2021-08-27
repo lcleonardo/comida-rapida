@@ -8,11 +8,11 @@ import com.ceiba.descuento.puerto.dao.DaoPedido;
 import com.ceiba.pedido.modelo.dto.DtoPedido;
 
 @Component
-public class ConsultaListarPedido {
+public class ManejadorListarPedido {
 
 	private final DaoPedido daoPedido;
 
-	public ConsultaListarPedido(DaoPedido daoPedido) {
+	public ManejadorListarPedido(DaoPedido daoPedido) {
 		this.daoPedido = daoPedido;
 	}
 

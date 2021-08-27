@@ -1,0 +1,2 @@
+SELECT SUM(PRECIO_TOTAL) FROM PEDIDO WHERE CODIGO_CLIENTE =:codigoCliente
+AND FECHA >=:fechaDesde AND <=:fechaHasta

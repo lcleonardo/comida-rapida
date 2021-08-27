@@ -15,7 +15,7 @@ public class ServicioEliminarPedidoMockTest {
 	private static final Long ID_NO_VALIDO = null;
 	
 	@Test
-	public void validarEliminarPedido(){
+	public void validarEliminarPedidoTest(){
 		// Arrange
 		// Act
 		RepositorioPedido repositorioPedido = Mockito.mock(RepositorioPedido.class);

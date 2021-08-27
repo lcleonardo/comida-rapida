@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ceiba.pedido.consulta.ConsultaListarPedido;
+import com.ceiba.pedido.consulta.ManejadorListarPedido;
 import com.ceiba.pedido.modelo.dto.DtoPedido;
 
 import io.swagger.annotations.Api;
@@ -17,9 +17,9 @@ import io.swagger.annotations.ApiOperation;
 @Api(tags = { "Controlador consulta pedido" })
 public class ConsultaControladorPedido {
 
-	private ConsultaListarPedido manejadorListarPedidos;
+	private ManejadorListarPedido manejadorListarPedidos;
 
-	public ConsultaControladorPedido(ConsultaListarPedido manejadorListarPedidos) {
+	public ConsultaControladorPedido(ManejadorListarPedido manejadorListarPedidos) {
 		this.manejadorListarPedidos = manejadorListarPedidos;
 	}
 
@@ -30,3 +30,5 @@ public class ConsultaControladorPedido {
 	}
 
 }
+
+

@@ -69,7 +69,7 @@ public class Pedido {
 		return new Pedido(fechaValida, codigoCliente, codigoProducto, direccionDomicilio, placaVehiculo,
 				precioDomicilio, porcentajeDescuento, precioCompra, precioTotal);
 	}
-
+		
 	private static void validarFormatoPlacaVehiculo(String placaVehiculo, String mensaje) {
 		try {
 			String ultimoCaracter = placaVehiculo.substring(placaVehiculo.length() - 1);
