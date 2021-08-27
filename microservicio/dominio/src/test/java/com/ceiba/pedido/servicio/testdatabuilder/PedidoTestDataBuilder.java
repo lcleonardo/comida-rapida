@@ -9,8 +9,8 @@ public class PedidoTestDataBuilder {
 	private String codigoProducto;
 	private String direccionDomicilio;
 	private String placaVehiculo;
-	private Double porcentajeDescuento;
 	private Double precioCompra;
+	private Double porcentajeDescuento;
 	private Integer aplicaPromocion;
 
 	public PedidoTestDataBuilder() {
@@ -19,9 +19,9 @@ public class PedidoTestDataBuilder {
 		this.codigoProducto = "0001";
 		this.direccionDomicilio = "San juan de carolina, calle 123";
 		this.placaVehiculo = "VKH526";
-		this.porcentajeDescuento = 0.0;
 		this.precioCompra = 20.000;
 		this.aplicaPromocion = 0;
+		this.porcentajeDescuento = 0.0;
 	}
 
 	public PedidoTestDataBuilder conFecha(String fecha) {
@@ -49,24 +49,33 @@ public class PedidoTestDataBuilder {
 		return this;
 	}
 
-	public PedidoTestDataBuilder conPorcentajeDescuento(Double porcentajeDescuento) {
-		this.porcentajeDescuento = porcentajeDescuento;
-		return this;
-	}
+
 
 	public PedidoTestDataBuilder conPrecioCompra(Double precioCompra) {
 		this.precioCompra = precioCompra;
 		return this;
 	}
-	
-	public PedidoTestDataBuilder conAplicaPromocion(Integer aplicaPromocion) {
-		this.aplicaPromocion = aplicaPromocion;
+
+
+	public PedidoTestDataBuilder conAplicaPromocion(Integer aplicapPromocion) {
+		this.aplicaPromocion = aplicapPromocion;
 		return this;
 	}
-
+	
+	public PedidoTestDataBuilder conPorcentajeDescuento(Double porcentajeDescuneto) {
+		this.porcentajeDescuento = porcentajeDescuneto;
+		return this;
+	}
+	
 	public Pedido build() {
-		return Pedido.crear(fecha, codigoCliente, codigoProducto, direccionDomicilio, placaVehiculo,
-				porcentajeDescuento, precioCompra, aplicaPromocion);
+		return Pedido.crear(fecha,
+				codigoCliente,
+				codigoProducto,
+				direccionDomicilio,
+				placaVehiculo,
+				porcentajeDescuento,
+				precioCompra, 
+				aplicaPromocion);
 	}
 
 }

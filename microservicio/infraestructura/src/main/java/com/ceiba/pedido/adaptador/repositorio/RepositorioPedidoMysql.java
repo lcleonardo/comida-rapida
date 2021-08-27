@@ -29,9 +29,8 @@ public class RepositorioPedidoMysql implements RepositorioPedido {
 	@SqlStatement(namespace = "pedido", value = "totalCompraEnEstaSemana")
 	private String sqlTotalCompraEnEstaSemana;
 	
-	@SqlStatement(namespace = "pedido", value = "ultimaFechaPromocion")
-	private static String sqlUltimaFechaPromocion;
-
+	@SqlStatement(namespace = "pedido", value = "aplicaPromocion")
+	private static String sqlAplicaPromocion;
 
 
 	@Override
@@ -47,29 +46,24 @@ public class RepositorioPedidoMysql implements RepositorioPedido {
 	}
 	
 	@Override
-	public String ultimaFechaPromocion(String codigoCliente) {
-		try {
+	public Boolean aplicaPromocion(Pedido pedido) {
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
-		paramSource.addValue("codigoCliente", codigoCliente);
-		return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().queryForObject(sqlUltimaFechaPromocion, paramSource,
-				String.class);	
-		} catch (Exception e) {
-			return null;
-		}
+		paramSource.addValue("codigoCliente", pedido.getCodigoCliente());
+		paramSource.addValue("fechaDesde", pedido.getFecha().minusDays(7));
+		paramSource.addValue("fechaHasta", pedido.getFecha());
+		Integer respuesta = this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate()
+				.queryForObject(sqlAplicaPromocion, paramSource,
+				Integer.class);
+		return respuesta == 0;
 	}
 	
 	
 	@Override
-	public Double totalCompraEnEstaSemana(String codigoCliente) {
-		LocalDate fechaActual = LocalDate.now();
-		String ultimaFecha = ultimaFechaPromocion(codigoCliente);
-		if(ultimaFecha != null) {
-			fechaActual = LocalDate.parse(ultimaFecha);
-		}
+	public Double totalComprasSemanaActual(Pedido pedido) {
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
-		paramSource.addValue("codigoCliente", codigoCliente);
-		paramSource.addValue("fechaDesde", fechaActual.minusDays(7).format(DateTimeFormatter.ISO_DATE));
-		paramSource.addValue("fechaHasta", fechaActual.format(DateTimeFormatter.ISO_DATE));
+		paramSource.addValue("codigoCliente", pedido.getCodigoCliente());
+		paramSource.addValue("fechaDesde", pedido.getFecha().minusDays(7));
+		paramSource.addValue("fechaHasta", pedido.getFecha());
 		return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().queryForObject(sqlTotalCompraEnEstaSemana,
 				paramSource, Double.class);
 		

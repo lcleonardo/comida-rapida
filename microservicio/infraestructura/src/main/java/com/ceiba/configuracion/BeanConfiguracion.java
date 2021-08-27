@@ -14,8 +14,8 @@ import com.ceiba.pedido.servicio.ServicioEliminarPedido;
 public class BeanConfiguracion {
 
 	@Bean
-	public ServicioCrearPedido servicioCrearPedido(RepositorioPedido repositorioPedido) {
-		return new ServicioCrearPedido(repositorioPedido);
+	public ServicioCrearPedido servicioCrearPedido(RepositorioPedido repositorioPedido, RepositorioDescuento repositorioDescuento) {
+		return new ServicioCrearPedido(repositorioPedido, repositorioDescuento);
 	}
 
 	@Bean

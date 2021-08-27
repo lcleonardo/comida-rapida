@@ -14,9 +14,9 @@ public class FabricaPedido {
 				comando.getCodigoProducto(),
 				comando.getDireccionDomicilio(),
 				comando.getPlacaVehiculo(),
-				comando.getPorcentajeDescuento(),
+				0.0,
 				comando.getPrecioCompra(),
-				comando.getAplicaPromocion());
+				0);
 	}
 
 }

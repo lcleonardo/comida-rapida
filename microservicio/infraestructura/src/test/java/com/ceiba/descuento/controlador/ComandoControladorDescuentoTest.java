@@ -35,13 +35,16 @@ public class ComandoControladorDescuentoTest {
 	@Test
 	public void crearDescuento() throws Exception {
 		// arrange
-		ComandoDescuento comandoDescuento = new ComandoDescuentoTestDataBuilder().build();
+		ComandoDescuento comandoDescuento = new ComandoDescuentoTestDataBuilder()
+				.conPorcentaje(5.0)
+				.build();
 
 		// act - assert
 		mocMvc.perform(MockMvcRequestBuilders.post("/descuentos")
 				.content(objectMapper.writeValueAsString(comandoDescuento))
 				.contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
+				.accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
 				.andExpect(MockMvcResultMatchers.jsonPath("$.valor").exists());
 	}
 

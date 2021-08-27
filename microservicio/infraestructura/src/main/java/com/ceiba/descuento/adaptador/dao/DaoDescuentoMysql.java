@@ -1,5 +1,7 @@
 package com.ceiba.descuento.adaptador.dao;
 
+import java.util.List;
+
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Component;
 
@@ -13,23 +15,17 @@ public class DaoDescuentoMysql implements DaoDescuento {
 
 	private final CustomNamedParameterJdbcTemplate customNamedParameterJdbcTemplate;
 
-	@SqlStatement(namespace = "descuento", value = "buscarPorFecha")
-	private static String sqlBuscarPorFecha;
+	@SqlStatement(namespace = "descuento", value = "listar")
+	private static String sqlListar;
 
 	public DaoDescuentoMysql(CustomNamedParameterJdbcTemplate customNamedParameterJdbcTemplate) {
 		this.customNamedParameterJdbcTemplate = customNamedParameterJdbcTemplate;
 	}
 
 	@Override
-	public DtoDescuento obtenerPorFecha(String fecha) {
-		try {
-			MapSqlParameterSource paramSource = new MapSqlParameterSource();
-			paramSource.addValue("fecha", fecha);
+	public List<DtoDescuento> listar() {
 			return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate()
-					.queryForObject(sqlBuscarPorFecha, paramSource, new MapeoDescuento());
-		} catch (Exception e) {
-		}
-		return null;
+					.query(sqlListar, new MapeoDescuento());
 	}
 
 }

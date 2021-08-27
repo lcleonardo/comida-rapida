@@ -20,16 +20,14 @@ import com.ceiba.descuento.consulta.ManejadorListarDescuento;
 @WebMvcTest(ManejadorListarDescuento.class)
 public class ConsultaControladorDescuentoTest {
 	
-	private final String FECHA = "2021-08-26";
-	
 	@Autowired
 	private MockMvc mocMvc;
 
 	@Test
-	public void listarDescuentoPorFecha() throws Exception {
+	public void listarDescuentos() throws Exception {
 		//arrange act - assert
 		mocMvc.perform(MockMvcRequestBuilders
-				.get("/descuentos/"+FECHA)
+				.get("/descuentos")
 				.contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk());

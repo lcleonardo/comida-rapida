@@ -22,11 +22,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @ContextConfiguration(classes = ApplicationMock.class)
 @WebMvcTest(ComandoControladorPedido.class)
 public class ComandoControladorPedidoTest {
-
-	private final Long ID_EN_BASE_DE_DATOS_DE_PRUEBA = 1L;
-	private final String PLACA_TERMINADA_EN_NUMERO_PAR = "VKH246";
-	private final String FECHA = "2021-08-18";
-
+	
+	private final Long ID = 1L;
+	
 	@Autowired
 	private ObjectMapper objectMapper;
 
@@ -34,25 +32,36 @@ public class ComandoControladorPedidoTest {
 	private MockMvc mocMvc;
 
 	@Test
-	public void crearPedido() throws Exception {
-
+	public void crearPedidoTest() throws Exception {
+			
 		// arrange
 		ComandoPedido pedido = new ComandoPedidoTestDataBuilder()
-				.conPlaca(PLACA_TERMINADA_EN_NUMERO_PAR)
-				.conFecha(FECHA).build();
+				.conFecha("2021-09-13")
+				.conCodigoCliente("1094")
+				.conCodigoProducto("1000")
+				.conDireccionDomicilio("Vereda san juan de carolina.")
+				.conPlacaVehiculo("VKH525")
+				.conPrecioCompra(100.000)
+				.build();
 
 		// act - assert
-		mocMvc.perform(MockMvcRequestBuilders.post("/pedidos").content(objectMapper.writeValueAsString(pedido))
-				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
+		mocMvc.perform(MockMvcRequestBuilders.post("/pedidos")
+				.content(objectMapper.writeValueAsString(pedido))
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
 				.andExpect(MockMvcResultMatchers.jsonPath("$.valor").exists());
 	}
 
 	@Test
-	public void eliminarPedido() throws Exception {
+	public void eliminarPedidoTest() throws Exception {
 		// arrange
 		// act - assert
-		mocMvc.perform(MockMvcRequestBuilders.delete("/pedidos/" + ID_EN_BASE_DE_DATOS_DE_PRUEBA)
-				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+		mocMvc.perform(MockMvcRequestBuilders
+				.delete("/pedidos/" + ID)
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk());
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.ceiba.descuento.servicio.mock;
 
+
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.runner.RunWith;
@@ -25,7 +26,5 @@ public class ServicioEliminarDescuentoMockTest {
 	public void validarEliminarDescuento() {
 		Assertions.assertDoesNotThrow(()->this.servicioEliminarDescuento.ejecutar(ID));
 	}
-	
-	
 
 }

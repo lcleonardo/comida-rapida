@@ -24,7 +24,7 @@ public class ComandoDescuentoTestDataBuilder {
 		return this;
 	}
 	
-	public ComandoDescuentoTestDataBuilder conId(Double porcentaje) {
+	public ComandoDescuentoTestDataBuilder conPorcentaje(Double porcentaje) {
 		this.porcentaje = porcentaje;
 		return this;
 	}

@@ -1,5 +1,7 @@
 package com.ceiba.descuento.consulta;
 
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 
@@ -16,7 +18,8 @@ public class ManejadorListarDescuento {
 		this.daoDescuento = daoDescuento;
 	}
 
-	public DtoDescuento ejecutar(String fecha) {
-		return this.daoDescuento.obtenerPorFecha(fecha);
+	public List<DtoDescuento> ejecutar() {
+		return this.daoDescuento.listar();
 	}
+	
 }

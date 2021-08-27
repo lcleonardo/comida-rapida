@@ -1,10 +1,10 @@
 package com.ceiba.descuento.controlador;
 
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ceiba.descuento.consulta.ManejadorListarDescuento;
@@ -25,12 +25,10 @@ public class ConsultaControladorDescuento {
 		this.manejadorListarDescuento = manejadorListarDescuento;
 	}
 
-	@GetMapping(value = "/{fecha}")
-	@ApiOperation("Listar descuento por fecha")
-	public DtoDescuento obtenerPorFecha(@PathVariable String fecha) {
-		return this.manejadorListarDescuento.ejecutar(fecha);
+	@GetMapping
+	@ApiOperation("Listar descuentos")
+	public List<DtoDescuento> obtenerPorFecha() {
+		return this.manejadorListarDescuento.ejecutar();
 	}
-	
-	
-	
+		
 }

@@ -37,7 +37,7 @@ public class ServicioCrearDescuentoMockTest {
 	}
 
 	@Test
-	public void validarYaExisteunDescuentoAsignadoALaFechaTest() {
+	public void validarYaExisteUnDescuentoAsignadoALaFechaTest() {
 		// Arrange
 		Descuento descuento = new DescuentoTestDataBuilder()
 				.conFecha("2021-08-26")

@@ -1,5 +1,6 @@
 package com.ceiba.pedido.puerto.repositorio;
 
+
 import com.ceiba.pedido.modelo.entidad.Pedido;
 
 public interface RepositorioPedido {
@@ -8,9 +9,9 @@ public interface RepositorioPedido {
 
 	public void eliminar(Long id);
 	
-	public Double totalCompraEnEstaSemana(String codigoCliente);
+	public Double totalComprasSemanaActual(Pedido pedido);
 	
-	public String ultimaFechaPromocion(String idCliente);
+	public Boolean aplicaPromocion(Pedido pedido);
 	
 
 }

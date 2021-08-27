@@ -19,7 +19,5 @@ public class ComandoPedido{
 	private String codigoProducto;
 	private String direccionDomicilio;
 	private String placaVehiculo;
-	private Double porcentajeDescuento;
 	private Double precioCompra;
-	private Integer aplicaPromocion;
 }
