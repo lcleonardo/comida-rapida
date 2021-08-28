@@ -1,14 +1,16 @@
 package com.ceiba.descuento.servicio.testdatabuilder;
 
 
+
 import com.ceiba.descuento.modelo.entidad.Descuento;
 
 public class DescuentoTestDataBuilder {
 	
 	private String fecha;
 	private Double porcentaje;
+	
 	public DescuentoTestDataBuilder() {
-		this.fecha = "2021-08-25";
+		this.fecha = "2021-08-21";
 		this.porcentaje = 5.0;
 	}
 	

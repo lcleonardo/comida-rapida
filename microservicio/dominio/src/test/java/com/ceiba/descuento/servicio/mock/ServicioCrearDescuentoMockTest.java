@@ -25,11 +25,12 @@ public class ServicioCrearDescuentoMockTest {
 	private ServicioCrearDescuento servicioCrearDescuento;
 
 	@Test
-	public void validarCrearDescuentoTest() {
+	public void crearDescuentoTest() {
 		// Arrange
 		Descuento descuento = new DescuentoTestDataBuilder()
 				.conFecha("2021-08-26")
-				.conPorcentaje(10.0).build();
+				.conPorcentaje(10.0)
+				.build();
 		// Act
 		// Assert
 		Long id = servicioCrearDescuento.ejecutar(descuento);
@@ -37,15 +38,19 @@ public class ServicioCrearDescuentoMockTest {
 	}
 
 	@Test
-	public void validarYaExisteUnDescuentoAsignadoALaFechaTest() {
+	public void yaExisteUnDescuentoAsignadoALaFechaTest() {
 		// Arrange
 		Descuento descuento = new DescuentoTestDataBuilder()
 				.conFecha("2021-08-26")
 				.conPorcentaje(10.0).build();
 		// Act
-		Mockito.when(repositorioDescuento.existePorFecha("2021-08-26")).thenReturn(true);
+		Mockito.when(repositorioDescuento
+				.existeUnDescuentoEnLaFecha("2021-08-26"))
+				.thenReturn(true);
 		// Assert
-		BasePrueba.assertThrows(() -> servicioCrearDescuento.ejecutar(descuento), ExcepcionDuplicidad.class,
+		BasePrueba.assertThrows(() -> servicioCrearDescuento
+				.ejecutar(descuento), 
+				ExcepcionDuplicidad.class,
 				"Ya existe un descuento asignado a la fecha.");
 	}
 

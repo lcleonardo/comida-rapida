@@ -17,13 +17,13 @@ public class ServicioCrearDescuento {
 	}
 
 	public Long ejecutar(Descuento descuento) {
-		validarSiExisteDescuento(descuento);
+		validarSiExisteUnDescuento(descuento);
 		return this.repositorioDescuento.crear(descuento);
 	}
 
-	private void validarSiExisteDescuento(Descuento descuento) {
+	private void validarSiExisteUnDescuento(Descuento descuento) {
 		String fecha = descuento.getFecha().format(DateTimeFormatter.ISO_DATE);
-		boolean respuesta = this.repositorioDescuento.existePorFecha(fecha); 
+		boolean respuesta = this.repositorioDescuento.existeUnDescuentoEnLaFecha(fecha); 
 		if (respuesta) {
 			throw new ExcepcionDuplicidad(YA_EXISTE_UN_DESCUENTO_ASIGNADO_A_LA_FECHA);
 		}

@@ -26,7 +26,7 @@
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
       </ThreadGroup>
       <hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP GET http://localhost:8083/venta-comida-domicilio/pedidos" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP GET /pedidos" enabled="true">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="Variables definidas por el Usuario" enabled="true">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
@@ -45,20 +45,19 @@
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
         </HTTPSamplerProxy>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP POST http://localhost:8083/venta-comida-domicilio/pedidos" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP POST /pedidos" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
             <collectionProp name="Arguments.arguments">
               <elementProp name="" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
                 <stringProp name="Argument.value">{&#xd;
-    &quot;id&quot;: &quot;1&quot;,&#xd;
-    &quot;fecha&quot;: &quot;2021-08-19&quot;,&#xd;
-    &quot;codigoCliente&quot; : &quot;194911832&quot;,&#xd;
-    &quot;codigoProducto&quot;: &quot;0001&quot;,&#xd;
-    &quot;direccionDomicilio&quot;: &quot;San juan de carolina Calle 123&quot;,&#xd;
-    &quot;placaVehiculo&quot;: &quot;VKH525&quot;,&#xd;
-    &quot;precioTotalCompra&quot;: &quot;20000&quot;&#xd;
+    &quot;fecha&quot;: &quot;2021-09-13&quot;,&#xd;
+    &quot;codigoCliente&quot; : &quot;1094&quot;,&#xd;
+    &quot;codigoProducto&quot;: &quot;0002&quot;,&#xd;
+    &quot;direccionDomicilio&quot;: &quot;San juan de carolina #123&quot;,&#xd;
+    &quot;placaVehiculo&quot;: &quot;VKH524&quot;,&#xd;
+    &quot;precioCompra&quot;: 100000&#xd;
 }</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>

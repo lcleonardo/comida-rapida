@@ -42,10 +42,12 @@ public class RepositorioDescuentoMysql implements RepositorioDescuento {
 	}
 
 	@Override
-	public boolean existePorFecha(String fecha) {
+	public boolean existeUnDescuentoEnLaFecha(String fecha) {
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
 		paramSource.addValue("fecha", fecha);
-		return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().queryForObject(sqlExistePorFecha,
+		return this.customNamedParameterJdbcTemplate
+				.getNamedParameterJdbcTemplate()
+				.queryForObject(sqlExistePorFecha,
 				paramSource, Boolean.class);
 	}
 

@@ -41,9 +41,10 @@ public class ServicioCrearPedido {
 	}
 	
 	private Integer obtenerAplicaPromocion(Pedido pedido) {
-		boolean aplicaPromocion = this.repositorioPedido.aplicaPromocion(pedido);
-		Double totalComprasSemanaActual = this.repositorioPedido.totalComprasSemanaActual(pedido);
-		boolean respuesta = aplicaPromocion && totalComprasSemanaActual > DOSCIENTOS_MIL;
+		boolean aplicaPromocionDeDescuento = this.repositorioPedido.aplicaPromocionDeDescuento(pedido);
+		Double totalComprasALaFechaDelPedido = this.repositorioPedido.totalComprasALaFechaDelPedido(pedido);
+		boolean respuesta = aplicaPromocionDeDescuento 
+				&& totalComprasALaFechaDelPedido > DOSCIENTOS_MIL;
 		return respuesta ? APLICA_PROMOCION : NO_APLICA_PROMOCION;
 	}
 

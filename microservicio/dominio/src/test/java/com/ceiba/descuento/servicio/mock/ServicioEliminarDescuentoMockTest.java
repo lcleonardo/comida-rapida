@@ -23,8 +23,9 @@ public class ServicioEliminarDescuentoMockTest {
 	private ServicioEliminarDescuento servicioEliminarDescuento;
 	
 	@Test 
-	public void validarEliminarDescuento() {
-		Assertions.assertDoesNotThrow(()->this.servicioEliminarDescuento.ejecutar(ID));
+	public void eliminarDescuentoTest() {
+		Assertions.assertDoesNotThrow(
+				()-> this.servicioEliminarDescuento.ejecutar(ID));
 	}
 
 }

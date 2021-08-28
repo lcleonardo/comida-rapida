@@ -17,9 +17,11 @@ public class ServicioCreaDescuentoUnitTest {
 	@Test
 	public void crearDescuentoTest() {
 		// 1. Arrange
-		DescuentoTestDataBuilder descuentoTestDataBuilder = new DescuentoTestDataBuilder();
+		DescuentoTestDataBuilder descuentoTestDataBuilder = new DescuentoTestDataBuilder()
+				.conFecha("2021-08-25");
 		// 2. Act
-		Descuento descuento = descuentoTestDataBuilder.build();
+		Descuento descuento = descuentoTestDataBuilder.
+				build();
 
 		// 3. Assert
 		assertEquals("2021-08-25", descuento.getFecha().format(DateTimeFormatter.ISO_DATE));
@@ -29,19 +31,23 @@ public class ServicioCreaDescuentoUnitTest {
 	@Test
 	public void crearDescuentoConFechaNulaTest() {
 		// 1. Arrange
-		DescuentoTestDataBuilder descuentoTestDataBuilder = new DescuentoTestDataBuilder().conFecha(null);
+		DescuentoTestDataBuilder descuentoTestDataBuilder = new DescuentoTestDataBuilder()
+				.conFecha(null);
 		// 2. Act
 		// 3. Assert
-		assertThrows(ExcepcionValorObligatorio.class, () -> descuentoTestDataBuilder.build(), "Fecha incorrecta, debe tener el siguiente formato: yyyy-MM-dd.");
+		assertThrows(ExcepcionValorObligatorio.class,
+				() -> descuentoTestDataBuilder.build(), "Fecha incorrecta, debe tener el siguiente formato: yyyy-MM-dd.");
 	}
 
 	@Test
 	public void crearDescuentoConFechaFormatoIncorrectoTest() {
 		// 1. Arrange
-		DescuentoTestDataBuilder descuentoTestDataBuilder = new DescuentoTestDataBuilder().conFecha("08-25-2021");
+		DescuentoTestDataBuilder descuentoTestDataBuilder = new DescuentoTestDataBuilder()
+				.conFecha("08-25-2021");
 		// 2. Act
 		// 3. Assert
-		assertThrows(ExcepcionValorInvalido.class, () -> descuentoTestDataBuilder.build(), "Fecha incorrecta, debe tener el siguiente formato: yyyy-MM-dd.");
+		assertThrows(ExcepcionValorInvalido.class, 
+				() -> descuentoTestDataBuilder.build(), "Fecha incorrecta, debe tener el siguiente formato: yyyy-MM-dd.");
 	}
 
 	@Test
@@ -50,7 +56,8 @@ public class ServicioCreaDescuentoUnitTest {
 		DescuentoTestDataBuilder descuentoTestDataBuilder = new DescuentoTestDataBuilder().conPorcentaje(null);
 		// 2. Act
 		// 3. Assert
-		assertThrows(ExcepcionValorObligatorio.class, () -> descuentoTestDataBuilder.build(), "El porcentaje de descuento debe ser un número mayor a 0.0");
+		assertThrows(ExcepcionValorObligatorio.class,
+				() -> descuentoTestDataBuilder.build(), "El porcentaje de descuento debe ser un número mayor a 0.0");
 	}
 
 	
@@ -60,7 +67,8 @@ public class ServicioCreaDescuentoUnitTest {
 		DescuentoTestDataBuilder descuentoTestDataBuilder = new DescuentoTestDataBuilder().conPorcentaje(-10.0);
 		// 2. Act
 		// 3. Assert
-		assertThrows(ExcepcionValorInvalido.class, () -> descuentoTestDataBuilder.build(), "El porcentaje de descuento debe ser un número mayor a 0.0");
+		assertThrows(ExcepcionValorInvalido.class,
+				() -> descuentoTestDataBuilder.build(), "El porcentaje de descuento debe ser un número mayor a 0.0");
 	}
 
 

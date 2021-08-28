@@ -46,7 +46,7 @@ public class RepositorioPedidoMysql implements RepositorioPedido {
 	}
 	
 	@Override
-	public Boolean aplicaPromocion(Pedido pedido) {
+	public Boolean aplicaPromocionDeDescuento(Pedido pedido) {
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
 		paramSource.addValue("codigoCliente", pedido.getCodigoCliente());
 		paramSource.addValue("fechaDesde", pedido.getFecha().minusDays(7));
@@ -59,7 +59,7 @@ public class RepositorioPedidoMysql implements RepositorioPedido {
 	
 	
 	@Override
-	public Double totalComprasSemanaActual(Pedido pedido) {
+	public Double totalComprasALaFechaDelPedido(Pedido pedido) {
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
 		paramSource.addValue("codigoCliente", pedido.getCodigoCliente());
 		paramSource.addValue("fechaDesde", pedido.getFecha().minusDays(7));
