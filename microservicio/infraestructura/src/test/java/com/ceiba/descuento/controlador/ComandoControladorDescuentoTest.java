@@ -36,7 +36,8 @@ public class ComandoControladorDescuentoTest {
 	public void crearDescuento() throws Exception {
 		// arrange
 		ComandoDescuento comandoDescuento = new ComandoDescuentoTestDataBuilder()
-				.conPorcentaje(5.0)
+				.conFecha("2021-08-29")
+				.conPorcentaje(5.0)	
 				.build();
 
 		// act - assert

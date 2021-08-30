@@ -8,9 +8,9 @@ import com.ceiba.pedido.puerto.repositorio.RepositorioPedido;
 
 public class ServicioCrearPedido {
 
-	private final static Double DOSCIENTOS_MIL = 200000.0;
-	private final static Integer APLICA_PROMOCION = 1;
-	private final static Integer NO_APLICA_PROMOCION = 0;
+	private static final Double DOSCIENTOS_MIL = 200000.0;
+	private static final Integer APLICA_PROMOCION = 1;
+	private static final Integer NO_APLICA_PROMOCION = 0;
 
 	private RepositorioPedido repositorioPedido;
 	private RepositorioDescuento repositorioDescuento;
@@ -21,19 +21,21 @@ public class ServicioCrearPedido {
 	}
 
 	public Long ejecutar(Pedido pedido) {
-		Pedido pedidoVerificado = verificarTotalCompra(pedido);
-		return this.repositorioPedido.crear(pedidoVerificado);
+		Pedido pedidoConPorcentajeYPromocionDescuento = obtenerPedidoConPorcentajeYPromocionDescuento(pedido);
+		return this.repositorioPedido.crear(pedidoConPorcentajeYPromocionDescuento);
 	}
 
-	public Pedido verificarTotalCompra(Pedido pedido) {
-			return Pedido.crear(pedido.getFecha().format(DateTimeFormatter.ISO_DATE), 
+	public Pedido obtenerPedidoConPorcentajeYPromocionDescuento(Pedido pedido) {
+		Double porcentajeDescuento = obtenerPorcentajeDescuento(pedido);	
+		Integer aplicaPromocion = obtenerAplicaPromocion(pedido);	
+		return Pedido.crear(pedido.getFecha().format(DateTimeFormatter.ISO_DATE), 
 					pedido.getCodigoCliente(),
 					pedido.getCodigoProducto(),
 					pedido.getDireccionDomicilio(),
 					pedido.getPlacaVehiculo(),
-					obtenerPorcentajeDescuento(pedido),
+					porcentajeDescuento,
 					pedido.getPrecioCompra(),
-					obtenerAplicaPromocion(pedido));
+					aplicaPromocion);
 	}
 
 	private Double obtenerPorcentajeDescuento(Pedido pedido) {
@@ -43,9 +45,9 @@ public class ServicioCrearPedido {
 	private Integer obtenerAplicaPromocion(Pedido pedido) {
 		boolean aplicaPromocionDeDescuento = this.repositorioPedido.aplicaPromocionDeDescuento(pedido);
 		Double totalComprasALaFechaDelPedido = this.repositorioPedido.totalComprasALaFechaDelPedido(pedido);
-		boolean respuesta = aplicaPromocionDeDescuento 
-				&& totalComprasALaFechaDelPedido > DOSCIENTOS_MIL;
-		return respuesta ? APLICA_PROMOCION : NO_APLICA_PROMOCION;
+		return (aplicaPromocionDeDescuento 
+				&& totalComprasALaFechaDelPedido > DOSCIENTOS_MIL) 
+				? APLICA_PROMOCION : NO_APLICA_PROMOCION;
 	}
 
 }

@@ -2,7 +2,6 @@ package com.ceiba.descuento.puerto.repositorio;
 
 import java.time.LocalDate;
 
-import com.ceiba.descuento.modelo.dto.DtoDescuento;
 import com.ceiba.descuento.modelo.entidad.Descuento;
 
 public interface RepositorioDescuento {

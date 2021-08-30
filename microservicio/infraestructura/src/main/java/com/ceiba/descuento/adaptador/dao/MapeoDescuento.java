@@ -3,6 +3,7 @@ package com.ceiba.descuento.adaptador.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import org.springframework.jdbc.core.RowMapper;
 
