@@ -11,5 +11,5 @@ public class DtoDescuento {
 
 	private Long id;
 	private LocalDate fecha;
-	private Double porcentajeDescuento;
+	private Double porcentaje;
 }

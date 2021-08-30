@@ -62,9 +62,21 @@ public class ServicioCreaDescuentoUnitTest {
 
 	
 	@Test
+	public void crearDescuentoConPorcentajeIgualACeroTest() {
+		// 1. Arrange
+		DescuentoTestDataBuilder descuentoTestDataBuilder = new DescuentoTestDataBuilder()
+				.conPorcentaje(0.0);
+		// 2. Act
+		// 3. Assert
+		assertThrows(ExcepcionValorInvalido.class,
+				() -> descuentoTestDataBuilder.build(), "El porcentaje de descuento debe ser un número mayor a 0.0");
+	}
+	
+	@Test
 	public void crearDescuentoConPorcentajeMenorACeroTest() {
 		// 1. Arrange
-		DescuentoTestDataBuilder descuentoTestDataBuilder = new DescuentoTestDataBuilder().conPorcentaje(-10.0);
+		DescuentoTestDataBuilder descuentoTestDataBuilder = new DescuentoTestDataBuilder()
+				.conPorcentaje(-10.0);
 		// 2. Act
 		// 3. Assert
 		assertThrows(ExcepcionValorInvalido.class,

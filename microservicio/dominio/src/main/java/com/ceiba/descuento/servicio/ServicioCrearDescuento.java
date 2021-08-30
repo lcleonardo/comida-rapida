@@ -22,9 +22,8 @@ public class ServicioCrearDescuento {
 	}
 
 	private void validarSiExisteUnDescuento(Descuento descuento) {
-		String fecha = descuento.getFecha().format(DateTimeFormatter.ISO_DATE);
-		boolean respuesta = this.repositorioDescuento.existeUnDescuentoEnLaFecha(fecha); 
-		if (respuesta) {
+		boolean existe = this.repositorioDescuento.existeUnDescuentoEnLaFecha(descuento.getFecha().format(DateTimeFormatter.ISO_DATE)); 
+		if (existe) {
 			throw new ExcepcionDuplicidad(YA_EXISTE_UN_DESCUENTO_ASIGNADO_A_LA_FECHA);
 		}
 	}

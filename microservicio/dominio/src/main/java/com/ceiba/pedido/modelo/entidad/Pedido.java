@@ -64,7 +64,7 @@ public class Pedido {
 		ValidadorArgumento.validarMenorACero(porcentajeDescuento, PORCENTAJE_DE_DESCUENTO_NO_VALIDO);
 
 		ValidadorArgumento.validarObligatorio(precioCompra, PRECIO_COMPRA_OBLIGATORIO);
-		ValidadorArgumento.validarMenorACero(precioCompra, PRECIO_COMPRA_OBLIGATORIO);
+		ValidadorArgumento.validarPositivo(precioCompra, PRECIO_COMPRA_OBLIGATORIO);
 		
 		ValidadorArgumento.validarObligatorio(aplicaPromocion, APLICA_PROMOCION_OBLIGATORIO);
 

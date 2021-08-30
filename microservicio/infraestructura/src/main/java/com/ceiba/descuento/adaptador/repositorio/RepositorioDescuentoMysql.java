@@ -6,14 +6,11 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
 
-import com.ceiba.descuento.adaptador.dao.MapeoDescuento;
-import com.ceiba.descuento.modelo.dto.DtoDescuento;
 import com.ceiba.descuento.modelo.entidad.Descuento;
 import com.ceiba.descuento.puerto.repositorio.RepositorioDescuento;
 import com.ceiba.infraestructura.jdbc.CustomNamedParameterJdbcTemplate;
 import com.ceiba.infraestructura.jdbc.sqlstatement.SqlStatement;
 
-import net.bytebuddy.asm.Advice.Local;
 
 @Repository
 public class RepositorioDescuentoMysql implements RepositorioDescuento {

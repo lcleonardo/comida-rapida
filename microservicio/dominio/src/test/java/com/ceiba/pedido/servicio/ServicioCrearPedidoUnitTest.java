@@ -219,6 +219,16 @@ public class ServicioCrearPedidoUnitTest {
 	}
 	
 	@Test
+	public void validarPrecioCompraIgualACeroTest() {
+		// 1. Arrange
+		PedidoTestDataBuilder pedidoTestDataBuilder = new PedidoTestDataBuilder()
+				.conPrecioCompra(0.0);
+		// 2. Act
+		// 3. Assert
+		assertThrows(ExcepcionValorInvalido.class, ()-> pedidoTestDataBuilder.build(), "El precio de la compra es obligatorio.");
+	}
+	
+	@Test
 	public void validarPrecioCompraMenorACeroTest() {
 		// 1. Arrange
 		PedidoTestDataBuilder pedidoTestDataBuilder = new PedidoTestDataBuilder()
