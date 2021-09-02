@@ -3,6 +3,7 @@ package com.ceiba.descuento.servicio;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import org.junit.Test;
@@ -18,13 +19,13 @@ public class ServicioCreaDescuentoUnitTest {
 	public void crearDescuentoTest() {
 		// 1. Arrange
 		DescuentoTestDataBuilder descuentoTestDataBuilder = new DescuentoTestDataBuilder()
-				.conFecha("2021-08-25");
+				.conFecha(LocalDate.now().toString());
 		// 2. Act
 		Descuento descuento = descuentoTestDataBuilder.
 				build();
 
 		// 3. Assert
-		assertEquals("2021-08-25", descuento.getFecha().format(DateTimeFormatter.ISO_DATE));
+		assertEquals(LocalDate.now(), descuento.getFecha());
 		assertEquals(5.0, descuento.getPorcentaje().doubleValue());
 	}
 
@@ -48,6 +49,17 @@ public class ServicioCreaDescuentoUnitTest {
 		// 3. Assert
 		assertThrows(ExcepcionValorInvalido.class, 
 				() -> descuentoTestDataBuilder.build(), "Fecha incorrecta, debe tener el siguiente formato: yyyy-MM-dd.");
+	}
+	
+	@Test
+	public void crearDescuentoConFechaMenorAFechaActualTest() {
+		// 1. Arrange
+		DescuentoTestDataBuilder descuentoTestDataBuilder = new DescuentoTestDataBuilder()
+				.conFecha("08-29-2021");
+		// 2. Act
+		// 3. Assert
+		assertThrows(ExcepcionValorInvalido.class, 
+				() -> descuentoTestDataBuilder.build(), "La fecha de un descuento no puede ser menor a la fecha actual");
 	}
 
 	@Test

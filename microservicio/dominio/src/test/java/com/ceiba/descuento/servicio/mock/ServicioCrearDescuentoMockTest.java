@@ -16,6 +16,7 @@ import com.ceiba.descuento.puerto.repositorio.RepositorioDescuento;
 import com.ceiba.descuento.servicio.ServicioCrearDescuento;
 import com.ceiba.descuento.servicio.testdatabuilder.DescuentoTestDataBuilder;
 import com.ceiba.dominio.excepcion.ExcepcionDuplicidad;
+import com.ceiba.pedido.puerto.repositorio.RepositorioPedido;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ServicioCrearDescuentoMockTest {
@@ -23,6 +24,9 @@ public class ServicioCrearDescuentoMockTest {
 	@Mock
 	private RepositorioDescuento repositorioDescuento;
 
+	@Mock
+	private RepositorioPedido repositorioPedido;
+	
 	@InjectMocks
 	private ServicioCrearDescuento servicioCrearDescuento;
 
@@ -30,7 +34,7 @@ public class ServicioCrearDescuentoMockTest {
 	public void crearDescuentoTest() {
 		// Arrange
 		Descuento descuento = new DescuentoTestDataBuilder()
-				.conFecha("2021-08-26")
+				.conFecha(LocalDate.now().toString())
 				.conPorcentaje(10.0)
 				.build();
 		// Act
@@ -43,11 +47,11 @@ public class ServicioCrearDescuentoMockTest {
 	public void yaExisteUnDescuentoAsignadoALaFechaTest() {
 		// Arrange
 		Descuento descuento = new DescuentoTestDataBuilder()
-				.conFecha("2021-08-26")
+				.conFecha(LocalDate.now().toString())
 				.conPorcentaje(10.0).build();
 		// Act
 		Mockito.when(repositorioDescuento
-				.existeUnDescuentoEnLaFecha("2021-08-26"))
+				.existeUnDescuentoEnLaFecha(LocalDate.now().toString()))
 				.thenReturn(true);
 		// Assert
 		BasePrueba.assertThrows(() -> servicioCrearDescuento

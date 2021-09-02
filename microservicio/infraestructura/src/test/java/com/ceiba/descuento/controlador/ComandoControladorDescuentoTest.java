@@ -2,6 +2,8 @@ package com.ceiba.descuento.controlador;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.time.LocalDate;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +38,7 @@ public class ComandoControladorDescuentoTest {
 	public void crearDescuento() throws Exception {
 		// arrange
 		ComandoDescuento comandoDescuento = new ComandoDescuentoTestDataBuilder()
-				.conFecha("2021-08-29")
+				.conFecha(LocalDate.now().toString())
 				.conPorcentaje(5.0)	
 				.build();
 

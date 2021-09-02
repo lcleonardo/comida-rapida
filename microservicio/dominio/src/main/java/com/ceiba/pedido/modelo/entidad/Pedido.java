@@ -8,8 +8,10 @@ import com.ceiba.dominio.ValidadorArgumento;
 import com.ceiba.dominio.excepcion.ExcepcionValorInvalido;
 
 import lombok.Getter;
+import lombok.ToString;
 
 @Getter
+@ToString
 public class Pedido {
 
 	private static final String FECHA_INCORRECTA = "Fecha incorrecta, debe tener el siguiente formato: yyyy-MM-dd.";
@@ -17,7 +19,7 @@ public class Pedido {
 	private static final String CODIGO_CLIENTE_OBLIGATORIO = "El código del cliente es obligatorio.";
 	private static final String DIRECCION_DOMICILIO_OBLIGATORIA = "La direción es obligatoria.";
 	private static final String PLACA_VEHICULO_OBLIGATORIA = "La placa del vehiculo es obligatoria y debe terminar en un número entero del 0 al 9.";
-	private static final String PRECIO_COMPRA_OBLIGATORIO = "El precio de la compra es obligatorio.";
+	private static final String PRECIO_COMPRA_OBLIGATORIO = "El precio de la compra es obligatorio, y debe ser mayor a 0.0";
 	private static final String PORCENTAJE_DE_DESCUENTO_NO_VALIDO = "El porcentaje de descuento debe ser un número mayor a 0.0";
 	private static final String NO_PUEDE_REALIZAR_EL_DOMICILIO_PORQUE_TIENE_PICO_Y_PLACA = "El conductor no puede realizar el domicilio porque tiene pico y placa.";
 	private static final String APLICA_PROMOCION_OBLIGATORIO = "Aplica promoción es obligatorio.";
@@ -45,7 +47,7 @@ public class Pedido {
 		ValidadorArgumento.validarObligatorio(fecha, FECHA_INCORRECTA);
 		ValidadorArgumento.validarFechaFormatoYYYMMDD(fecha, FECHA_INCORRECTA);
 		LocalDate fechaValida = LocalDate.parse(fecha, DateTimeFormatter.ISO_DATE);
-
+		
 		ValidadorArgumento.validarObligatorio(codigoCliente, CODIGO_CLIENTE_OBLIGATORIO);
 		ValidadorArgumento.validarNoVacio(codigoCliente, CODIGO_CLIENTE_OBLIGATORIO);
 

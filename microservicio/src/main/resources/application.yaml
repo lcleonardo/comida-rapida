@@ -9,7 +9,9 @@ spring:
    datasource:
       driverClassName: com.mysql.cj.jdbc.Driver
       type: com.zaxxer.hikari.HikariDataSource
+      
       jdbcUrl: jdbc:mysql://192.168.176.1:3308/comida-rapida
+      
       username: root
       password: root
       hikari:

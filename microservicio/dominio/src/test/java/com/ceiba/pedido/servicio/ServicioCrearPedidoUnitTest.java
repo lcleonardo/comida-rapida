@@ -4,13 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
 
-import com.ceiba.core.BasePrueba;
 import com.ceiba.dominio.excepcion.ExcepcionValorInvalido;
 import com.ceiba.dominio.excepcion.ExcepcionValorObligatorio;
 import com.ceiba.pedido.modelo.entidad.Pedido;
@@ -30,6 +26,7 @@ public class ServicioCrearPedidoUnitTest {
 		// 3. Assert
 		assertThrows(ExcepcionValorObligatorio.class, ()-> pedidoTestDataBuilder.build(), "Fecha incorrecta, debe tener el siguiente formato: yyyy-MM-dd.");
 	}
+	
 	
 	@Test
 	public void validarFechaFormatoIncorrectoTest() {

@@ -12,6 +12,7 @@ public interface RepositorioPedido {
 	public Double totalComprasALaFechaDelPedido(Pedido pedido);
 	
 	public Boolean aplicaPromocionDeDescuento(Pedido pedido);
-	
+
+	public Integer testAplicaPromocion(Pedido pedido);
 
 }

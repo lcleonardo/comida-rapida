@@ -120,4 +120,11 @@ public class ValidadorArgumento {
 		}
 	}
 
+	public static void validarFechaMenorAFechaActual(LocalDate fecha, String mensaje) {
+			if(fecha.isBefore(LocalDate.now())) {
+				throw new ExcepcionValorInvalido(mensaje);
+			}
+	}
+
+	
 }

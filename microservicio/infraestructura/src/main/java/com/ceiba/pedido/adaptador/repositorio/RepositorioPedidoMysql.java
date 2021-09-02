@@ -56,8 +56,13 @@ public class RepositorioPedidoMysql implements RepositorioPedido {
 				Integer.class);
 		return respuesta == 0;
 	}
-	
-	
+
+	@Override
+	public Integer testAplicaPromocion(Pedido pedido) {
+		return 0;
+	}
+
+
 	@Override
 	public Double totalComprasALaFechaDelPedido(Pedido pedido) {
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
