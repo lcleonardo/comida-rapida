@@ -1,7 +1,9 @@
 package com.ceiba.pedido.servicio.testdatabuilder;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 
+import com.ceiba.dominio.excepcion.ExcepcionValorInvalido;
 import com.ceiba.pedido.modelo.entidad.Pedido;
 
 public class PedidoTestDataBuilder {
@@ -54,6 +56,22 @@ public class PedidoTestDataBuilder {
     public PedidoTestDataBuilder conPlacaVehiculo(String placaVehiculo) {
         this.placaVehiculo = placaVehiculo;
         return this;
+    }
+
+    public PedidoTestDataBuilder conPlacaVehiculoSinPicoYPlaca() {
+        this.placaVehiculo = obtenerplacaDelVehiculoSinPicoYPlaca();
+        return this;
+    }
+
+    private String obtenerplacaDelVehiculoSinPicoYPlaca() {
+        Enum<DayOfWeek> diaDeLaSemana = LocalDate.parse(this.fecha).getDayOfWeek();
+        if (diaDeLaSemana == DayOfWeek.TUESDAY || diaDeLaSemana == DayOfWeek.THURSDAY) {
+            return "VKH123";
+        }
+        if (diaDeLaSemana == DayOfWeek.WEDNESDAY || diaDeLaSemana == DayOfWeek.FRIDAY) {
+            return "HVK234";
+        }
+        return "KCV123";
     }
 
     public PedidoTestDataBuilder conPrecioCompra(Double precioCompra) {

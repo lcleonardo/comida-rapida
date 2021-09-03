@@ -10,9 +10,7 @@ public interface RepositorioPedido {
 	public void eliminar(Long id);
 	
 	public Double totalComprasALaFechaDelPedido(Pedido pedido);
-	
-	public Boolean aplicaPromocionDeDescuento(Pedido pedido);
 
-	public Integer testAplicaPromocion(Pedido pedido);
+	public Integer aplicarPromocion(Pedido pedido);
 
 }

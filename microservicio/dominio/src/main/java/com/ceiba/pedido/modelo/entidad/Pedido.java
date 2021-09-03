@@ -105,7 +105,6 @@ public class Pedido {
 				throw new ExcepcionValorInvalido(NO_PUEDE_REALIZAR_EL_DOMICILIO_PORQUE_TIENE_PICO_Y_PLACA);
 			}
 		}
-
 	}
 
 	private static Double calcularPrecioDescuento(Double porcentajeDescuento, Double precioCompra) {
