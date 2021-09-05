@@ -13,10 +13,6 @@ public interface RepositorioPedido {
 
 	public Integer aplicarPromocion(Pedido pedido);
 
-	public boolean existeUnPedidoCreadoConUnaFechaMenor(Long id);
-
-	public boolean existeUnPedidoCreadoConUnaFechaMayor(Long id);
-
-	public Long obtenerIdDelPrimerDescuentoCreado();
+	public boolean existeUnPedidoConUnaFechaMayor(Long id);
 
 }

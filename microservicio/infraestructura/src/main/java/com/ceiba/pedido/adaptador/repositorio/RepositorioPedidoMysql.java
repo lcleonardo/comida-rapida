@@ -30,15 +30,8 @@ public class RepositorioPedidoMysql implements RepositorioPedido {
     @SqlStatement(namespace = "pedido", value = "aplicaPromocion")
     private static String sqlAplicaPromocion;
 
-    @SqlStatement(namespace = "pedido", value = "buscarPedidoPorIdEnFechaMenor")
-    private static String sqlBuscarPedidoPorIdEnFechaMenor;
-
     @SqlStatement(namespace = "pedido", value = "buscarPedidoPorIdEnFechaMayor")
     private static String sqlBuscarPedidoPorIdEnFechaMayor;
-
-    @SqlStatement(namespace = "pedido", value = "obtenerIdDelPrimerPedidoCreado")
-    private static String sqlObtenerIdDelPrimerPedidoCreado;
-
 
     @Override
     public Long crear(Pedido pedido) {
@@ -80,11 +73,12 @@ public class RepositorioPedidoMysql implements RepositorioPedido {
     }
 
     @Override
-    public boolean existeUnPedidoCreadoConUnaFechaMenor(Long id) {
+    public boolean existeUnPedidoConUnaFechaMayor(Long id) {
         MapSqlParameterSource paramSource = new MapSqlParameterSource();
         paramSource.addValue("id", id);
         try {
-            Integer respuesta = this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().queryForObject(sqlBuscarPedidoPorIdEnFechaMenor,
+            Integer respuesta = this.customNamedParameterJdbcTemplate
+                    .getNamedParameterJdbcTemplate().queryForObject(sqlBuscarPedidoPorIdEnFechaMayor,
                     paramSource, Integer.class);
             return respuesta == 1;
         } catch (EmptyResultDataAccessException e) {
@@ -92,28 +86,5 @@ public class RepositorioPedidoMysql implements RepositorioPedido {
         return false;
     }
 
-    @Override
-    public boolean existeUnPedidoCreadoConUnaFechaMayor(Long id) {
-        MapSqlParameterSource paramSource = new MapSqlParameterSource();
-        paramSource.addValue("id", id);
-        try {
-            Integer respuesta = this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().queryForObject(sqlBuscarPedidoPorIdEnFechaMenor,
-                    paramSource, Integer.class);
-            return respuesta == 1;
-        } catch (EmptyResultDataAccessException e) {
-        }
-        return false;
-    }
-
-    @Override
-    public Long obtenerIdDelPrimerDescuentoCreado() {
-        try {
-            Long id = this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().
-                    queryForObject(sqlObtenerIdDelPrimerPedidoCreado, new MapSqlParameterSource(), Long.class);
-            return id;
-        } catch (EmptyResultDataAccessException e) {
-        }
-        return 0L;
-    }
 
 }

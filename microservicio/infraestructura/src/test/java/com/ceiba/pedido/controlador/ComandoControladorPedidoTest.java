@@ -25,7 +25,7 @@ import java.time.LocalDate;
 @WebMvcTest(ComandoControladorPedido.class)
 public class ComandoControladorPedidoTest {
 
-    private final Long ID = 1L;
+    private final Long ID = 2L;
 
     @Autowired
     private ObjectMapper objectMapper;

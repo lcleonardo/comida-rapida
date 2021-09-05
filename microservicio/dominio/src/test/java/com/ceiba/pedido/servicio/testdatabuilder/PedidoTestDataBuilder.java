@@ -3,7 +3,6 @@ package com.ceiba.pedido.servicio.testdatabuilder;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 
-import com.ceiba.dominio.excepcion.ExcepcionValorInvalido;
 import com.ceiba.pedido.modelo.entidad.Pedido;
 
 public class PedidoTestDataBuilder {

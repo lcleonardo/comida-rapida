@@ -13,8 +13,7 @@ import static org.mockito.Mockito.*;
 
 public class ServicioEliminarPedidoMockTest {
 
-    private static final Long ID_CON_VALOR_UNO = 1L;
-    private static final Long ID_CON_VALOR_CERO = 0L;
+    private static final Long ID = 2L;
     private RepositorioPedido repositorioPedido;
     private ServicioEliminarPedido servicioEliminarPedido;
 
@@ -29,28 +28,20 @@ public class ServicioEliminarPedidoMockTest {
     public void deberiaEliminarUnPedido() {
         // Act
         // Assert
-        Assertions.assertDoesNotThrow(() -> servicioEliminarPedido.ejecutar(ID_CON_VALOR_UNO));
+        Assertions.assertDoesNotThrow(() -> servicioEliminarPedido.ejecutar(ID));
     }
 
     @Test
     public void deberiaLanzarExcepcionCuandoSeVaAElimiarUnPedidoYExisteUnPedidoCreadoEnUnaFechaPosterior() {
         // Act
-        when(this.repositorioPedido.obtenerIdDelPrimerDescuentoCreado()).thenReturn(ID_CON_VALOR_UNO);
-        when(this.repositorioPedido.existeUnPedidoCreadoConUnaFechaMayor(anyLong())).thenReturn(true);
+        when(this.repositorioPedido.existeUnPedidoConUnaFechaMayor(anyLong())).thenReturn(true);
         // Assert
-        BasePrueba.assertThrows(() -> this.servicioEliminarPedido.ejecutar(ID_CON_VALOR_UNO), ExcepcionAccionNoPermitida.class,
+        BasePrueba.assertThrows(() -> this.servicioEliminarPedido.ejecutar(ID),
+                ExcepcionAccionNoPermitida.class,
                 "Para eliminar el pedido debe eliminar los pedidos creados en fechas posteriores.");
     }
 
-    @Test
-    public void deberiaLanzarExcepcionCuandoSeVaAEliminarUnPedidoYExisteUnPedidoCreadoEnUnaFechaAnterior() {
-        // Act
-        when(this.repositorioPedido.obtenerIdDelPrimerDescuentoCreado()).thenReturn(ID_CON_VALOR_CERO);
-        when(this.repositorioPedido.existeUnPedidoCreadoConUnaFechaMenor(anyLong())).thenReturn(true);
-        // Assert
-        BasePrueba.assertThrows(() -> this.servicioEliminarPedido.ejecutar(ID_CON_VALOR_UNO), ExcepcionAccionNoPermitida.class,
-                "Para eliminar el pedido debe eliminar los pedidos creados en fechas anteriores.");
-    }
+
 }
 
 
