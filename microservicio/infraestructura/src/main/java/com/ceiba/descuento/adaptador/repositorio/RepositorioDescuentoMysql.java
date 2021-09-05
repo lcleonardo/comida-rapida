@@ -15,56 +15,61 @@ import com.ceiba.infraestructura.jdbc.sqlstatement.SqlStatement;
 @Repository
 public class RepositorioDescuentoMysql implements RepositorioDescuento {
 
-	private final CustomNamedParameterJdbcTemplate customNamedParameterJdbcTemplate;
+    private final CustomNamedParameterJdbcTemplate customNamedParameterJdbcTemplate;
 
-	@SqlStatement(namespace = "descuento", value = "crear")
-	private static String sqlCrear;
+    @SqlStatement(namespace = "descuento", value = "crear")
+    private static String sqlCrear;
 
-	@SqlStatement(namespace = "descuento", value = "eliminar")
-	private static String sqlEliminar;
+    @SqlStatement(namespace = "descuento", value = "eliminarPorId")
+    private static String sqlEliminarPorId;
 
-	@SqlStatement(namespace = "descuento", value = "existePorFecha")
-	private static String sqlExistePorFecha;
+    @SqlStatement(namespace = "descuento", value = "obtenerPorcentajePorFecha")
+    private static String sqlObtenerPorcentajePorFecha;
 
-	@SqlStatement(namespace = "descuento", value = "obtenerPorcentaje")
-	private static String sqlObtenerPorcentaje;
+    @SqlStatement(namespace = "descuento", value = "exitenPedidosAsignadosAUnDescuento")
+    private static String sqlExitenPedidosAsignadosAUnDescuento;
 
-	public RepositorioDescuentoMysql(CustomNamedParameterJdbcTemplate customNamedParameterJdbcTemplate) {
-		this.customNamedParameterJdbcTemplate = customNamedParameterJdbcTemplate;
-	}
 
-	@Override
-	public Long crear(Descuento descuento) {
-		return this.customNamedParameterJdbcTemplate.crear(descuento, sqlCrear);
-	}
+    public RepositorioDescuentoMysql(CustomNamedParameterJdbcTemplate customNamedParameterJdbcTemplate) {
+        this.customNamedParameterJdbcTemplate = customNamedParameterJdbcTemplate;
+    }
 
-	@Override
-	public boolean existeUnDescuentoEnLaFecha(String fecha) {
-		MapSqlParameterSource paramSource = new MapSqlParameterSource();
-		paramSource.addValue("fecha", fecha);
-		return this.customNamedParameterJdbcTemplate
-				.getNamedParameterJdbcTemplate()
-				.queryForObject(sqlExistePorFecha,
-				paramSource, Boolean.class);
-	}
+    @Override
+    public Long crear(Descuento descuento) {
+        return this.customNamedParameterJdbcTemplate.crear(descuento, sqlCrear);
+    }
 
-	@Override
-	public void eliminar(Long id) {
-		MapSqlParameterSource paramSource = new MapSqlParameterSource();
-		paramSource.addValue("id", id);
-		this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().update(sqlEliminar, paramSource);
-	}
+    @Override
+    public void eliminar(Long id) {
+        MapSqlParameterSource paramSource = new MapSqlParameterSource();
+        paramSource.addValue("id", id);
+        this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate()
+                .update(sqlEliminarPorId, paramSource);
+    }
 
-	@Override
-	public Double obtenerPorcentaje(LocalDate fecha) {
-		try {	
-		MapSqlParameterSource paramSource = new MapSqlParameterSource();
-			paramSource.addValue("fecha", fecha);
-			return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate()
-					.queryForObject(sqlObtenerPorcentaje, paramSource, Double.class);
-			} catch (EmptyResultDataAccessException e) {
-			}
-		return 0.0;
-	}
+    @Override
+    public Double obtenerPorcentajePorFecha(LocalDate fecha) {
+        try {
+            MapSqlParameterSource paramSource = new MapSqlParameterSource();
+            paramSource.addValue("fecha", fecha);
+            return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate()
+                    .queryForObject(sqlObtenerPorcentajePorFecha, paramSource, Double.class);
+        } catch (EmptyResultDataAccessException e) {
+            return 0.0;
+        }
+    }
+
+    @Override
+    public boolean existenPedidosAsignadosAUnDescuento(Long id) {
+        try {
+            MapSqlParameterSource paramSource = new MapSqlParameterSource();
+            paramSource.addValue("id", id);
+            Integer respuesta = this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate()
+                    .queryForObject(sqlExitenPedidosAsignadosAUnDescuento, paramSource, Integer.class);
+            return respuesta == 1;
+        } catch (EmptyResultDataAccessException e) {
+            return false;
+        }
+    }
 
 }

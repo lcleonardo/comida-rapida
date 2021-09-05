@@ -25,7 +25,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @WebMvcTest(ComandoControladorDescuento.class)
 public class ComandoControladorDescuentoTest {
 	
-	private static final Long ID_BD = 1L;
+	private static final Long ID = 1L;
 	
 	@Autowired
 	private ObjectMapper objectMapper;
@@ -35,11 +35,11 @@ public class ComandoControladorDescuentoTest {
 	
 
 	@Test
-	public void crearDescuento() throws Exception {
+	public void deberiaCrearUnDescuento() throws Exception {
 		// arrange
 		ComandoDescuento comandoDescuento = new ComandoDescuentoTestDataBuilder()
 				.conFecha(LocalDate.now().toString())
-				.conPorcentaje(5.0)	
+				.conPorcentaje(10.0)
 				.build();
 
 		// act - assert
@@ -52,15 +52,17 @@ public class ComandoControladorDescuentoTest {
 	}
 
 	@Test
-	public void eliminarDescuento() throws Exception {
+	public void deberiaEliminarUnDescuento() throws Exception {
 		// arrange
 		// act - assert
-		mocMvc.perform(MockMvcRequestBuilders.delete("/descuentos/" + ID_BD)
+		mocMvc.perform(MockMvcRequestBuilders.delete("/descuentos/" + ID)
 				.contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk());
 	}
-	
+
+
+
 }
 
 

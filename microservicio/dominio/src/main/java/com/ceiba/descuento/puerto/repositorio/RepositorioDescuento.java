@@ -10,8 +10,7 @@ public interface RepositorioDescuento {
 	
 	public void eliminar(Long id);
 	
-	public boolean existeUnDescuentoEnLaFecha(String fecha);
-	
-	public Double obtenerPorcentaje(LocalDate fecha);
-	
+	public Double obtenerPorcentajePorFecha(LocalDate fecha);
+
+	public boolean existenPedidosAsignadosAUnDescuento(Long id);
 }

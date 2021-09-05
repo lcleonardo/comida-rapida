@@ -26,7 +26,7 @@ public class ServicioCrearPedido {
 	}
 
 	private Pedido calcularPorcentajeYPromocionDeDescuento(Pedido pedido) {
-		Double porcentajeDescuento = this.repositorioDescuento.obtenerPorcentaje(pedido.getFecha());
+		Double porcentajeDescuento = this.repositorioDescuento.obtenerPorcentajePorFecha(pedido.getFecha());
 		Integer aplicarPromocion = this.repositorioPedido.aplicarPromocion(pedido);
 		return Pedido.crear(pedido.getFecha().format(DateTimeFormatter.ISO_DATE),
 					pedido.getCodigoCliente(),

@@ -1,8 +1,6 @@
 package com.ceiba.pedido.adaptador.repositorio;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
 
@@ -31,6 +29,15 @@ public class RepositorioPedidoMysql implements RepositorioPedido {
 
     @SqlStatement(namespace = "pedido", value = "aplicaPromocion")
     private static String sqlAplicaPromocion;
+
+    @SqlStatement(namespace = "pedido", value = "buscarPedidoPorIdEnFechaMenor")
+    private static String sqlBuscarPedidoPorIdEnFechaMenor;
+
+    @SqlStatement(namespace = "pedido", value = "buscarPedidoPorIdEnFechaMayor")
+    private static String sqlBuscarPedidoPorIdEnFechaMayor;
+
+    @SqlStatement(namespace = "pedido", value = "obtenerIdDelPrimerPedidoCreado")
+    private static String sqlObtenerIdDelPrimerPedidoCreado;
 
 
     @Override
@@ -62,7 +69,6 @@ public class RepositorioPedidoMysql implements RepositorioPedido {
         return puedeRecibirLaPromocion == cero && (totalComprasALaFecha > doscientosmil) ? siAplicaPromocion : noAplicaPromocion;
     }
 
-
     @Override
     public Double totalComprasALaFechaDelPedido(Pedido pedido) {
         MapSqlParameterSource paramSource = new MapSqlParameterSource();
@@ -71,7 +77,43 @@ public class RepositorioPedidoMysql implements RepositorioPedido {
         paramSource.addValue("fechaHasta", pedido.getFecha());
         return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().queryForObject(sqlTotalCompraEnEstaSemana,
                 paramSource, Double.class);
+    }
 
+    @Override
+    public boolean existeUnPedidoCreadoConUnaFechaMenor(Long id) {
+        MapSqlParameterSource paramSource = new MapSqlParameterSource();
+        paramSource.addValue("id", id);
+        try {
+            Integer respuesta = this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().queryForObject(sqlBuscarPedidoPorIdEnFechaMenor,
+                    paramSource, Integer.class);
+            return respuesta == 1;
+        } catch (EmptyResultDataAccessException e) {
+        }
+        return false;
+    }
+
+    @Override
+    public boolean existeUnPedidoCreadoConUnaFechaMayor(Long id) {
+        MapSqlParameterSource paramSource = new MapSqlParameterSource();
+        paramSource.addValue("id", id);
+        try {
+            Integer respuesta = this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().queryForObject(sqlBuscarPedidoPorIdEnFechaMenor,
+                    paramSource, Integer.class);
+            return respuesta == 1;
+        } catch (EmptyResultDataAccessException e) {
+        }
+        return false;
+    }
+
+    @Override
+    public Long obtenerIdDelPrimerDescuentoCreado() {
+        try {
+            Long id = this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().
+                    queryForObject(sqlObtenerIdDelPrimerPedidoCreado, new MapSqlParameterSource(), Long.class);
+            return id;
+        } catch (EmptyResultDataAccessException e) {
+        }
+        return 0L;
     }
 
 }

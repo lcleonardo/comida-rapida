@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 import org.junit.Test;
 
 import com.ceiba.descuento.modelo.entidad.Descuento;
@@ -16,7 +14,7 @@ import com.ceiba.dominio.excepcion.ExcepcionValorObligatorio;
 public class ServicioCreaDescuentoUnitTest {
 
 	@Test
-	public void crearDescuentoTest() {
+	public void deberiaCrearUnDescuento() {
 		// 1. Arrange
 		DescuentoTestDataBuilder descuentoTestDataBuilder = new DescuentoTestDataBuilder()
 				.conFecha(LocalDate.now().toString());
@@ -30,7 +28,7 @@ public class ServicioCreaDescuentoUnitTest {
 	}
 
 	@Test
-	public void crearDescuentoConFechaNulaTest() {
+	public void deberiaValidarQueLaFechaNoPuedeSerNull() {
 		// 1. Arrange
 		DescuentoTestDataBuilder descuentoTestDataBuilder = new DescuentoTestDataBuilder()
 				.conFecha(null);
@@ -41,7 +39,7 @@ public class ServicioCreaDescuentoUnitTest {
 	}
 
 	@Test
-	public void crearDescuentoConFechaFormatoIncorrectoTest() {
+	public void deberiaValidarQueLaFechaNoTieneElFormatoCorrecto() {
 		// 1. Arrange
 		DescuentoTestDataBuilder descuentoTestDataBuilder = new DescuentoTestDataBuilder()
 				.conFecha("08-25-2021");
@@ -52,10 +50,10 @@ public class ServicioCreaDescuentoUnitTest {
 	}
 	
 	@Test
-	public void crearDescuentoConFechaMenorAFechaActualTest() {
+	public void deberiaValidarQueNoSePuedeCrearUnDescuentoConFechaMenorALaActual() {
 		// 1. Arrange
 		DescuentoTestDataBuilder descuentoTestDataBuilder = new DescuentoTestDataBuilder()
-				.conFecha("08-29-2021");
+				.conFecha(LocalDate.now().minusDays(1).toString());
 		// 2. Act
 		// 3. Assert
 		assertThrows(ExcepcionValorInvalido.class, 
@@ -63,7 +61,7 @@ public class ServicioCreaDescuentoUnitTest {
 	}
 
 	@Test
-	public void crearDescuentoConPorcentajeNuloTest() {
+	public void deberiaValidarQueElPorcentajeNoPuedeSerNull() {
 		// 1. Arrange
 		DescuentoTestDataBuilder descuentoTestDataBuilder = new DescuentoTestDataBuilder().conPorcentaje(null);
 		// 2. Act
@@ -74,7 +72,7 @@ public class ServicioCreaDescuentoUnitTest {
 
 	
 	@Test
-	public void crearDescuentoConPorcentajeIgualACeroTest() {
+	public void deberiaValidarQueElPorcentajeNoPuedeSerCero() {
 		// 1. Arrange
 		DescuentoTestDataBuilder descuentoTestDataBuilder = new DescuentoTestDataBuilder()
 				.conPorcentaje(0.0);
@@ -85,7 +83,7 @@ public class ServicioCreaDescuentoUnitTest {
 	}
 	
 	@Test
-	public void crearDescuentoConPorcentajeMenorACeroTest() {
+	public void deberiaValidarQueElPorcentajeNoPuedeSerMenorAcero() {
 		// 1. Arrange
 		DescuentoTestDataBuilder descuentoTestDataBuilder = new DescuentoTestDataBuilder()
 				.conPorcentaje(-10.0);

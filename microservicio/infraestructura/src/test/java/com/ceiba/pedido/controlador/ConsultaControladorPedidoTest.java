@@ -19,16 +19,16 @@ import com.ceiba.ApplicationMock;
 @WebMvcTest(ConsultaControladorPedido.class)
 public class ConsultaControladorPedidoTest {
 
-	@Autowired
-	private MockMvc mocMvc;
+    @Autowired
+    private MockMvc mocMvc;
 
-	@Test
-	public void listarPedidosTest() throws Exception {
-		// arrange act - assert
-		mocMvc.perform(MockMvcRequestBuilders.get("/pedidos")
-				.contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON))
-				.andExpect(status().isOk());
-	}
+    @Test
+    public void deberiaListarTodosLosPedidosCreados() throws Exception {
+        // arrange act - assert
+        mocMvc.perform(MockMvcRequestBuilders.get("/pedidos")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
 
 }

@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import com.ceiba.core.BasePrueba;
 import com.ceiba.dominio.excepcion.ExcepcionValorInvalido;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -23,8 +24,21 @@ import static org.mockito.Mockito.*;
 @RunWith(MockitoJUnitRunner.class)
 public class ServicioCrearPedidoMockTest {
 
-    private final static int SIETE_DIAS = 7;
     private final static int UN_DIA = 1;
+    private final static int SIETE_DIAS = 7;
+
+    private ArgumentCaptor<Pedido> capturadorDePedido;
+    private RepositorioDescuento repositorioDescuento;
+    private RepositorioPedido repositorioPedido;
+    private ServicioCrearPedido servicioCrearPedido;
+
+    @Before
+    public void before() {
+        capturadorDePedido = ArgumentCaptor.forClass(Pedido.class);
+        repositorioDescuento = Mockito.mock(RepositorioDescuento.class);
+        repositorioPedido = Mockito.mock(RepositorioPedido.class);
+        servicioCrearPedido = new ServicioCrearPedido(repositorioPedido, repositorioDescuento);
+    }
 
     @Test
     public void deberiaCrearUnPedidoConPromocionDeDescuentoTest() {
@@ -35,10 +49,6 @@ public class ServicioCrearPedidoMockTest {
                 .conPlacaVehiculoSinPicoYPlaca()
                 .conPrecioCompra(500.000)
                 .build();
-        ArgumentCaptor<Pedido> capturadorDePedido = ArgumentCaptor.forClass(Pedido.class);
-        RepositorioDescuento repositorioDescuento = Mockito.mock(RepositorioDescuento.class);
-        RepositorioPedido repositorioPedido = Mockito.mock(RepositorioPedido.class);
-        ServicioCrearPedido servicioCrearPedido = new ServicioCrearPedido(repositorioPedido, repositorioDescuento);
         // Act
         when(repositorioPedido.aplicarPromocion(primerPedido)).thenReturn(1);
         when(repositorioPedido.crear(capturadorDePedido.capture())).thenReturn(1L);
@@ -58,12 +68,10 @@ public class ServicioCrearPedidoMockTest {
                 .conPlacaVehiculoSinPicoYPlaca()
                 .conPrecioCompra(500.000)
                 .build();
-        RepositorioDescuento repositorioDescuento = Mockito.mock(RepositorioDescuento.class);
-        RepositorioPedido repositorioPedido = Mockito.mock(RepositorioPedido.class);
-        ServicioCrearPedido servicioCrearPedido = new ServicioCrearPedido(repositorioPedido, repositorioDescuento);
         // Act
         //Assert
-        BasePrueba.assertThrows(() -> servicioCrearPedido.ejecutar(primerPedido), ExcepcionValorInvalido.class, "La fecha de un pedido no puede ser menor a la fecha actual");
+        BasePrueba.assertThrows(() -> servicioCrearPedido.ejecutar(primerPedido),
+                ExcepcionValorInvalido.class, "La fecha de un pedido no puede ser menor a la fecha actual");
     }
 
 }
