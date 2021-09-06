@@ -51,15 +51,13 @@ public class RepositorioPedidoMysql implements RepositorioPedido {
         paramSource.addValue("codigoCliente", pedido.getCodigoCliente());
         paramSource.addValue("fechaDesde", pedido.getFecha().minusDays(7));
         paramSource.addValue("fechaHasta", pedido.getFecha());
-        Integer puedeRecibirLaPromocion = this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate()
+        Boolean puedeRecibirLaPromocion = this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate()
                 .queryForObject(sqlAplicaPromocion, paramSource,
-                        Integer.class);
-        Integer cero = 0;
-        Double doscientosmil = 200.000;
+                        Integer.class) == 0;
+        Boolean comprasMayoresADoscientosMil = totalComprasALaFechaDelPedido(pedido) > 200.000;
         Integer noAplicaPromocion = 0;
         Integer siAplicaPromocion = 1;
-        Double totalComprasALaFecha = totalComprasALaFechaDelPedido(pedido);
-        return puedeRecibirLaPromocion == cero && (totalComprasALaFecha > doscientosmil) ? siAplicaPromocion : noAplicaPromocion;
+        return puedeRecibirLaPromocion && comprasMayoresADoscientosMil ? siAplicaPromocion : noAplicaPromocion;
     }
 
     @Override
@@ -79,7 +77,7 @@ public class RepositorioPedidoMysql implements RepositorioPedido {
         try {
             Integer respuesta = this.customNamedParameterJdbcTemplate
                     .getNamedParameterJdbcTemplate().queryForObject(sqlBuscarPedidoPorIdEnFechaMayor,
-                    paramSource, Integer.class);
+                            paramSource, Integer.class);
             return respuesta == 1;
         } catch (EmptyResultDataAccessException e) {
         }
