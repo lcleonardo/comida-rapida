@@ -25,13 +25,24 @@ import java.time.LocalDate;
 @WebMvcTest(ComandoControladorPedido.class)
 public class ComandoControladorPedidoTest {
 
-    private final Long ID = 2L;
+    private final Long ID = 3L;
 
     @Autowired
     private ObjectMapper objectMapper;
 
     @Autowired
     private MockMvc mocMvc;
+
+    @Test
+    public void deberiaEliminarUnPedido() throws Exception {
+        // arrange
+        // act - assert
+        mocMvc.perform(MockMvcRequestBuilders
+                        .delete("/pedidos/" + ID)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
 
     @Test
     public void deberiaCrearUnPedido() throws Exception {
@@ -53,17 +64,6 @@ public class ComandoControladorPedidoTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.valor").exists());
-    }
-
-    @Test
-    public void deberiaEliminarUnPedido() throws Exception {
-        // arrange
-        // act - assert
-        mocMvc.perform(MockMvcRequestBuilders
-                        .delete("/pedidos/" + ID)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
     }
 
 }
