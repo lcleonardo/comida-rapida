@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
-import com.ceiba.core.BasePrueba;
 import org.junit.Test;
 
 import com.ceiba.dominio.excepcion.ExcepcionValorInvalido;
@@ -17,255 +16,240 @@ import java.time.LocalDate;
 
 public class PedidoUnitTest {
 
-    private final static Integer NO_APLICA_PROMOCION = 0;
-    private final static Integer SI_APLICA_PROMOCION = 1;
-
     @Test
-    public void validarFechaNoNulaTest() {
+    public void validarFechaNoNula() {
         // 1. Arrange
         PedidoTestDataBuilder pedidoTestDataBuilder = new PedidoTestDataBuilder()
                 .conFecha(null);
         // 2. Act
         // 3. Assert
-        assertThrows(ExcepcionValorObligatorio.class, () -> pedidoTestDataBuilder.build(), "Fecha incorrecta, debe tener el siguiente formato: yyyy-MM-dd.");
+        assertThrows(ExcepcionValorObligatorio.class, () -> pedidoTestDataBuilder.build(),
+                "Fecha incorrecta, debe tener el siguiente formato: yyyy-MM-dd.");
     }
 
 
     @Test
-    public void validarFechaFormatoIncorrectoTest() {
+    public void validarFechaFormatoIncorrecto() {
         // 1. Arrange
         PedidoTestDataBuilder pedidoTestDataBuilder = new PedidoTestDataBuilder()
                 .conFecha("20-08-2021");
         // 2. Act
         // 3. Assert
-        assertThrows(ExcepcionValorInvalido.class, () -> pedidoTestDataBuilder.build(), "Fecha incorrecta, debe tener el siguiente formato: yyyy-MM-dd.");
+        assertThrows(ExcepcionValorInvalido.class, () -> pedidoTestDataBuilder.build(),
+                "Fecha incorrecta, debe tener el siguiente formato: yyyy-MM-dd.");
     }
 
     @Test//Debe ir en PEdido test
-    public void noDeberiaCrearUnPedidoPorqueLaFechaEsMenorALaFechaActualTest() {
+    public void noDeberiaCrearUnPedidoPorqueLaFechaEsMenorALaFechaActual() {
         PedidoTestDataBuilder pedidoTestDataBuilder = new PedidoTestDataBuilder()
-                .conFecha(LocalDate.now().minusDays(1).toString());
+                .conFechaTipoLocalDate(LocalDate.now().minusDays(1));
         // Act
         //Assert
         assertThrows(ExcepcionValorInvalido.class, () -> pedidoTestDataBuilder.build(),
-                "La fecha de un pedido no puede ser menor a la fecha actual");
+                "La fecha de un pedido no puede ser menor a la fecha actual.");
     }
 
     @Test
-    public void validarCodigoClienteNoNuloTest() {
+    public void validarCodigoClienteNoNulo() {
         // 1. Arrange
         PedidoTestDataBuilder pedidoTestDataBuilder = new PedidoTestDataBuilder()
                 .conCodigoCliente(null);
         // 2. Act
         // 3. Assert
-        assertThrows(ExcepcionValorObligatorio.class, () -> pedidoTestDataBuilder.build(), "El código del cliente es obligatorio.");
+        assertThrows(ExcepcionValorObligatorio.class, () ->
+                pedidoTestDataBuilder.build(), "El código del cliente es obligatorio.");
     }
 
     @Test
-    public void validarCodigoClienteNoVacioTest() {
+    public void validarCodigoClienteNoVacio() {
         // 1. Arrange
         PedidoTestDataBuilder pedidoTestDataBuilder = new PedidoTestDataBuilder()
                 .conCodigoCliente("");
         // 2. Act
         // 3. Assert
-        assertThrows(ExcepcionValorObligatorio.class, () -> pedidoTestDataBuilder.build(), "El código del cliente es obligatorio.");
+        assertThrows(ExcepcionValorObligatorio.class,
+                () -> pedidoTestDataBuilder.build(), "El código del cliente es obligatorio.");
     }
 
 
     @Test
-    public void validarCodigoProductoNoNuloTest() {
+    public void validarCodigoProductoNoNulo() {
         // 1. Arrange
         PedidoTestDataBuilder pedidoTestDataBuilder = new PedidoTestDataBuilder()
                 .conCodigoProducto(null);
         // 2. Act
         // 3. Assert
-        assertThrows(ExcepcionValorObligatorio.class, () -> pedidoTestDataBuilder.build(), "El código del producto es obligatorio.");
+        assertThrows(ExcepcionValorObligatorio.class, () ->
+                pedidoTestDataBuilder.build(), "El código del producto es obligatorio.");
     }
 
     @Test
-    public void validarCodigoProductoNoVacioTest() {
+    public void validarCodigoProductoNoVacio() {
         // 1. Arrange
         PedidoTestDataBuilder pedidoTestDataBuilder = new PedidoTestDataBuilder()
                 .conCodigoProducto("");
         // 2. Act
         // 3. Assert
-        assertThrows(ExcepcionValorObligatorio.class, () -> pedidoTestDataBuilder.build(), "El código del producto es obligatorio.");
+        assertThrows(ExcepcionValorObligatorio.class, () -> pedidoTestDataBuilder.build(),
+                "El código del producto es obligatorio.");
     }
 
 
     @Test
-    public void validarDireccionClienteNoNulaTest() {
+    public void validarDireccionClienteNoNula() {
         // 1. Arrange
         PedidoTestDataBuilder pedidoTestDataBuilder = new PedidoTestDataBuilder()
                 .conDirecionDomicilio(null);
         // 2. Act
         // 3. Assert
-        assertThrows(ExcepcionValorObligatorio.class, () -> pedidoTestDataBuilder.build(), "La direción es obligatoria.");
+        assertThrows(ExcepcionValorObligatorio.class, () -> pedidoTestDataBuilder.build(),
+                "La direción es obligatoria.");
     }
 
     @Test
-    public void validarDireccionDomicilioNoVaciaTest() {
+    public void validarDireccionDomicilioNoVacia() {
         // 1. Arrange
         PedidoTestDataBuilder pedidoTestDataBuilder = new PedidoTestDataBuilder()
                 .conDirecionDomicilio("");
         // 2. Act
         // 3. Assert
-        assertThrows(ExcepcionValorObligatorio.class, () -> pedidoTestDataBuilder.build(), "La direción es obligatoria.");
+        assertThrows(ExcepcionValorObligatorio.class, () -> pedidoTestDataBuilder.build(),
+                "La direción del domicilio es obligatoria.");
     }
 
     @Test
-    public void validarPlacaVehiculoNoNulaTest() {
+    public void validarPlacaVehiculoNoNula() {
         // 1. Arrange
         PedidoTestDataBuilder pedidoTestDataBuilder = new PedidoTestDataBuilder()
                 .conPlacaVehiculo(null);
         // 2. Act
         // 3. Assert
-        assertThrows(ExcepcionValorObligatorio.class, () -> pedidoTestDataBuilder.build(), "La placa del vehiculo es obligatoria y debe terminar en un número entero del 0 al 9.");
+        assertThrows(ExcepcionValorObligatorio.class, () -> pedidoTestDataBuilder.build(),
+                "La placa del vehiculo es obligatoria y debe terminar en un número entero del 0 al 9.");
     }
 
     @Test
-    public void validarPlacaVehiculoNoVaciaTest() {
+    public void validarPlacaVehiculoNoVacia() {
         // 1. Arrange
         PedidoTestDataBuilder pedidoTestDataBuilder = new PedidoTestDataBuilder()
                 .conPlacaVehiculo("");
         // 2. Act
         // 3. Assert
-        assertThrows(ExcepcionValorObligatorio.class, () -> pedidoTestDataBuilder.build(), "La placa del vehiculo es obligatoria y debe terminar en un número entero del 0 al 9.");
+        assertThrows(ExcepcionValorObligatorio.class, () -> pedidoTestDataBuilder.build(),
+                "La placa del vehiculo es obligatoria y debe terminar en un número entero del 0 al 9.");
     }
 
     @Test
-    public void validarPlacaVehiculoFormatoCorrectoTest() {
-        // 1. Arrange
-        PedidoTestDataBuilder pedidoTestDataBuilder = new PedidoTestDataBuilder()
-                .conPlacaVehiculo("VDF120");
-        // 2. Act
-        // 3. Assert
-        assertDoesNotThrow(() -> pedidoTestDataBuilder.build(), "La placa del vehiculo es obligatoria y debe terminar en un número entero del 0 al 9.");
-    }
-
-    @Test
-    public void validarPlacaVehiculoFormatoIncorrectoTest() {
+    public void validarPlacaVehiculoFormatoIncorrecto() {
         // 1. Arrange
         PedidoTestDataBuilder pedidoTestDataBuilder = new PedidoTestDataBuilder()
                 .conPlacaVehiculo("VDF12W");
         // 2. Act
         // 3. Assert
-        assertThrows(ExcepcionValorInvalido.class, () -> pedidoTestDataBuilder.build(), "La placa del vehiculo es obligatoria y debe terminar en un número entero del 0 al 9.");
+        assertThrows(ExcepcionValorInvalido.class, () -> pedidoTestDataBuilder.build(),
+                "La placa del vehiculo es obligatoria y debe terminar en un número entero del 0 al 9.");
     }
 
     @Test
-    public void validarSiLaPlacaVehiculoTerminadaEnNumeroParNoTengaPicoYPlacaTest() {
+    public void validarSiLaPlacaVehiculoNoTienePicoYPlaca() {
         // 1. Arrange
         PedidoTestDataBuilder pedidoTestDataBuilder = new PedidoTestDataBuilder()
-                .conFecha("2021-08-23")
-                .conPlacaVehiculo("VKH234");
+                .conFechaTipoLocalDate(LocalDate.now())
+                .conPlacaVehiculoSinPicoYPlaca();
         // 2. Act
         // 3. Assert
-        assertDoesNotThrow(() -> pedidoTestDataBuilder.build(), "El conductor no puede realizar el domicilio porque tiene pico y placa.");
+        assertDoesNotThrow(() -> pedidoTestDataBuilder.build(),
+                "El conductor no puede realizar el domicilio porque tiene pico y placa.");
     }
 
     @Test
-    public void validarSiLaPlacaVehiculoTerminadaEnNumeroParTienePicoYPlacaTest() {
+    public void validarSiLaPlacaVehiculoTienePicoYPlaca() {
         // 1. Arrange
         PedidoTestDataBuilder pedidoTestDataBuilder = new PedidoTestDataBuilder()
-                .conFecha("2021-08-24")
-                .conPlacaVehiculo("VKH234");
+                .conFechaTipoLocalDate(LocalDate.now())
+                .conPlacaVehiculoConPicoYPlaca();
         // 2. Act
         // 3. Assert
-        assertThrows(ExcepcionValorInvalido.class, () -> pedidoTestDataBuilder.build(), "El conductor no puede realizar el domicilio porque tiene pico y placa.");
-    }
-
-    @Test
-    public void validarSiLaPlacaVehiculoTerminadaEnNumeroImparNoTengaPicoYPlacaTest() {
-        // 1. Arrange
-        PedidoTestDataBuilder pedidoTestDataBuilder = new PedidoTestDataBuilder()
-                .conFecha("2021-08-23")
-                .conPlacaVehiculo("VKH233");
-        // 2. Act
-        // 3. Assert
-        assertDoesNotThrow(() -> pedidoTestDataBuilder.build(), "El conductor no puede realizar el domicilio porque tiene pico y placa.");
-    }
-
-    @Test
-    public void validarSiLaPlacaVehiculoTerminadaEnNumeroImparTienePicoYPlacaTest() {
-        // 1. Arrange
-        PedidoTestDataBuilder pedidoTestDataBuilder = new PedidoTestDataBuilder()
-                .conFecha("2021-08-27")
-                .conPlacaVehiculo("VKH233");
-        // 2. Act
-        // 3. Assert
-        assertThrows(ExcepcionValorInvalido.class, () -> pedidoTestDataBuilder.build(), "El conductor no puede realizar el domicilio porque tiene pico y placa.");
-    }
-
-    //
-    @Test
-    public void validarPorcentajeDescuentoNoNuloTest() {
-        // 1. Arrange
-        PedidoTestDataBuilder pedidoTestDataBuilder = new PedidoTestDataBuilder()
-                .conPorcentajeDescuento(null);
-        // 2. Act
-        // 3. Assert
-        assertThrows(ExcepcionValorObligatorio.class, () -> pedidoTestDataBuilder.build(), "El porcentaje de descuento debe ser un número mayor a 0.0");
-    }
-
-    @Test
-    public void validarPorcentajeDescuentoMenorACeroTest() {
-        // 1. Arrange
-        PedidoTestDataBuilder pedidoTestDataBuilder = new PedidoTestDataBuilder()
-                .conPorcentajeDescuento(-10.0);
-        // 2. Act
-        // 3. Assert
-        assertThrows(ExcepcionValorInvalido.class, () -> pedidoTestDataBuilder.build(), "El porcentaje de descuento debe ser un número mayor a 0.0");
+        assertDoesNotThrow(() -> pedidoTestDataBuilder.build(),
+                "El conductor no puede realizar el domicilio porque tiene pico y placa.");
     }
 
     @Test
     public void validarPrecioCompraNoNuloTest() {
         // 1. Arrange
         PedidoTestDataBuilder pedidoTestDataBuilder = new PedidoTestDataBuilder()
+                .conPlacaVehiculoSinPicoYPlaca()
                 .conPrecioCompra(null);
         // 2. Act
         // 3. Assert
-        assertThrows(ExcepcionValorObligatorio.class, () -> pedidoTestDataBuilder.build(), "El precio de la compra es obligatorio.");
+        assertThrows(ExcepcionValorObligatorio.class, () -> pedidoTestDataBuilder.build(),
+                "El precio de la compra es obligatorio.");
     }
 
     @Test
-    public void validarPrecioCompraIgualACeroTest() {
+    public void validarPrecioCompraIgualACero() {
         // 1. Arrange
         PedidoTestDataBuilder pedidoTestDataBuilder = new PedidoTestDataBuilder()
                 .conPrecioCompra(0.0);
         // 2. Act
         // 3. Assert
-        assertThrows(ExcepcionValorInvalido.class, () -> pedidoTestDataBuilder.build(), "El precio de la compra es obligatorio.");
+        assertThrows(ExcepcionValorInvalido.class, () -> pedidoTestDataBuilder.build(),
+                "El precio de la compra es obligatorio.");
     }
 
     @Test
-    public void validarPrecioCompraMenorACeroTest() {
+    public void validarPrecioCompraMenorACero() {
         // 1. Arrange
         PedidoTestDataBuilder pedidoTestDataBuilder = new PedidoTestDataBuilder()
                 .conPrecioCompra(-50.000);
         // 2. Act
         // 3. Assert
-        assertThrows(ExcepcionValorInvalido.class, () -> pedidoTestDataBuilder.build(), "El precio de la compra es obligatorio.");
+        assertThrows(ExcepcionValorInvalido.class, () -> pedidoTestDataBuilder.build(),
+                "El precio de la compra es obligatorio.");
     }
 
     @Test
-    public void validarPedidoSinPorcentajeDeDescuentoTest() {
+    public void validarPorcentajeDescuentoNoNulo() {
+        // 1. Arrange
+        PedidoTestDataBuilder pedidoTestDataBuilder = new PedidoTestDataBuilder()
+                .conPorcentajeDescuento(null);
+        // 2. Act
+        // 3. Assert
+        assertThrows(ExcepcionValorInvalido.class, () -> pedidoTestDataBuilder.build(),
+                "El porcentaje de descuento debe ser un número mayor a 0.0.");
+    }
+
+    @Test
+    public void validarPorcentajeDescuentoMenorACero() {
+        // 1. Arrange
+        PedidoTestDataBuilder pedidoTestDataBuilder = new PedidoTestDataBuilder()
+                .conPorcentajeDescuento(-10.0);
+        // 2. Act
+        // 3. Assert
+        assertThrows(ExcepcionValorInvalido.class, () -> pedidoTestDataBuilder.build(),
+                "El porcentaje de descuento debe ser un número mayor a 0.0.");
+    }
+
+    @Test
+    public void validarPedidoSinPorcentajeDeDescuento() {
         // 1. Arrange
         PedidoTestDataBuilder pedidoTestDataBuilder = new PedidoTestDataBuilder()
                 .conPorcentajeDescuento(0.0)
-                .conPrecioCompra(20.000);
+                .conPlacaVehiculoSinPicoYPlaca()
+                .conPrecioCompra(200.000);
         // 2. Act
         Pedido pedido = pedidoTestDataBuilder.build();
         // 3. Assert
         assertEquals(0.0, pedido.getPorcentajeDescuento().doubleValue());
-        assertEquals(20.000, pedido.getPrecioCompra().doubleValue());
+        assertEquals(200.000, pedido.getPrecioCompra().doubleValue());
     }
 
     @Test
-    public void validarPedidoCon10PorcientoDeDescuentoTest() {
+    public void validarPedidoConDiezPorcientoDeDescuento() {
         // 1. Arrange
         PedidoTestDataBuilder pedidoTestDataBuilder = new PedidoTestDataBuilder()
                 .conPorcentajeDescuento(10.0)
+                .conPlacaVehiculoSinPicoYPlaca()
                 .conPrecioCompra(20.000);
         // 2. Act
         Pedido pedido = pedidoTestDataBuilder.build();
@@ -276,69 +260,54 @@ public class PedidoUnitTest {
     }
 
     @Test
-    public void validarPedidoConPrecioNormalDeDomicilioTest() {
+    public void validarPorcentajePromocionNoNulo() {
         // 1. Arrange
         PedidoTestDataBuilder pedidoTestDataBuilder = new PedidoTestDataBuilder()
-                .conFecha("2021-08-23")
-                .conPorcentajeDescuento(0.0)
-                .conPrecioCompra(20.000);
+                .conPorcentajePromocion(null);
         // 2. Act
-        Pedido pedido = pedidoTestDataBuilder.build();
         // 3. Assert
-        assertEquals(1.000, pedido.getPrecioDomicilio().doubleValue());
+        assertThrows(ExcepcionValorInvalido.class, () -> pedidoTestDataBuilder.build(),
+                "El porcentaje de promoción debe ser un número mayor a 0.0.");
     }
 
     @Test
-    public void validarPedidoConUnCincoPorcientoMasEnElPrecioDomicilioTest() {
+    public void validarPorcentajePromocionMenorACero() {
         // 1. Arrange
         PedidoTestDataBuilder pedidoTestDataBuilder = new PedidoTestDataBuilder()
-                .conFecha("2021-08-28")
-                .conPrecioCompra(20.000);
+                .conPorcentajePromocion(-10.0);
         // 2. Act
-        Pedido pedido = pedidoTestDataBuilder.build();
         // 3. Assert
-        assertEquals(2.000, pedido.getPrecioDomicilio().doubleValue());
+        assertThrows(ExcepcionValorInvalido.class, () -> pedidoTestDataBuilder.build(),
+                "El porcentaje de promoción debe ser un número mayor a 0.0.");
     }
 
     @Test
-    public void validarAplicaPromocionNoNuloTest() {
+    public void validarPedidoSinPorcentajeDePromocion() {
         // 1. Arrange
         PedidoTestDataBuilder pedidoTestDataBuilder = new PedidoTestDataBuilder()
-                .conFecha("2021-08-28")
-                .conPrecioCompra(20.000)
-                .conAplicaPromocion(null);
-        // 2. Act
-        // 3. Assert
-        assertThrows(ExcepcionValorObligatorio.class, () -> pedidoTestDataBuilder.build(), "Aplica promoción es obligatorio.");
-    }
-
-
-    @Test
-    public void validarNoAplicaPromocionTest() {
-        // 1. Arrange
-        PedidoTestDataBuilder pedidoTestDataBuilder = new PedidoTestDataBuilder()
-                .conFecha("2021-08-28")
-                .conPrecioCompra(50.000)
-                .conPorcentajeDescuento(0.0)
-                .conAplicaPromocion(NO_APLICA_PROMOCION);
+                .conPorcentajePromocion(0.0)
+                .conPlacaVehiculoSinPicoYPlaca()
+                .conPrecioCompra(200.000);
         // 2. Act
         Pedido pedido = pedidoTestDataBuilder.build();
         // 3. Assert
-        assertEquals(50.000, pedido.getPrecioTotal().doubleValue());
+        assertEquals(0.0, pedido.getPorcentajeDescuento().doubleValue());
+        assertEquals(200.000, pedido.getPrecioCompra().doubleValue());
     }
 
     @Test
-    public void validarSiAplicaPromocionTest() {
+    public void validarPedidoConCincuentaPorcientoDePromocion() {
         // 1. Arrange
         PedidoTestDataBuilder pedidoTestDataBuilder = new PedidoTestDataBuilder()
-                .conFecha("2021-08-28")
-                .conPrecioCompra(50.000)
-                .conPorcentajeDescuento(0.0)
-                .conAplicaPromocion(SI_APLICA_PROMOCION);
+                .conPorcentajePromocion(50.0)
+                .conPlacaVehiculoSinPicoYPlaca()
+                .conPrecioCompra(200.000);
         // 2. Act
         Pedido pedido = pedidoTestDataBuilder.build();
         // 3. Assert
-        assertEquals(25.000, pedido.getPrecioTotal().doubleValue());
+        assertEquals(50.0, pedido.getPorcentajePromocion().doubleValue());
+        assertEquals(200.000, pedido.getPrecioCompra().doubleValue());
+        assertEquals(100.000, pedido.getPrecioTotal().doubleValue());
     }
 
 }

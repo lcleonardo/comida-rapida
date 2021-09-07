@@ -25,7 +25,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @WebMvcTest(ComandoControladorDescuento.class)
 public class ComandoControladorDescuentoTest {
 	
-	private static final Long ID = 1L;
+	private static final Long ID = 3L;
 	
 	@Autowired
 	private ObjectMapper objectMapper;

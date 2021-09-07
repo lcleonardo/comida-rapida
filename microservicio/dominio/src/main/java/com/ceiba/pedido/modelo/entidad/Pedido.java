@@ -18,10 +18,11 @@ public class Pedido {
     private static final String LA_FECHA_NO_PUEDE_SER_MENOR_A_LA_FECHA_ACTUAL = "La fecha de un pedido no puede ser menor a la fecha actual.";
     private static final String CODIGO_PRODUCTO_OBLIGATORIO = "El código del producto es obligatorio.";
     private static final String CODIGO_CLIENTE_OBLIGATORIO = "El código del cliente es obligatorio.";
-    private static final String DIRECCION_DOMICILIO_OBLIGATORIA = "La direción es obligatoria.";
+    private static final String DIRECCION_DOMICILIO_OBLIGATORIA = "La direción del domicilio es obligatoria.";
     private static final String PLACA_VEHICULO_OBLIGATORIA = "La placa del vehiculo es obligatoria y debe terminar en un número entero del 0 al 9.";
     private static final String PRECIO_COMPRA_OBLIGATORIO = "El precio de la compra es obligatorio, y debe ser mayor a 0.0.";
     private static final String PORCENTAJE_DE_DESCUENTO_NO_VALIDO = "El porcentaje de descuento debe ser un número mayor a 0.0.";
+    private static final String PORCENTAJE_DE_PROMOCION_NO_VALIDO = "El porcentaje de promoción debe ser un número mayor a 0.0.";
     private static final String NO_PUEDE_REALIZAR_EL_DOMICILIO_PORQUE_TIENE_PICO_Y_PLACA = "El conductor no puede realizar el domicilio porque tiene pico y placa.";
     private static final String APLICA_PROMOCION_OBLIGATORIO = "Aplica promoción es obligatorio.";
     private static final Double PORCENTAJE_NORMAL_DE_GANANCIA_EN_DOMICILIO = 5.0;
@@ -78,7 +79,10 @@ public class Pedido {
         ValidadorArgumento.validarPositivo(precioCompra, PRECIO_COMPRA_OBLIGATORIO);
 
         ValidadorArgumento.validarObligatorio(porcentajeDescuento, PORCENTAJE_DE_DESCUENTO_NO_VALIDO);
-        ValidadorArgumento.validarObligatorio(porcentajeDescuento, PORCENTAJE_DE_DESCUENTO_NO_VALIDO);
+        ValidadorArgumento.validarMenorACero(porcentajeDescuento, PORCENTAJE_DE_DESCUENTO_NO_VALIDO);
+
+        ValidadorArgumento.validarObligatorio(porcentajePromocion, PORCENTAJE_DE_PROMOCION_NO_VALIDO);
+        ValidadorArgumento.validarMenorACero(porcentajePromocion, PORCENTAJE_DE_DESCUENTO_NO_VALIDO);
 
         Double precioDescuento = calcularPrecioDescuento(porcentajeDescuento, precioCompra);
         Double precioPromocion = calcularPrecioPromocion(porcentajePromocion, precioCompra);

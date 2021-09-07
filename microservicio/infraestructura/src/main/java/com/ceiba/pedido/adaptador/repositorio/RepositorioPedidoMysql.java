@@ -78,7 +78,7 @@ public class RepositorioPedidoMysql implements RepositorioPedido {
             Integer respuesta = this.customNamedParameterJdbcTemplate
                     .getNamedParameterJdbcTemplate().queryForObject(sqlExisteUnPedidoConUnaFechaMayor,
                             paramSource, Integer.class);
-            return respuesta == 1;
+            return respuesta == 0;
         } catch (EmptyResultDataAccessException e) {
             return false;
         }

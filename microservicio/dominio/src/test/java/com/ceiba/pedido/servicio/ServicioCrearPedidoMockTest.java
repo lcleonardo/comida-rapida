@@ -38,16 +38,35 @@ public class ServicioCrearPedidoMockTest {
     }
 
     @Test
-    public void deberiaCrearUnPedidoConPromocionDeDescuentoTest() {
+    public void deberiaCrearUnPedidoConPorcentajeDeDescuento() {
         Pedido primerPedido = new PedidoTestDataBuilder()
-                .conFechaDate(LocalDate.now())
+                .conFechaTipoLocalDate(LocalDate.now())
                 .conCodigoCliente("1094")
                 .conCodigoProducto("0001")
                 .conPlacaVehiculoSinPicoYPlaca()
                 .conPrecioCompra(500.000)
                 .build();
         // Act
-        when(repositorioPedido.aplicarPromocion(primerPedido)).thenReturn(1);
+        when(repositorioDescuento.obtenerPorcentajePorFecha(primerPedido.getFecha())).thenReturn(10.0);
+        when(repositorioPedido.crear(capturadorDePedido.capture())).thenReturn(1L);
+
+        when(servicioCrearPedido.ejecutar(primerPedido)).thenReturn(1L);
+        Pedido pedidoConPromocion = capturadorDePedido.getValue();
+        //Assert
+        Assert.assertEquals(450.000, pedidoConPromocion.getPrecioTotal(), 0.0);
+    }
+
+    @Test
+    public void deberiaCrearUnPedidoConPorcentajeDePromocion() {
+        Pedido primerPedido = new PedidoTestDataBuilder()
+                .conFechaTipoLocalDate(LocalDate.now())
+                .conCodigoCliente("1094")
+                .conCodigoProducto("0001")
+                .conPlacaVehiculoSinPicoYPlaca()
+                .conPrecioCompra(500.000)
+                .build();
+        // Act
+        when(repositorioPedido.obtenerPorcentajePromocion(primerPedido)).thenReturn(50.0);
         when(repositorioPedido.crear(capturadorDePedido.capture())).thenReturn(1L);
 
         when(servicioCrearPedido.ejecutar(primerPedido)).thenReturn(1L);

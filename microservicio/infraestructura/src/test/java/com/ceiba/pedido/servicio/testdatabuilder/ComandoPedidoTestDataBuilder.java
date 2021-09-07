@@ -7,7 +7,6 @@ import java.time.LocalDate;
 
 public class ComandoPedidoTestDataBuilder {
 
-    private Long id;
     private String fecha;
     private String codigoCliente;
     private String codigoProducto;
@@ -16,12 +15,11 @@ public class ComandoPedidoTestDataBuilder {
     private Double precioCompra;
 
     public ComandoPedidoTestDataBuilder() {
-        this.id = 1L;
-        this.fecha = "2021-08-20";
+        this.fecha = String.valueOf(LocalDate.now());
         this.codigoCliente = "1094911832";
         this.codigoProducto = "0001";
         this.direccionDomicilio = "Vereda san juan, Casa la chiquita";
-        this.placaVehiculo = "VKH526";
+        this.placaVehiculo = obtenerplacaDelVehiculoSinPicoYPlaca();
         this.precioCompra = 20.000;
     }
 
@@ -73,7 +71,7 @@ public class ComandoPedidoTestDataBuilder {
     }
 
     public ComandoPedido build() {
-        return new ComandoPedido(id,
+        return new ComandoPedido(
                 fecha,
                 codigoCliente,
                 codigoProducto,

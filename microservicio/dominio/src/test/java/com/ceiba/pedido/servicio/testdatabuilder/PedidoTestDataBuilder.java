@@ -14,17 +14,17 @@ public class PedidoTestDataBuilder {
     private String placaVehiculo;
     private Double precioCompra;
     private Double porcentajeDescuento;
-    private Integer aplicaPromocion;
+    private Double porcentajePromocion;
 
     public PedidoTestDataBuilder() {
-        this.fecha = "2021-08-20";
+        this.fecha = String.valueOf(LocalDate.now());
         this.codigoCliente = "1094911832";
         this.codigoProducto = "0001";
         this.direccionDomicilio = "San juan de carolina, calle 123";
         this.placaVehiculo = "VKH526";
-        this.precioCompra = 20.000;
-        this.aplicaPromocion = 0;
+        this.precioCompra = 200.000;
         this.porcentajeDescuento = 0.0;
+        this.porcentajePromocion = 0.0;
     }
 
     public PedidoTestDataBuilder conFecha(String fecha) {
@@ -32,7 +32,7 @@ public class PedidoTestDataBuilder {
         return this;
     }
 
-    public PedidoTestDataBuilder conFechaDate(LocalDate fecha) {
+    public PedidoTestDataBuilder conFechaTipoLocalDate(LocalDate fecha) {
         conFecha(fecha.toString());
         return this;
     }
@@ -57,12 +57,17 @@ public class PedidoTestDataBuilder {
         return this;
     }
 
-    public PedidoTestDataBuilder conPlacaVehiculoSinPicoYPlaca() {
-        this.placaVehiculo = obtenerplacaDelVehiculoSinPicoYPlaca();
+    public PedidoTestDataBuilder conPlacaVehiculoConPicoYPlaca() {
+        this.placaVehiculo = obtenerPlacaDelVehiculoSinPicoYPlaca();
         return this;
     }
 
-    private String obtenerplacaDelVehiculoSinPicoYPlaca() {
+    public PedidoTestDataBuilder conPlacaVehiculoSinPicoYPlaca() {
+        this.placaVehiculo = obtenerPlacaDelVehiculoSinPicoYPlaca();
+        return this;
+    }
+
+    private String obtenerPlacaDelVehiculoSinPicoYPlaca() {
         Enum<DayOfWeek> diaDeLaSemana = LocalDate.parse(this.fecha).getDayOfWeek();
         if (diaDeLaSemana == DayOfWeek.TUESDAY || diaDeLaSemana == DayOfWeek.THURSDAY) {
             return "VKH123";
@@ -73,18 +78,29 @@ public class PedidoTestDataBuilder {
         return "KCV123";
     }
 
+    private String obtenerPlacaDelVehiculoConPicoYPlaca() {
+        Enum<DayOfWeek> diaDeLaSemana = LocalDate.parse(this.fecha).getDayOfWeek();
+        if (diaDeLaSemana == DayOfWeek.TUESDAY || diaDeLaSemana == DayOfWeek.THURSDAY) {
+            return "VKH124";
+        }
+        if (diaDeLaSemana == DayOfWeek.WEDNESDAY || diaDeLaSemana == DayOfWeek.FRIDAY) {
+            return "HVK233";
+        }
+        return "KCV123";
+    }
+
     public PedidoTestDataBuilder conPrecioCompra(Double precioCompra) {
         this.precioCompra = precioCompra;
         return this;
     }
 
-    public PedidoTestDataBuilder conAplicaPromocion(Integer aplicapPromocion) {
-        this.aplicaPromocion = aplicapPromocion;
+    public PedidoTestDataBuilder conPorcentajeDescuento(Double porcentajeDescuneto) {
+        this.porcentajeDescuento = porcentajeDescuneto;
         return this;
     }
 
-    public PedidoTestDataBuilder conPorcentajeDescuento(Double porcentajeDescuneto) {
-        this.porcentajeDescuento = porcentajeDescuneto;
+    public PedidoTestDataBuilder conPorcentajePromocion(Double porcentajePromocion) {
+        this.porcentajePromocion = porcentajePromocion;
         return this;
     }
 
@@ -94,9 +110,9 @@ public class PedidoTestDataBuilder {
                 codigoProducto,
                 direccionDomicilio,
                 placaVehiculo,
-                porcentajeDescuento,
                 precioCompra,
-                aplicaPromocion);
+                porcentajeDescuento,
+                porcentajePromocion);
     }
 
 }
