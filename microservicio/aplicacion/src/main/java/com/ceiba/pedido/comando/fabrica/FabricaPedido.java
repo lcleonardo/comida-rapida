@@ -8,15 +8,15 @@ import com.ceiba.pedido.modelo.entidad.Pedido;
 @Component
 public class FabricaPedido {
 
-	public Pedido crear(ComandoPedido comando) {
-		return Pedido.crear(comando.getFecha(), 
-				comando.getCodigoCliente(),
-				comando.getCodigoProducto(),
-				comando.getDireccionDomicilio(),
-				comando.getPlacaVehiculo(),
-				0.0,
-				comando.getPrecioCompra(),
-				0);
-	}
+    public Pedido crear(ComandoPedido comando) {
+        return Pedido.crear(comando.getFecha(),
+                comando.getCodigoCliente(),
+                comando.getCodigoProducto(),
+                comando.getDireccionDomicilio(),
+                comando.getPlacaVehiculo(),
+                comando.getPrecioCompra(),
+                0.0,
+                0.0);
+    }
 
 }

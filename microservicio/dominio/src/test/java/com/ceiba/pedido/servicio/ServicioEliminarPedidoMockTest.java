@@ -1,4 +1,4 @@
-package com.ceiba.pedido.servicio.mock;
+package com.ceiba.pedido.servicio;
 
 import com.ceiba.core.BasePrueba;
 import com.ceiba.dominio.excepcion.ExcepcionAccionNoPermitida;

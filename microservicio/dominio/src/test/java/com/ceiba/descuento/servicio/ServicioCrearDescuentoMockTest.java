@@ -1,4 +1,4 @@
-package com.ceiba.descuento.servicio.mock;
+package com.ceiba.descuento.servicio;
 
 import java.time.LocalDate;
 

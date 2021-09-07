@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
+import com.ceiba.core.BasePrueba;
 import org.junit.Test;
 
 import com.ceiba.dominio.excepcion.ExcepcionValorInvalido;
@@ -12,7 +13,9 @@ import com.ceiba.dominio.excepcion.ExcepcionValorObligatorio;
 import com.ceiba.pedido.modelo.entidad.Pedido;
 import com.ceiba.pedido.servicio.testdatabuilder.PedidoTestDataBuilder;
 
-public class ServicioCrearPedidoUnitTest {
+import java.time.LocalDate;
+
+public class PedidoUnitTest {
 
     private final static Integer NO_APLICA_PROMOCION = 0;
     private final static Integer SI_APLICA_PROMOCION = 1;
@@ -36,6 +39,16 @@ public class ServicioCrearPedidoUnitTest {
         // 2. Act
         // 3. Assert
         assertThrows(ExcepcionValorInvalido.class, () -> pedidoTestDataBuilder.build(), "Fecha incorrecta, debe tener el siguiente formato: yyyy-MM-dd.");
+    }
+
+    @Test//Debe ir en PEdido test
+    public void noDeberiaCrearUnPedidoPorqueLaFechaEsMenorALaFechaActualTest() {
+        PedidoTestDataBuilder pedidoTestDataBuilder = new PedidoTestDataBuilder()
+                .conFecha(LocalDate.now().minusDays(1).toString());
+        // Act
+        //Assert
+        assertThrows(ExcepcionValorInvalido.class, () -> pedidoTestDataBuilder.build(),
+                "La fecha de un pedido no puede ser menor a la fecha actual");
     }
 
     @Test

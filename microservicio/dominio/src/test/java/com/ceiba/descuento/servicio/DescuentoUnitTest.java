@@ -11,7 +11,7 @@ import com.ceiba.descuento.servicio.testdatabuilder.DescuentoTestDataBuilder;
 import com.ceiba.dominio.excepcion.ExcepcionValorInvalido;
 import com.ceiba.dominio.excepcion.ExcepcionValorObligatorio;
 
-public class ServicioCreaDescuentoUnitTest {
+public class DescuentoUnitTest {
 
 	@Test
 	public void deberiaCrearUnDescuento() {

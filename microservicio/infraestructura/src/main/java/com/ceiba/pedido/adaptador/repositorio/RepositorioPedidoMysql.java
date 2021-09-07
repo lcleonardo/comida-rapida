@@ -24,14 +24,14 @@ public class RepositorioPedidoMysql implements RepositorioPedido {
     @SqlStatement(namespace = "pedido", value = "eliminarPorId")
     private String sqlEliminarPorId;
 
-    @SqlStatement(namespace = "pedido", value = "totalCompraEnEstaSemana")
-    private String sqlTotalCompraEnEstaSemana;
+    @SqlStatement(namespace = "pedido", value = "totalComprasALaFechaDelPedido")
+    private String sqlTotalComprasALaFechaDelPedido;
 
-    @SqlStatement(namespace = "pedido", value = "aplicaPromocion")
-    private static String sqlAplicaPromocion;
+    @SqlStatement(namespace = "pedido", value = "obtenerPorcentajePromocion")
+    private static String sqlObtenerPorcentajePromocion;
 
-    @SqlStatement(namespace = "pedido", value = "buscarPedidoPorIdEnFechaMayor")
-    private static String sqlBuscarPedidoPorIdEnFechaMayor;
+    @SqlStatement(namespace = "pedido", value = "existeUnPedidoConUnaFechaMayor")
+    private static String sqlExisteUnPedidoConUnaFechaMayor;
 
     @Override
     public Long crear(Pedido pedido) {
@@ -46,18 +46,18 @@ public class RepositorioPedidoMysql implements RepositorioPedido {
     }
 
     @Override
-    public Integer aplicarPromocion(Pedido pedido) {
+    public Double obtenerPorcentajePromocion(Pedido pedido) {
         MapSqlParameterSource paramSource = new MapSqlParameterSource();
         paramSource.addValue("codigoCliente", pedido.getCodigoCliente());
         paramSource.addValue("fechaDesde", pedido.getFecha().minusDays(7));
         paramSource.addValue("fechaHasta", pedido.getFecha());
-        Boolean puedeRecibirLaPromocion = this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate()
-                .queryForObject(sqlAplicaPromocion, paramSource,
-                        Integer.class) == 0;
-        Boolean comprasMayoresADoscientosMil = totalComprasALaFechaDelPedido(pedido) > 200.000;
-        Integer noAplicaPromocion = 0;
-        Integer siAplicaPromocion = 1;
-        return puedeRecibirLaPromocion && comprasMayoresADoscientosMil ? siAplicaPromocion : noAplicaPromocion;
+        try {
+            return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate()
+                    .queryForObject(sqlObtenerPorcentajePromocion, paramSource,
+                            Double.class) == 0.0 ? 50.0 : 0.0;
+        } catch (EmptyResultDataAccessException | NullPointerException e) {
+            return 0.0;
+        }
     }
 
     @Override
@@ -66,7 +66,7 @@ public class RepositorioPedidoMysql implements RepositorioPedido {
         paramSource.addValue("codigoCliente", pedido.getCodigoCliente());
         paramSource.addValue("fechaDesde", pedido.getFecha().minusDays(7));
         paramSource.addValue("fechaHasta", pedido.getFecha());
-        return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().queryForObject(sqlTotalCompraEnEstaSemana,
+        return this.customNamedParameterJdbcTemplate.getNamedParameterJdbcTemplate().queryForObject(sqlTotalComprasALaFechaDelPedido,
                 paramSource, Double.class);
     }
 
@@ -76,12 +76,12 @@ public class RepositorioPedidoMysql implements RepositorioPedido {
         paramSource.addValue("id", id);
         try {
             Integer respuesta = this.customNamedParameterJdbcTemplate
-                    .getNamedParameterJdbcTemplate().queryForObject(sqlBuscarPedidoPorIdEnFechaMayor,
+                    .getNamedParameterJdbcTemplate().queryForObject(sqlExisteUnPedidoConUnaFechaMayor,
                             paramSource, Integer.class);
             return respuesta == 1;
         } catch (EmptyResultDataAccessException e) {
+            return false;
         }
-        return false;
     }
 
 

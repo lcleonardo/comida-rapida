@@ -1,10 +1,8 @@
-package com.ceiba.pedido.servicio.mock;
+package com.ceiba.pedido.servicio;
 
 
 import java.time.LocalDate;
 
-import com.ceiba.core.BasePrueba;
-import com.ceiba.dominio.excepcion.ExcepcionValorInvalido;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,7 +14,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 import com.ceiba.descuento.puerto.repositorio.RepositorioDescuento;
 import com.ceiba.pedido.modelo.entidad.Pedido;
 import com.ceiba.pedido.puerto.repositorio.RepositorioPedido;
-import com.ceiba.pedido.servicio.ServicioCrearPedido;
 import com.ceiba.pedido.servicio.testdatabuilder.PedidoTestDataBuilder;
 
 import static org.mockito.Mockito.*;
@@ -57,21 +54,6 @@ public class ServicioCrearPedidoMockTest {
         Pedido pedidoConPromocion = capturadorDePedido.getValue();
         //Assert
         Assert.assertEquals(250.000, pedidoConPromocion.getPrecioTotal(), 0.0);
-    }
-
-    @Test
-    public void noDeberiaCrearUnPedidoPorqueLaFechaEsMenorALaFechaActualTest() {
-        Pedido primerPedido = new PedidoTestDataBuilder()
-                .conFechaDate(LocalDate.now().minusDays(UN_DIA))
-                .conCodigoCliente("1094")
-                .conCodigoProducto("0001")
-                .conPlacaVehiculoSinPicoYPlaca()
-                .conPrecioCompra(500.000)
-                .build();
-        // Act
-        //Assert
-        BasePrueba.assertThrows(() -> servicioCrearPedido.ejecutar(primerPedido),
-                ExcepcionValorInvalido.class, "La fecha de un pedido no puede ser menor a la fecha actual");
     }
 
 }

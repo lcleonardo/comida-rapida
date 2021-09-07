@@ -11,13 +11,13 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ComandoPedido{
+public class ComandoPedido {
 
-	private Long id;
-	private String fecha;
-	private String codigoCliente;
-	private String codigoProducto;
-	private String direccionDomicilio;
-	private String placaVehiculo;
-	private Double precioCompra;
+    private String fecha;
+    private String codigoCliente;
+    private String codigoProducto;
+    private String direccionDomicilio;
+    private String placaVehiculo;
+    private Double precioCompra;
+
 }

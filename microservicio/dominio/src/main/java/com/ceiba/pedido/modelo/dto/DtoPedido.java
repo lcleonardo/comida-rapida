@@ -8,17 +8,16 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class DtoPedido {
-	
-	private Long id;
-	private LocalDate fecha;
-	private String codigoCliente;
-	private String codigoProducto;
-	private String direccionDomicilio;
-	private String placaVehiculo;
-	private Double precioDomicilio;
-	private Double porcentajeDescuento;
-	private Double precioCompra;
-	private Double precioTotal;
-	private Integer aplicaPromocion;
-	
+
+    private Long id;
+    private LocalDate fecha;
+    private String codigoCliente;
+    private String codigoProducto;
+    private String direccionDomicilio;
+    private String placaVehiculo;
+    private Double precioCompra;
+    private Double porcentajeDescuento;
+    private Double porcentajePromocion;
+    private Double precioTotal;
+
 }
