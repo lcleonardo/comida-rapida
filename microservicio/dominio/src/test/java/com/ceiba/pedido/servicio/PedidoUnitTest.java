@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
+import jdk.vm.ci.meta.Local;
 import org.junit.Test;
 
 import com.ceiba.dominio.excepcion.ExcepcionValorInvalido;
@@ -212,10 +213,12 @@ public class PedidoUnitTest {
     public void validarPorcentajeDescuentoNoNulo() {
         // 1. Arrange
         PedidoTestDataBuilder pedidoTestDataBuilder = new PedidoTestDataBuilder()
+                .conFechaTipoLocalDate(LocalDate.now())
+                .conPlacaVehiculoSinPicoYPlaca()
                 .conPorcentajeDescuento(null);
         // 2. Act
         // 3. Assert
-        assertThrows(ExcepcionValorInvalido.class, () -> pedidoTestDataBuilder.build(),
+        assertThrows(ExcepcionValorObligatorio.class, () -> pedidoTestDataBuilder.build(),
                 "El porcentaje de descuento debe ser un número mayor a 0.0.");
     }
 
@@ -266,7 +269,7 @@ public class PedidoUnitTest {
                 .conPorcentajePromocion(null);
         // 2. Act
         // 3. Assert
-        assertThrows(ExcepcionValorInvalido.class, () -> pedidoTestDataBuilder.build(),
+        assertThrows(ExcepcionValorObligatorio.class, () -> pedidoTestDataBuilder.build(),
                 "El porcentaje de promoción debe ser un número mayor a 0.0.");
     }
 
