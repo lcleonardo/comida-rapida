@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-
-import jdk.vm.ci.meta.Local;
 import org.junit.Test;
 
 import com.ceiba.dominio.excepcion.ExcepcionValorInvalido;
@@ -269,7 +267,7 @@ public class PedidoUnitTest {
                 .conPorcentajePromocion(null);
         // 2. Act
         // 3. Assert
-        assertThrows(ExcepcionValorObligatorio.class, () -> pedidoTestDataBuilder.build(),
+        assertThrows(ExcepcionValorInvalido.class, () -> pedidoTestDataBuilder.build(),
                 "El porcentaje de promoción debe ser un número mayor a 0.0.");
     }
 
