@@ -10,7 +10,7 @@ spring:
       driverClassName: com.mysql.cj.jdbc.Driver
       type: com.zaxxer.hikari.HikariDataSource
       
-      jdbcUrl: jdbc:mysql://192.168.1.13:3308/delivery_comida
+      jdbcUrl: jdbc:mysql://localhost:3308/delivery_comida
 
       username: root
       password: root
