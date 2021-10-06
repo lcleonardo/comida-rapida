@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
@@ -32,7 +33,10 @@ public class ComandoControladorCursoTest {
     @Test
     public void deberiaCrearUnCurso() throws Exception {
         //Arr
-        ComandoCurso comandoCurso = new ComandoCursoTestDataBuilder().build();
+        ComandoCurso comandoCurso = new ComandoCursoTestDataBuilder().
+                conNombre("DDD en java")
+                .conDuracion(1000.0)
+                .build();
         //Act
         //Assert
         mocMvc.perform(MockMvcRequestBuilders.post(
@@ -41,7 +45,7 @@ public class ComandoControladorCursoTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
         ).andExpect(status().isOk()
-        ).andExpect(MockMvcResultMatchers.jsonPath("$.valor").exists());
+        ).andExpect(content().json("{'valor': 1}"));
     }
 
 }
