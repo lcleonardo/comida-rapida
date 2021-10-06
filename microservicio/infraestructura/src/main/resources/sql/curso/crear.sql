@@ -1,0 +1,1 @@
+INSERT INTO CURSO (NOMBRE, DURACION) VALUES (:nombre, :duracion);

@@ -1,7 +1,7 @@
 package com.ceiba.curso.comando.fabrica;
 
 import com.ceiba.curso.comando.ComandoCurso;
-import com.ceiba.curso.modelo.Curso;
+import com.ceiba.curso.modelo.entidad.Curso;
 import org.springframework.stereotype.Component;
 
 @Component

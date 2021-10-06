@@ -1,4 +1,4 @@
-package com.ceiba.curso.modelo;
+package com.ceiba.curso.modelo.entidad;
 
 public class Curso {
 

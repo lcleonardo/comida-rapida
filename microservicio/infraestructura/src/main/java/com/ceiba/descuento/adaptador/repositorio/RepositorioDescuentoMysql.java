@@ -37,6 +37,7 @@ public class RepositorioDescuentoMysql implements RepositorioDescuento {
 
     @Override
     public Long crear(Descuento descuento) {
+
         return this.customNamedParameterJdbcTemplate.crear(descuento, sqlCrear);
     }
 

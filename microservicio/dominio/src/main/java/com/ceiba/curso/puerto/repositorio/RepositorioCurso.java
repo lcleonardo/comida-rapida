@@ -1,6 +1,6 @@
 package com.ceiba.curso.puerto.repositorio;
 
-import com.ceiba.curso.modelo.Curso;
+import com.ceiba.curso.modelo.entidad.Curso;
 
 public interface RepositorioCurso {
 

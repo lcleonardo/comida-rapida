@@ -3,7 +3,7 @@ package com.ceiba.curso.comando.manejador;
 import com.ceiba.ComandoRespuesta;
 import com.ceiba.curso.comando.ComandoCurso;
 import com.ceiba.curso.comando.fabrica.FabricaCurso;
-import com.ceiba.curso.modelo.Curso;
+import com.ceiba.curso.modelo.entidad.Curso;
 import com.ceiba.curso.servicio.ServicioCrearCurso;
 import com.ceiba.manejador.ManejadorComandoRespuesta;
 import org.springframework.stereotype.Component;
