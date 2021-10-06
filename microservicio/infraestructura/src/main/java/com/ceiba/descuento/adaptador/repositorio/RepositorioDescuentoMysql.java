@@ -1,6 +1,7 @@
 package com.ceiba.descuento.adaptador.repositorio;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
