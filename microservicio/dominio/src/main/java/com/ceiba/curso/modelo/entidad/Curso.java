@@ -1,5 +1,8 @@
 package com.ceiba.curso.modelo.entidad;
 
+import lombok.Getter;
+
+@Getter
 public class Curso {
 
     private String nombre;

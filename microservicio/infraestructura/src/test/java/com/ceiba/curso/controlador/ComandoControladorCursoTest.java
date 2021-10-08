@@ -6,7 +6,9 @@ import com.ceiba.curso.modelo.dto.DtoCurso;
 import com.ceiba.curso.puerto.dao.DaoCurso;
 import com.ceiba.curso.servicio.testdatabuilder.ComandoCursoTestDataBuilder;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.flywaydb.core.Flyway;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,15 @@ public class ComandoControladorCursoTest {
     @Autowired
     private DaoCurso daoCurso;
 
+    @Autowired
+    protected Flyway flyway;
+
+    @Before
+    public void init() {
+        flyway.clean();
+        flyway.migrate();
+    }
+
     @Test
     public void deberiaCrearUnCurso() throws Exception {
         //Arr
@@ -50,11 +61,37 @@ public class ComandoControladorCursoTest {
                                 .accept(MediaType.APPLICATION_JSON)
                 ).andExpect(status().isOk()
                 ).andExpect(content().json("{'valor': 1}"))
-                .andDo(resultado -> {
-                    DtoCurso curso1 = daoCurso.obtenerPorId(1L);
-                    Assert.assertEquals("DDD en java", curso1.getNombre());
-                    Assert.assertEquals(1000.0, curso1.getDuracion(), 0.0);
+                .andDo(result -> {
+                    DtoCurso curso = daoCurso.obtenerPorId(1L);
+                    Assert.assertEquals(comandoCurso.getNombre(), curso.getNombre());
+                    Assert.assertEquals(comandoCurso.getDuracion(), curso.getDuracion(), 0.0);
                 });
+    }
+
+    @Test
+    public void noSePuedeCrearUnCursoConElMismoNombre() throws Exception {
+        //Arr
+        ComandoCurso comandoCurso = new ComandoCursoTestDataBuilder().
+                conNombre("DDD en java")
+                .conDuracion(1000.0)
+                .build();
+        //Act
+        mocMvc.perform(MockMvcRequestBuilders.post(
+                                "/cursos"
+                        ).content(objectMapper.writeValueAsString(comandoCurso))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+        ).andExpect(status().isOk()
+        ).andExpect(content().json("{'valor': 1}"));
+        //Assert
+        mocMvc.perform(MockMvcRequestBuilders.post(
+                                "/cursos"
+                        ).content(objectMapper.writeValueAsString(comandoCurso))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+        ).andExpect(status().isBadRequest()
+        ).andExpect(content().json("{'nombreExcepcion':'ExcepcionDuplicidad', 'mensaje':'El curso ya existe en el sistema.'}"));
+
     }
 
 }

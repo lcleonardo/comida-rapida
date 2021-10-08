@@ -6,4 +6,6 @@ public interface RepositorioCurso {
 
     Long crear(Curso curso);
 
+    Boolean existePorNombre(String nombre);
+
 }
