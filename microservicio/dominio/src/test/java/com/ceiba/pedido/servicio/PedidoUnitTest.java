@@ -267,7 +267,7 @@ public class PedidoUnitTest {
                 .conPorcentajePromocion(null);
         // 2. Act
         // 3. Assert
-        assertThrows(ExcepcionValorInvalido.class, () -> pedidoTestDataBuilder.build(),
+        assertThrows(ExcepcionValorObligatorio.class, () -> pedidoTestDataBuilder.build(),
                 "El porcentaje de promoción debe ser un número mayor a 0.0.");
     }
 
